@@ -22,10 +22,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Copy the compiled Angular app to the Nginx web server directory
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-# Copy your custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# ... (other instructions)
 
 # Expose port 80 to be accessed from outside the container
 EXPOSE 80
