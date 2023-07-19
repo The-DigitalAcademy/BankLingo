@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'landing', component:LandingComponent},
   {path: 'leeson-plan-calender', component:LeesonPlanCalenderComponent},
   {path: 'lesson-plans', component:LessonPlansComponent},
-  {path: 'login ', component:LoginComponent },
+  {path: 'login', component:LoginComponent},
   {path: 'otp', component:OtpComponent},
   {path: 'profile', component:ProfileComponent},
   {path: 'progress', component:ProgressComponent},
