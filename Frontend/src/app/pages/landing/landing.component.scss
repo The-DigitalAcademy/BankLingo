@@ -1,0 +1,220 @@
+// .welcome-page {
+//     background-color: #ffffff;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     width: 100%;
+//   }
+  
+//   .welcome-page .overlap-wrapper {
+//     background-color: #ffffff;
+//     // border: 1px none;
+//     height: 844px;
+//     overflow: hidden;
+//     width: 393px;
+//   }
+  
+//   .welcome-page .overlap {
+//     background-color: #ffffff;
+//     height: 850px;
+//     position: relative;
+//   }
+  
+//   .welcome-page .overlap-2 {
+//     height: 119px;
+//     left: 34px;
+//     position: absolute;
+//     top: 120px;
+//     width: 317px;
+//   }
+  
+//   .welcome-page .frame {
+//     background-color: #ffffff;
+//     height: 50px;
+//     left: 88px;
+//     position: absolute;
+//     top: 55px;
+//     width: 172px;
+//   }
+  
+//   .welcome-page .group-wrapper {
+//     align-items: flex-end;
+//     display: flex;
+//     gap: 1px;
+//     justify-content: center;
+//     left: 74px;
+//     position: absolute;
+//     top: 80px;
+//     width: fit-content;
+//   }
+  
+//   .welcome-page .group {
+//     height: 39px;
+//     margin-right: -2px;
+//     min-width: 170px;
+//     position: relative;
+//   }
+  
+//   .welcome-page .bank-lingo {
+//     color: transparent;
+//     font-family: "Inter-ExtraBold", Helvetica;
+//     font-size: 32px;
+//     font-weight: 800;
+//     left: 0;
+//     letter-spacing: 0;
+//     line-height: normal;
+//     position: absolute;
+//     top: 0;
+//   }
+  
+//   .welcome-page .span {
+//     color: #38a3a5;
+//   }
+  
+//   .welcome-page .text-wrapper-2 {
+//     color: #000000;
+//   }
+  
+//   .welcome-page .login-here-instance {
+//     left: 0 !important;
+//     position: absolute !important;
+//     top: 0 !important;
+//   }
+  
+//   .welcome-page .design-component-instance-node {
+//     color: #023e8a !important;
+//     font-size: 36px !important;
+//   }
+  
+//   .welcome-page .overlap-3 {
+//     height: 523px;
+//     left: 23px;
+//     position: absolute;
+//     top: 274px;
+//     width: 356px;
+//   }
+  
+//   .welcome-page .woman-shaking-hands {
+//     height: 185px;
+//     left: 0;
+//     position: absolute;
+//     top: 0;
+//     width: 356px;
+//   }
+  
+//   .welcome-page .frame-2 {
+//     background-color: #ffffff;
+//     border-radius: 10.21px;
+//     height: 361px;
+//     left: 0;
+//     position: absolute;
+//     top: 162px;
+//     width: 356px;
+//   }
+  
+//   .welcome-page .don-t-have-an {
+//     color: transparent;
+//     font-family: "Inter-Regular", Helvetica;
+//     font-size: 14.3px;
+//     font-weight: 400;
+//     left: 50px;
+//     letter-spacing: 0;
+//     line-height: normal;
+//     position: absolute;
+//     text-align: center;
+//     top: 362px;
+//     white-space: nowrap;
+//   }
+  
+//   .welcome-page .text-wrapper-3 {
+//     color: #333333;
+//   }
+  
+//   .welcome-page .text-wrapper-4 {
+//     color: #ffffff;
+//   }
+  
+//   .welcome-page .text-wrapper-5 {
+//     color: #38a3a5;
+//     font-family: "Inter-Medium", Helvetica;
+//     font-weight: 500;
+//   }
+  
+//   .welcome-page .frame-wrapper {
+//     background-color: #ffffff;
+//     height: 47px;
+//     left: 20px;
+//     position: absolute;
+//     top: 285px;
+//     width: 290px;
+//   }
+  
+//   .welcome-page .div-wrapper {
+//     align-items: center;
+//     background-color: #38a3a5;
+//     border-radius: 20px;
+//     display: flex;
+//     gap: 10px;
+//     height: 42px;
+//     justify-content: center;
+//     overflow: hidden;
+//     padding: 10px 25px;
+//     position: relative;
+//     top: 3px;
+//     width: 290px;
+//   }
+  
+//   .welcome-page .text-wrapper-6 {
+//     color: #ffffff;
+//     font-family: "Poppins-Regular", Helvetica;
+//     font-size: 14px;
+//     font-weight: 400;
+//     letter-spacing: 0;
+//     line-height: normal;
+//     margin-top: -0.5px;
+//     position: relative;
+//     width: fit-content;
+//   }
+  
+//   .welcome-page .home-indicator-instance {
+//     left: 0 !important;
+//     position: absolute !important;
+//     top: 823px !important;
+//   }
+  
+//   .welcome-page .status-bar-iphone-instance {
+//     background-color: #ffffff !important;
+//     left: 0 !important;
+//     position: absolute !important;
+//     top: 0 !important;
+//   }
+//   .button{
+//     background-color: #38a3a5;
+//     align-items: center;
+//     background-color: #38a3a5;
+//     border-radius: 20px;
+//     display: flex;
+//     gap: 10px;
+//     height: 42px;
+//     justify-content: center;
+//     overflow: hidden;
+//     padding: 10px 25px;
+//     position: relative;
+//     top: 3px;
+//     width: 290px;
+//   }
+  
+
+img{
+    height: 30vh;
+    width: 70vw;
+}
+.btn{
+    width: 80vw; 
+    border-radius: 999em 999em 999em 999em; 
+    background-color: #38a3a5;
+}
+
+.mybgcolor{
+   color: #38a3a5;
+}
