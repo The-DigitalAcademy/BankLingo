@@ -34,12 +34,12 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {       // Form is valid, perform login logic      
       this.auth.login(this.loginForm.value).subscribe(res=>{
-        this.router.navigate(['/home']); 
         console.log("success");  
-
       const user = { email: this.email };        
       localStorage.setItem('currentUser', JSON.stringify(user));             
     })  
+
+    this.router.navigate(['/home']); 
      
    } else {
     this.invalidCredentials = true;

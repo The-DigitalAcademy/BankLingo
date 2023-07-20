@@ -20,11 +20,11 @@ export class UsersService {
 
 createUser(users:Users):Observable<any>{
 
-  return this.http.post(`${this.apiUrls}/api/createuser`,users);
+  return this.http.post(`${this.apiUrls}/api/user/signup`,users);
 }
 
 login(credentials: { email: string, password: string }): Observable<any> {
-  return this.http.post(`${this.apiUrls}/api/createuser`, credentials);
+  return this.http.post(`${this.apiUrls}/api/user/signin`, credentials);
 }
 
 

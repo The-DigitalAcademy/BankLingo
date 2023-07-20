@@ -3,19 +3,22 @@
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class=" bd-highlight">
-          <span class="span fs-3">Bank<span class="text-wrapper-2  mybgcolor fs-3">Lingo</span></span>
-      </div>
+       
 
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
+         
+            <div class=" bd-highlight">
+              <span class="span mybgcolor fs-3">Bank</span><span class="text-wrapper-2   fs-3">Lingo</span>
+          </div>
+
             <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Register</h2>
+              
+              <h2 class="text-center mb-5">Register</h2>
 
               <form [formGroup]="fb" (ngSubmit)="onSubmit()">
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg"
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
                   id="name"
                   formControlName="name" placeholder="First Name"/>
                   <div *ngIf="fb.get('name')?.invalid&&fb.get('name')?.touched">
@@ -25,7 +28,7 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"
+                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
                     id="surname"
                     formControlName="surname"  placeholder="Last Name"/>
                     <div *ngIf="fb.get('surname')?.invalid&&fb.get('surname')?.touched">
@@ -36,7 +39,7 @@
                 </div>
 
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"
+                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
                     id="age"
                     formControlName="age" placeholder="Age"/>
 
@@ -48,7 +51,7 @@
                   </div>
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg"
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
                 id="email"
                     formControlName="email" placeholder="Email address"/>
 
@@ -61,7 +64,7 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg"
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
                   id="password"
                       formControlName="password" placeholder="Password"/>
                   <div *ngIf="fb.get('password')?.invalid && fb.get('password')?.touched">
@@ -78,7 +81,7 @@
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" routerLink="/login"
-                    class="ml-1 font-medium text-blue-400"><u>Login here</u></a></p>
+                    class="text ml-1 font-medium text-blue-400"><u>Login here</u></a></p>
 
               </form>
 
@@ -87,5 +90,5 @@
         </div>
       </div>
     </div>
-  </div>
+
 </section>
