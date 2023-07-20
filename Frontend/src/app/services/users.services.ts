@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Users } from '../types/users';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class UsersService {
 
-  private apiUrls = 'http://localhost:9000/users';
+  private apiUrls = 'http://localhost:4500';
 
   constructor(private http: HttpClient) { }
 
@@ -19,11 +20,11 @@ export class UsersService {
 
 createUser(users:Users):Observable<any>{
 
-  return this.http.post(this.apiUrls,users);
+  return this.http.post(`${this.apiUrls}/api/createuser`,users);
 }
 
 login(credentials: { email: string, password: string }): Observable<any> {
-  return this.http.post(`${this.apiUrls}/auth/log`, credentials);
+  return this.http.post(`${this.apiUrls}/api/createuser`, credentials);
 }
 
 
