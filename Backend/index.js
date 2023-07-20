@@ -39,4 +39,4 @@ pool.query("SELECT NOW()", (err, res) => {
 
 });
 
-app.use('/api/createuser', user_router);
+app.use('/api/user', user_router);

@@ -1,30 +1,30 @@
-import swaggerJsdoc from 'swagger-jsdoc'
-import swaggerUi from 'swagger-ui-express'
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'BankLingo API',
-      description: 'API For BankLingo Application ',
-      version: '0.0.1',
+      title: "BankLingo API",
+      description: "API For BankLingo Application ",
+      version: "0.0.1",
     },
   },
   // looks for configuration in specified directories
-  apis: ['./routes/*.js'],
-}
+  apis: ["./routes/*.js"],
+};
 
-const swaggerSpec = swaggerJsdoc(options)
+const swaggerSpec = swaggerJsdoc(options);
 
 function swaggerDocs(app, port) {
   // Swagger Page
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Documentation in JSON format
-  app.get('/docs.json', (req, res) => {
-    res.setHeader('Content-Type', 'application/json')
-    res.send(swaggerSpec)
-  })
+  app.get("/docs.json", (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.send(swaggerSpec);
+  });
 }
 
-export default swaggerDocs
+export default swaggerDocs;
