@@ -11,32 +11,40 @@
               <form [formGroup]="fb" (ngSubmit)="onSubmit()">
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" [(ngModel)]="name"
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg"
                   id="name"
                   formControlName="name" placeholder="First Name"/>
-                 
-                  
+                  <div *ngIf="fb.get('name')?.invalid&&fb.get('name')?.touched">
+                    <div *ngIf="fb.get('name')?.errors?.['required']">Name is required.</div>
+                    <div *ngIf="fb.get('name')?.errors?.['minLength']">Name must be at least 3 characters long.</div>
                 </div>
+                </div>
+
                 <div class="form-outline mb-4">
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" class="form-control"
-                    [(ngModel)]="surname"
+                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"
                     id="surname"
                     formControlName="surname"  placeholder="Last Name"/>
-                    
+                    <div *ngIf="fb.get('surname')?.invalid&&fb.get('surname')?.touched">
+                      <div *ngIf="fb.get('surname')?.errors?.['required']">Surname is required.</div>
+                      <div *ngIf="fb.get('surname')?.errors?.['minLength']">Surname must be at least 3 characters long.</div>
                   </div>
+
+                </div>
+
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" [(ngModel)]="age"
+                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"
                     id="age"
                     formControlName="age" placeholder="Age"/>
+
+                    <div *ngIf="fb.get('age')?.invalid&&fb.get('age')?.touched">
+                      <div *ngIf="fb.get('age')?.errors?.['required']">Age is required</div>
+                      <div *ngIf="fb.get('age')?.errors?.['invalidAge']">Age must be at least 2 or 3 numbers</div>
+                  </div>
                     
                   </div>
 
                 <div class="form-outline mb-4">
                   <input type="email" id="form3Example3cg" class="form-control form-control-lg"
-                  class="form-control"
-                [(ngModel)]="email"
-               
-                
                 id="email"
                     formControlName="email" placeholder="Email address"/>
 
@@ -49,16 +57,16 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" class="form-control"
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg"
                   id="password"
-                  [(ngModel)]="password"
                       formControlName="password" placeholder="Password"/>
+                  <div *ngIf="fb.get('password')?.invalid && fb.get('password')?.touched">
+                    <div *ngIf="fb.get('password')?.errors?.['required']">Password required.</div>
+                    <div *ngIf="fb.get('password')?.errors?.['minLength']">Password  must be at least 8 characters long.</div>
+                    <div *ngIf="fb.get('password')?.errors?.['invalidPassword']">Password must contain at least one symbol, one number, and one letter.</div>
+                  </div>
                  
                 </div>
-
-               
-
-               
 
                 <div class="d-flex justify-content-center">
                   <button type="submit"
