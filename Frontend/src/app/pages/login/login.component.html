@@ -8,26 +8,24 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Login Here!</h2>
 
-              <form>
-
-                
-
+              <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" placeholder="Enter email address"/>
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" formControlName="email" placeholder="Enter email address"/>
                  
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" placeholder="Enter password"/>
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" formControlName="password" placeholder="Enter password"/>
                  
                 </div>
 
-                
+                <div *ngIf="invalidCredentials" class="text-center text-danger mb-3">
+                  Invalid credentials. Please try again.
+                </div>
 
-               
 
                 <div class="d-flex justify-content-center">
-                  <button type="button"
+                  <button type="submit"
                     class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
                 </div>
 

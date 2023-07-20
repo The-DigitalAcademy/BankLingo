@@ -22,6 +22,10 @@ createUser(users:Users):Observable<any>{
   return this.http.post(this.apiUrls,users);
 }
 
+login(credentials: { email: string, password: string }): Observable<any> {
+  return this.http.post(`${this.apiUrls}/auth/log`, credentials);
+}
+
 
 
   

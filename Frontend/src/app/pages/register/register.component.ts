@@ -14,19 +14,10 @@ export class RegisterComponent implements OnInit{
 
   fb!:FormGroup;
   users!:Users;
-  name!:string
-  surname!:string;
-        
-        age!:string;
-       
-        email!:string;
-        password!:string;
 
         constructor(
           private usersService: UsersService,
           private router: Router,
-          
-          
           ) { }
 
           ngOnInit(){
