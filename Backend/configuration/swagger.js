@@ -5,9 +5,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Hero API',
-      description: 'Example of CRUD API ',
-      version: '1.0.0',
+      title: 'BankLingo API',
+      description: 'API For BankLingo Application ',
+      version: '0.0.1',
     },
   },
   // looks for configuration in specified directories
