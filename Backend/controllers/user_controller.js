@@ -1,6 +1,8 @@
 import {
   createUserService,
   signInUserService,
+  passwordResetOTPService,
+  updateUserPasswordService,
 } from "../services/user_services.js";
 
 export async function createUserController(request, response) {
@@ -26,4 +28,28 @@ export async function signInUserController(request, response) {
   }
 }
 
-export default { createUserController, signInUserController };
+export async function passwordResetOTPController(request, response) {
+  try {
+    const result = await passwordResetOTPService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in passwordResetOTPService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function updatePasswordController(request, response) {
+  try {
+    const result = await updateUserPasswordService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in passwordResetService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+export default {
+  createUserController,
+  signInUserController,
+  passwordResetOTPController,
+  updatePasswordController
+};
