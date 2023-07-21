@@ -2,7 +2,8 @@ import {
   askSimpleQuestionController,
   askQuestionHumourController,
   createLessonPlanController,
-  deleteLessonPlanController
+  deleteLessonPlanController,
+  getPlanByUserController
 } from "../../controllers/GptControllers/gpt_controller.js";
 import express from "express";
 const gpt_router = express.Router();
@@ -128,5 +129,30 @@ gpt_router.post("/create", createLessonPlanController);
  *        description: Not Found
  */
 gpt_router.delete("/delete_plan/:plan_id", deleteLessonPlanController);
+
+/**
+ * @openapi
+ * '/api/gpt/get_user_plans/{id}':
+ *  get:
+ *     tags:
+ *     - Lesson Plan
+ *     summary: Get Lesson Plan by user ID
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: user_id
+ *        required: true
+ *     content:
+ *     responses:
+ *      200:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Not Found
+ */
+gpt_router.get("/get_user_plans/:user_id", getPlanByUserController);
 
 export default gpt_router;

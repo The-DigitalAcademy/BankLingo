@@ -2,7 +2,8 @@ import {
   askSimpleQuestionService,
   askQuestionHumourService,
   createLessonPlanService,
-  deleteLessonPlanService
+  deleteLessonPlanService,
+  getPlanByUserService
 } from "../../services/GptServices/gpt_services.js";
 
 export async function askSimpleQuestionController(request, response) {
@@ -44,4 +45,15 @@ export async function deleteLessonPlanController(request, response) {
     return response.status(500).json({ message: "Internal server error" });
   }
 }
-export default { askSimpleQuestionController, askQuestionHumourController ,createLessonPlanController, deleteLessonPlanController};
+
+
+export async function getPlanByUserController(request, response) {
+  try {
+    const result = await getPlanByUserService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in getPlanByUserService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+export default { askSimpleQuestionController, askQuestionHumourController ,createLessonPlanController, deleteLessonPlanController, getPlanByUserController};

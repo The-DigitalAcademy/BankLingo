@@ -97,9 +97,29 @@ export async function deleteLessonPlanService(request, response) {
     throw error;
   }
 }
+
+export async function getPlanByUserService(request, response) {
+  const user_id = parseInt(request.params.user_id);
+  if (isNaN(user_id)) {
+    return response.status(400).json({ message: "Invalid user ID provided." });
+  }
+
+  try {
+    const insertQuery = {
+      text: "SELECT * FROM lesson_plan WHERE user_id = $1",
+      values: [user_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(results.rows[0]);
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
 export default {
   askSimpleQuestionService,
   askQuestionHumourService,
   createLessonPlanService,
   deleteLessonPlanService,
+  getPlanByUserService,
 };
