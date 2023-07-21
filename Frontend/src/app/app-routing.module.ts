@@ -7,7 +7,6 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
 import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LandingComponent } from './pages/landing/landing.component';
-import { LeesonPlanCalenderComponent } from './pages/leeson-plan-calender/leeson-plan-calender.component';
 import { LessonPlansComponent } from './pages/lesson-plans/lesson-plans.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OtpComponent } from './pages/otp/otp.component';
@@ -16,27 +15,29 @@ import { ProgressComponent } from './pages/progress/progress.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { TopicContentComponent } from './pages/topic-content/topic-content.component';
 import { TopicsComponent } from './pages/topics/topics.component';
-
+import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 const routes: Routes = [
 
-  {path: 'edit-profile', component:EditProfileComponent},
+  {path: 'edit_profile', component:EditProfileComponent},
   {path: 'forgotpass', component:ForgotpassComponent},
   {path: 'home', component:HomeComponent},
   {path: 'landing', component:LandingComponent},
-  {path: 'leeson-plan-calender', component:LeesonPlanCalenderComponent},
-  {path: 'lesson-plans', component:LessonPlansComponent},
+  {path: 'lesson_plans', component:LessonPlansComponent},
   {path: 'login ', component:LoginComponent },
   {path: 'otp', component:OtpComponent},
   {path: 'profile', component:ProfileComponent},
   {path: 'progress', component:ProgressComponent},
   {path: 'register', component:RegisterComponent},
-  {path: 'topic-content', component:TopicContentComponent},
+  {path: 'topic_content', component:TopicContentComponent},
   {path: 'topics', component:TopicsComponent},
-  {path: 'bottom-navBar', component:BottomNavBarComponent},
   {path: 'nav-bar', component:NavBarComponent},
+  {path: 'topics', component:TopicsComponent},
+  {path: 'lesson_plan_Calender', component:NavBarComponent},
+  {path: 'search', component:SearchBarComponent},
 
-  { path: '', redirectTo: 'landing', pathMatch: 'full' }
+  { path: '', redirectTo: 'Search', pathMatch: 'full' }
 
 
 ];
