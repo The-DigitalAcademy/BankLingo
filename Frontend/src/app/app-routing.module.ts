@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'home', component:HomeComponent},
   {path: 'landing', component:LandingComponent},
   {path: 'lesson_plans', component:LessonPlansComponent},
-  {path: 'login ', component:LoginComponent },
+  {path: 'login', component:LoginComponent },
   {path: 'otp', component:OtpComponent},
   {path: 'profile', component:ProfileComponent},
   {path: 'progress', component:ProgressComponent},
