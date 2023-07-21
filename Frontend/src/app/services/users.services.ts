@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 
 
@@ -24,10 +24,13 @@ createUser(users:Users):Observable<any>{
 }
 
 login(credentials: { email: string, password: string }): Observable<any> {
-  return this.http.post(`${this.apiUrls}/api/user/signin`, credentials);
+  return this.http.post(`${this.apiUrls}/api/user/signin`, credentials).pipe(
+    catchError((error: HttpErrorResponse) => {
+      // Handle the error here or rethrow it to be caught by the component.
+      return throwError(error.error.message);
+    })
+  );
 }
 
 
-
-  
 }

@@ -26,6 +26,8 @@ import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-ba
 import { LandingComponent } from './pages/landing/landing.component';
 import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { PopupMessageComponent } from './components/popup-message/popup-message.component';
+import { PopupMessageService } from './services/popup-message.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
+    PopupMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [PopupMessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

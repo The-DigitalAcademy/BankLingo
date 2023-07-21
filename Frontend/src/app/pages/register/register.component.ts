@@ -3,6 +3,7 @@ import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/form
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
+import { PopupMessageService } from 'src/app/services/popup-message.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit{
         constructor(
           private usersService: UsersService,
           private router: Router,
+          private popupMessageService: PopupMessageService
           ) { }
 
           ngOnInit(){
@@ -70,7 +72,8 @@ export class RegisterComponent implements OnInit{
                              
                 });
                   this.router.navigate(['/login']); 
-                      console.log("Register successful");       
+                      console.log("Register successful"); 
+                      this.popupMessageService.showMessage('Register successful!');      
                          
       
                   
