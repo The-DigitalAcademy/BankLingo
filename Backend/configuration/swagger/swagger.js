@@ -11,14 +11,14 @@ const options = {
     },
   },
   // looks for configuration in specified directories
-  apis: ["./routes/*.js"],
+  apis: ["./routes/UserRoutes/*.js", "./routes/GptRoutes/*.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
 function swaggerDocs(app, port) {
   // Swagger Page
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/banklingodocs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Documentation in JSON format
   app.get("/docs.json", (req, res) => {

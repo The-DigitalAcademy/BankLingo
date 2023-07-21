@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config.js";
-import client from "../configuration/database_configuration.js";
-import secret from "../configuration/jwt_secret.js";
-import transporter from "../configuration/email_configurations.js";
+import client from "../../configuration/database/database_configuration.js";
+import secret from "../../configuration/secrets/jwt_secret.js";
+import transporter from "../../configuration/communication/email_configurations.js";
 import { request } from "express";
 
 async function emailExists(email) {

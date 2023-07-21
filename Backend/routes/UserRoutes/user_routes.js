@@ -3,7 +3,7 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-} from "../controllers/user_controller.js";
+} from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
 
