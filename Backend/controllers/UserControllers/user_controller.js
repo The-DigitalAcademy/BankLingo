@@ -2,7 +2,7 @@ import {
   createUserService,
   signInUserService,
   passwordResetOTPService,
-  updateUserPasswordService,
+  updateUserPasswordService
 } from "../../services/UserServices/user_services.js";
 
 export async function createUserController(request, response) {
@@ -47,6 +47,8 @@ export async function updatePasswordController(request, response) {
     return response.status(500).json({ message: "Internal server error" });
   }
 }
+
+
 export default {
   createUserController,
   signInUserController,
