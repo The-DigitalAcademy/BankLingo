@@ -1,5 +1,5 @@
-import 'dotenv/config'
+import "dotenv/config";
 
-const secret = process.env.SECRET
+export const secret = process.env.SECRET;
 
-export default { secret }
+export default secret;
