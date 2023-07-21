@@ -1,7 +1,9 @@
 import {
   createUserController,
   signInUserController,
-} from "../controllers/user_controller.js";
+  passwordResetOTPController,
+  updatePasswordController,
+} from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
 
@@ -79,5 +81,75 @@ user_router.post("/signup", createUserController);
  */
 
 user_router.post("/signin", signInUserController);
+
+/**
+ * @openapi
+ * '/api/user/sendOTP':
+ *  post:
+ *     tags:
+ *     - User Route
+ *     summary: Send OTP For password Reset
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - email
+ *            properties:
+ *              email:
+ *                 type: string
+ *                 default: string
+ *     responses:
+ *      200:
+ *        description: Success
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ */
+
+user_router.post("/sendOTP", passwordResetOTPController);
+
+
+/**
+ * @openapi
+ * '/api/user/passwordReset/{id}':
+ *  post:
+ *     tags:
+ *     - User Route
+ *     summary: Reset Password
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: user_id
+ *        required: true
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - password
+ *            properties:
+ *              password:
+ *                 type: string
+ *                 default: string
+ *              email:
+ *                 type: string
+ *                 default: string
+ *     responses:
+ *      200:
+ *        description: Success
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Internal Server Error
+ */
+user_router.post("/passwordReset/:id", updatePasswordController);
 
 export default user_router;

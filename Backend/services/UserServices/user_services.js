@@ -1,8 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config.js";
-import client from "../configuration/database_configuration.js";
-import secret from "../configuration/jwt_secret.js";
+import client from "../../configuration/database/database_configuration.js";
+import secret from "../../configuration/secrets/jwt_secret.js";
+import transporter from "../../configuration/communication/email_configurations.js";
+import { request } from "express";
 
 async function emailExists(email) {
   try {
@@ -11,7 +13,9 @@ async function emailExists(email) {
       values: [email],
     };
     const emailResult = await client.query(emailQuery);
-    return emailResult && emailResult.rows.length > 0;
+    if (emailResult && emailResult.rows.length > 0) {
+      return emailResult.rows[0];
+    }
   } catch (error) {
     console.error("Error checking user existence:", error);
     throw error;
@@ -99,4 +103,70 @@ export async function signInUserService(request, response) {
   }
 }
 
-export default { createUserService, signInUserService };
+export async function passwordResetOTPService(request, response) {
+  const { email } = request.body;
+  try {
+    const exists = await emailExists(email);
+    if (!exists) {
+      return response.status(409).json({ message: "User does not exist" });
+    }
+    let number = Math.floor(1000 + Math.random() * 9000);
+    const mailConfigurations = {
+      from: process.env.NODEMAILER_USER,
+      to: email,
+      subject: "Forgot Password OTP",
+      // This would be the text of email body
+      html:
+        "<h1>Your Password Reset OTP:</h1><br/>" +
+        email +
+        `<p>Your password reset OTP is : <strong>${number}</strong><br/><br/>
+                       Made with ❤️ By BankLingo.</p>`,
+    };
+    // Send the mail upon everything above correct
+    transporter.sendMail(mailConfigurations, function (error, info) {
+      if (error) throw Error(error);
+      console.log(info);
+    });
+    let successObject = {
+      email: exists.email,
+      number: number,
+      user: exists.user_id,
+    };
+    return response.status(200).json(successObject);
+  } catch (error) {
+    console.error("Error sending OTP", error);
+    throw error;
+  }
+}
+
+export async function updateUserPasswordService(request, response) {
+  const user_id = parseInt(request.params.id);
+  const { email, password } = request.body;
+
+  const saltRounds = 10;
+  const salt = await bcrypt.genSaltSync(saltRounds);
+  const hashedPassword = await bcrypt.hashSync(password, salt);
+  if (isNaN(user_id)) {
+    return response.status(400).json({ message: "Invalid user ID" });
+  }
+  try {
+    const insertQuery = {
+      text: "UPDATE users SET  email = $1, password = $2 WHERE user_id = $3",
+      values: [email, hashedPassword, user_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json({message : `Passsword for User with id : ${user_id} has been succesfully Updated`});
+  } catch (error) {
+    console.error("Error sending OTP", error);
+    throw error;
+  }
+}
+
+export default {
+  createUserService,
+  signInUserService,
+  passwordResetOTPService,
+  updateUserPasswordService
+};
+
+// Check if user is there and return the data
