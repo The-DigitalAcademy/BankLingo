@@ -3,7 +3,7 @@ import {
   signInUserService,
   passwordResetOTPService,
   updateUserPasswordService,
-} from "../services/user_services.js";
+} from "../../services/UserServices/user_services.js";
 
 export async function createUserController(request, response) {
   try {
