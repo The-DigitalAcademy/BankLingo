@@ -3,7 +3,7 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController
+  updateUserProfileController,
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
@@ -113,7 +113,6 @@ user_router.post("/signin", signInUserController);
 
 user_router.post("/sendOTP", passwordResetOTPController);
 
-
 /**
  * @openapi
  * '/api/user/passwordReset/{id}':
@@ -149,10 +148,6 @@ user_router.post("/sendOTP", passwordResetOTPController);
  *        description: Internal Server Error
  */
 user_router.post("/passwordReset/:id", updatePasswordController);
-
-
-
-
 
 /**
  * @openapi
