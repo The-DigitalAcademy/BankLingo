@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 
+
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -26,7 +27,6 @@ import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-ba
 import { LandingComponent } from './pages/landing/landing.component';
 import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -54,7 +54,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
