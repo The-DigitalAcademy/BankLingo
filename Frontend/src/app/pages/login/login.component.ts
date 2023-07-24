@@ -35,11 +35,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
 
     if (this.loginForm.valid) {       // Form is valid, perform login logic      
-    //   this.auth.login(this.loginForm.value).subscribe(res=>{
-    //     console.log("success");     
-    // })  
-
-    //this.router.navigate(['/home']); 
+    
     this.auth.login(this.loginForm.value).subscribe(response => {
         // Handle the successful response here.
         console.log("success");
@@ -48,7 +44,11 @@ export class LoginComponent implements OnInit {
           icon: 'success',
           title: 'Login Successful!',
           text: 'You have successfully logged in.',
-        });
+          confirmButtonColor: '#38A3A5',
+        }).then((result)=>{
+          if (result.value){
+            this.router.navigate(["/home"])
+          }})
         
       },
       (error) => {
