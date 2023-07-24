@@ -138,9 +138,6 @@ user_router.post("/sendOTP", passwordResetOTPController);
  *              password:
  *                 type: string
  *                 default: string
- *              email:
- *                 type: string
- *                 default: string
  *     responses:
  *      200:
  *        description: Success

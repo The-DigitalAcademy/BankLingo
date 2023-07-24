@@ -68,8 +68,7 @@ export async function createUserService(request, response) {
 
 export async function signInUserService(request, response) {
   try {
-    const email = request.body.email;
-    const password = request.body.password;
+    const { email, password } = request.body;
     const insertQuery = {
       text: "SELECT * FROM users WHERE email = $1 ",
       values: [email],
@@ -141,7 +140,7 @@ export async function passwordResetOTPService(request, response) {
 
 export async function updateUserPasswordService(request, response) {
   const user_id = parseInt(request.params.id);
-  const { email, password } = request.body;
+  const { password } = request.body;
 
   const saltRounds = 10;
   const salt = await bcrypt.genSaltSync(saltRounds);
@@ -151,8 +150,8 @@ export async function updateUserPasswordService(request, response) {
   }
   try {
     const insertQuery = {
-      text: "UPDATE users SET  email = $1, password = $2 WHERE user_id = $3",
-      values: [email, hashedPassword, user_id],
+      text: "UPDATE users SET   password = $1 WHERE user_id = $2",
+      values: [hashedPassword, user_id],
     };
     const results = await client.query(insertQuery);
     return response.status(200).json({
