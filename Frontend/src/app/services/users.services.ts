@@ -43,6 +43,17 @@ updateUser(data: any, _id: string): Observable<any> {
   return this.http.patch(`${this.apiUrls}/api/user/${_id}`, data)
 }
 
+getAllUsers() : Observable<Array<Users>> {
+  return this.http.get<Array<Users>>(
+    `${URL}/api/user  
+   `
+  )
+
+}
+
+updateData(data: any, _id: string): Observable<any> {
+  return this.http.patch(`${this.apiUrls}/user/${_id}`, data)
+}
 
   
 }

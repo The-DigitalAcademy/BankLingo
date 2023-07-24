@@ -3,6 +3,7 @@ import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/form
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -12,69 +13,67 @@ import { UsersService } from 'src/app/services/users.services';
 })
 export class EditProfileComponent implements OnInit{
 
-  fb!:FormGroup;
-  users!:Users;
+  
+ 
+  users?: Users;
+
+  user:Users[]=[]
+  
+ 
 
         constructor(
           private usersService: UsersService,
           private router: Router,
+         
+          private http: HttpClient 
           ) { }
 
-          ngOnInit(){
-
-            this.fb = new FormGroup({
-      
-              name: new FormControl(null,[Validators.required,Validators.min(3)]),
-              surname:new FormControl(null,[Validators.required,Validators.min(3)]), 
-              age:new FormControl(null,[Validators.required,this.ageValidator]),
-              email:new FormControl(null,[Validators.required,Validators.email]),
-              password:new FormControl(null,[Validators.required,Validators.min(8),this.passwordValidator]),
-            });
+          getUsers() {
+            this.usersService.getAllUsers().subscribe(products => {
+              this.users
+               
+            })
+        
           }
 
-    passwordValidator(control:FormControl):{[key:string]:boolean}|null{
-            const value : string = control.value;
-            const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-            const hasNumber = /\d/.test(value);
-            const hasLetter = /[a-zA-Z]/.test(value);
-      
-            if (!hasSymbol||!hasNumber||!hasLetter){
-              return {invalidPassword:true};
-            }
-              return null;
-    }
+          ngOnInit(): void {
+            this.getUsers()
+          }
 
-    ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
-      const value: string = control.value;
-      // Check if the value is numeric and has exactly 3 digits
-      if (!/^\d{2,3}$/.test(value)) {
-        return { invalidAge: true };
-      }
-      return null;
-    }
-  
+          updateProducts(data:any , _id: string) {
 
-          onSubmit() {
-            this.registerUser();
-              }
-      
-              registerUser()
-              {
-                this.usersService.createUser(this.fb.value).subscribe(res=>{
-                 this.users=res;
-                    console.log(res);
-                // if(this.fb.valid){
-                  // this.usersService.createDriver(this.fb.value).subscribe(res=>{
-                  //   this.users=res;
-                  //   console.log(res);
-                             
-                });
-                  this.router.navigate(['/login']); 
-                      console.log("Register successful");       
-                         
-      
-                  
-              }
+
+            let body = {
+             
+        
+                 
+
+
+                
+    name: data.name,
+    surname: data.surname,
+    age: data.age,
+    email: data.email,
+    //password: data.name,
+    contact_number: data.contact_number,
+    profile_picture: data.name,
+    //created_date: Date;
+   // updated_date: Date;
+                }
+                console.log(body,"this the body");
+                
+            this.usersService.updateData(body,_id).subscribe(data=>{
+              this.users=data
+            })
+           // window.location.reload()
+          }
+          
+
+   
+
+   
+
+          
 
   
 

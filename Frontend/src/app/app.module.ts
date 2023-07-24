@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 
+
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -54,7 +55,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

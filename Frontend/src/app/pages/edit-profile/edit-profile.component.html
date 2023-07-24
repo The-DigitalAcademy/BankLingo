@@ -16,19 +16,15 @@
                   </div>
     
 
-              <form [formGroup]="fb" (ngSubmit)="onSubmit()">
+              <form >
 
                 <div class="form-outline mb-4">
                     <label for="floatingInput">First name</label>
                   <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                  id="name"
+                  id="name" 
                   formControlName="name"/>
-                  <div *ngIf="fb.get('name')?.invalid&&fb.get('name')?.touched">
-                    <div *ngIf="fb.get('name')?.errors?.['required']">Name is required.</div>
-                    <div *ngIf="fb.get('name')?.errors?.['minLength']">Name must be at least 3 characters long.</div>
-                </div>
-                </div>
-
+                 
+</div>
                 <div class="form-outline mb-4">
                     <label for="floatingInput">Last name</label>
                     <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
