@@ -3,7 +3,8 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController
+  updateUserProfileController,
+  getUserDetailsController
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
@@ -201,5 +202,7 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  *        description: Internal Server Error
  */
 user_router.put("/update_profile/:user_id", updateUserProfileController);
+
+user_router.get("/get_profile/:user_id", getUserDetailsController);
 
 export default user_router;

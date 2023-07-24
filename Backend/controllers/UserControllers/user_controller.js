@@ -3,7 +3,8 @@ import {
   signInUserService,
   passwordResetOTPService,
   updateUserPasswordService,
-  updateUserProfileService
+  updateUserProfileService, 
+  getAllUsersService
 } from "../../services/UserServices/user_services.js";
 
 export async function createUserController(request, response) {
@@ -60,11 +61,22 @@ export async function updateUserProfileController(request, response) {
   }
 }
 
+export async function getUserDetailsController(request, response) {
+  try {
+    const result = await getUserDetailsController(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in getAllUsersService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+
 
 export default {
   createUserController,
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController
+  updateUserProfileController,
+  getUserDetailsController
 };
