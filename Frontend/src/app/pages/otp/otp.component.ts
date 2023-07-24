@@ -27,7 +27,7 @@ export class OtpComponent {
     this.userService.verifyOTP(this.email, this.otp).subscribe(
       (response) => {
         // OTP verification successful, redirect to reset password page
-        this.router.navigate(['/reset-password'], {
+        this.router.navigate(['/resetpassword'], {
           queryParams: { email: this.email },
         });
       },

@@ -27,6 +27,7 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

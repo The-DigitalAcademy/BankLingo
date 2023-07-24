@@ -17,6 +17,7 @@ import { TopicContentComponent } from './pages/topic-content/topic-content.compo
 import { TopicsComponent } from './pages/topics/topics.component';
 import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: 'topics', component:TopicsComponent},
   {path: 'lesson_plan_Calender', component:NavBarComponent},
   {path: 'search', component:SearchBarComponent},
+  {path: 'resetpassword', component:ResetPasswordComponent},
 
   { path: '', redirectTo: 'Search', pathMatch: 'full' }
 

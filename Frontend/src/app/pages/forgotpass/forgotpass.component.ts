@@ -31,10 +31,19 @@ export class ForgotpassComponent implements OnInit{
       this.userService.sendPasswordResetOTP(email).subscribe(
         response => {
           this.email = response;
-          console.log(response);
+          console.log(response,"this the otp");
           
+          /**
+           * TODO: Verify entered otp with response.number
+
+           */
+          
+
+
+
+
           // OTP sent successfully, navigate to OTP verification page
-          this.router.navigate(['/otp'], { queryParams: { email } });
+        //  this.router.navigate(['/otp'], { queryParams: { email } });
         },
         (error) => {
           // Handle OTP sending failure, show error message
