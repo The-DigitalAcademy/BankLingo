@@ -3,7 +3,9 @@ import {
   askQuestionHumourController,
   createLessonPlanController,
   deleteLessonPlanController,
-  getPlanByUserController
+  getPlanByUserController,
+  GenerateTopicsFromPlanController,
+  getTopicByIDController
 } from "../../controllers/GptControllers/gpt_controller.js";
 import express from "express";
 const gpt_router = express.Router();
@@ -103,8 +105,6 @@ gpt_router.post("/humour", askQuestionHumourController);
  */
 gpt_router.post("/create", createLessonPlanController);
 
-
-
 /**
  * @openapi
  * '/api/gpt/delete_plan/{id}':
@@ -154,5 +154,69 @@ gpt_router.delete("/delete_plan/:plan_id", deleteLessonPlanController);
  *        description: Not Found
  */
 gpt_router.get("/get_user_plans/:user_id", getPlanByUserController);
+
+/**
+ * @openapi
+ * '/api/gpt/generateTopics':
+ *  post:
+ *     tags:
+ *     - Topics
+ *     summary: Generate Topics From Plan
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - message
+ *            properties:
+ *              plan_id:
+ *                type: number
+ *                default: 0
+ *              plan_name:
+ *                type: string
+ *                default: string
+ *              duration:
+ *                type: number
+ *                default: 0
+ *     responses:
+ *      200:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Not Found
+ */
+
+
+gpt_router.post("/generateTopics", GenerateTopicsFromPlanController);
+
+/**
+ * @openapi
+ * '/api/gpt/getTopicsById/{id}':
+ *  get:
+ *     tags:
+ *     - Topics
+ *     summary: Get generate Topics From plan name
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: plan_id
+ *        required: true
+ *     responses:
+ *      200:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Not Found
+ */
+
+gpt_router.get("/getTopicsById/:plan_id",getTopicByIDController )
 
 export default gpt_router;

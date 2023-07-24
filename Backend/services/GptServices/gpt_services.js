@@ -32,6 +32,41 @@ export async function askSimpleQuestionService(request, response) {
   }
 }
 
+export async function GenerateTopicsFromPlanService(request, response) {
+  try {
+    const { plan_name, duration, plan_id } = request.body;
+
+    await openai
+      .createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Give me a ${duration} day course  explanation about ${plan_name}  in layman terms, explain the lessonDescription in detail, break the course into ${duration} days, Return as an JSON`,
+          },
+        ],
+      })
+      .then(async (res) => {
+        let object = {
+          message: res.data.choices[0].message.content,
+        };
+
+        const insertQuery = {
+          text: "INSERT INTO topic ( plan_id,topic_name, topic_description) VALUES ($1, $2, $3) RETURNING *",
+          values: [plan_id, plan_name, object.message],
+        };
+        const result = await client.query(insertQuery);
+        return response
+          .status(200)
+          .send({
+            message: `Plan ${plan_name} has been succesfully added to the DB.`,
+          });
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function askQuestionHumourService(request, response) {
   try {
     const { message } = request.body;
@@ -116,10 +151,33 @@ export async function getPlanByUserService(request, response) {
     throw error;
   }
 }
+
+
+
+export async function getTopicByIDService(request, response) {
+  const plan_id = parseInt(request.params.plan_id);
+  if (isNaN(plan_id)) {
+    return response.status(400).json({ message: "Invalid plan ID provided." });
+  }
+
+  try {
+    const insertQuery = {
+      text: "SELECT * FROM topic WHERE plan_id = $1",
+      values: [plan_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(results.rows[0]);
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
 export default {
   askSimpleQuestionService,
   askQuestionHumourService,
   createLessonPlanService,
   deleteLessonPlanService,
   getPlanByUserService,
+  GenerateTopicsFromPlanService,
+  getTopicByIDService
 };
