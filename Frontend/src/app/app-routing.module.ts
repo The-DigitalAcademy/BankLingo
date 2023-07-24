@@ -38,7 +38,7 @@ const routes: Routes = [
   {path: 'lesson_plan_Calender', component:NavBarComponent},
   {path: 'search', component:SearchBarComponent},
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', redirectTo: 'landing', pathMatch: 'full' }
 
 
 ];
