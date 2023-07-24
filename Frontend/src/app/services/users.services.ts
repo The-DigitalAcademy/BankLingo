@@ -40,19 +40,19 @@ getUser(id: any): Observable<any> {
 // Update a user by the id in the request
 
 updateUser(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}/api/user/${_id}`, data)
+  return this.http.patch(`${this.apiUrls}/update_profile/$user_id`, data)
 }
 
 getAllUsers() : Observable<Array<Users>> {
   return this.http.get<Array<Users>>(
-    `${URL}/api/user  
+    `${this.apiUrls}/get_profile/:user_id  
    `
   )
 
 }
 
 updateData(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}/user/${_id}`, data)
+  return this.http.patch(`${this.apiUrls}update_profile/:user_id`, data)
 }
 
   

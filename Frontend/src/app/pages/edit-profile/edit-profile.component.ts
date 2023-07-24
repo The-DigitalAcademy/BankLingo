@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
@@ -15,9 +15,16 @@ export class EditProfileComponent implements OnInit{
 
   
  
-  users?: Users;
+  @Input() user?: Users
+  users: Users[] = []
 
-  user:Users[]=[]
+  name: string='';
+    surname: string='';
+    age: string='';
+    email: string='';
+    //password: data.name,
+    contact_number: string='';
+    profile_picture: string='';
   
  
 
@@ -28,16 +35,20 @@ export class EditProfileComponent implements OnInit{
           private http: HttpClient 
           ) { }
 
-          getUsers() {
-            this.usersService.getAllUsers().subscribe(products => {
-              this.users
-               
-            })
         
-          }
+
+          
 
           ngOnInit(): void {
             this.getUsers()
+          }
+
+          getUsers() {
+            this.usersService.getAllUsers().subscribe(users => {
+              this.users = users
+               
+            })
+        
           }
 
           updateProducts(data:any , _id: string) {
