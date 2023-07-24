@@ -23,6 +23,8 @@ createUser(users:Users):Observable<any>{
   return this.http.post(`${this.apiUrls}/api/user/signup`,users);
 }
 
+// Login
+
 login(credentials: { email: string, password: string }): Observable<any> {
   return this.http.post(`${this.apiUrls}/api/user/signin`, credentials).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -31,6 +33,21 @@ login(credentials: { email: string, password: string }): Observable<any> {
     })
   );
 }
+
+
+// Getting user by id
+
+getUser(id: any): Observable<any> {
+  return this.http.get(`${this.apiUrls}/api/user/${id}`);
+}
+
+
+// Update a user by the id in the request
+
+updateUser(data: any, _id: string): Observable<any> {
+  return this.http.patch(`${this.apiUrls}/api/user/${_id}`, data)
+}
+
 
 
 }
