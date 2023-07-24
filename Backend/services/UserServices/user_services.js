@@ -75,6 +75,11 @@ export async function signInUserService(request, response) {
     };
     const results = await client.query(insertQuery);
 
+    // just added
+    if (results.rows.length === 0) {
+      return response.status(400).json({ message: "User not found" });
+    }
+
     const userPassword = results.rows[0].password;
     let isPasswordValid = bcrypt.compareSync(password, userPassword);
 

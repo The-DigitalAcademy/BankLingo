@@ -3,6 +3,8 @@ import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/form
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -14,6 +16,7 @@ export class RegisterComponent implements OnInit{
 
   fb!:FormGroup;
   users!:Users;
+  regInvalid = false;
 
         constructor(
           private usersService: UsersService,
@@ -21,6 +24,7 @@ export class RegisterComponent implements OnInit{
           ) { }
 
           ngOnInit(){
+            this.regInvalid = false;
 
             this.fb = new FormGroup({
       
@@ -67,11 +71,22 @@ export class RegisterComponent implements OnInit{
                  this.users=res;
                     console.log(res);
                 });
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Registration Successful!',
+                  text: 'You can now login',
+                  confirmButtonColor: '#38A3A5',
+                }).then((result)=>{
+                  if (result.value){
+                    this.router.navigate(["/login"])
+                  }})
+
                   this.router.navigate(['/login']); 
                       console.log("Register successful");       
               }
               else{
-                console.log("Registration unsuccessful"); 
+                this.regInvalid = true;
+                console.log("form invalid"); 
               }
               }
 
