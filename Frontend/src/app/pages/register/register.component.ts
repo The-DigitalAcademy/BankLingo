@@ -56,24 +56,25 @@ export class RegisterComponent implements OnInit{
 
           onSubmit() {
             this.registerUser();
-              }
+          }
+          
       
               registerUser()
               {
+
+                if (this.fb.valid) {   
                 this.usersService.createUser(this.fb.value).subscribe(res=>{
                  this.users=res;
                     console.log(res);
-                // if(this.fb.valid){
-                  // this.usersService.createDriver(this.fb.value).subscribe(res=>{
-                  //   this.users=res;
-                  //   console.log(res);
-                             
                 });
                   this.router.navigate(['/login']); 
                       console.log("Register successful");       
-                         
-      
-                  
               }
+              else{
+                console.log("Registration unsuccessful"); 
+              }
+              }
+
+            
 
 }

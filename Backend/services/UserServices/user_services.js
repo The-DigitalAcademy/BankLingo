@@ -68,8 +68,7 @@ export async function createUserService(request, response) {
 
 export async function signInUserService(request, response) {
   try {
-    const email = request.body.email;
-    const password = request.body.password;
+    const { email, password } = request.body;
     const insertQuery = {
       text: "SELECT * FROM users WHERE email = $1 ",
       values: [email],
@@ -141,7 +140,7 @@ export async function passwordResetOTPService(request, response) {
 
 export async function updateUserPasswordService(request, response) {
   const user_id = parseInt(request.params.id);
-  const { email, password } = request.body;
+  const { password } = request.body;
 
   const saltRounds = 10;
   const salt = await bcrypt.genSaltSync(saltRounds);
@@ -151,22 +150,42 @@ export async function updateUserPasswordService(request, response) {
   }
   try {
     const insertQuery = {
-      text: "UPDATE users SET  email = $1, password = $2 WHERE user_id = $3",
-      values: [email, hashedPassword, user_id],
+      text: "UPDATE users SET   password = $1 WHERE user_id = $2",
+      values: [hashedPassword, user_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json({message : `Passsword for User with id : ${user_id} has been succesfully Updated`});
+    return response.status(200).json({
+      message: `Passsword for User with id : ${user_id} has been succesfully Updated`,
+    });
   } catch (error) {
     console.error("Error sending OTP", error);
     throw error;
   }
 }
 
+export async function updateUserProfileService(request, response) {
+  const user_id = parseInt(request.params.user_id);
+  const { name, surname, email, contact_number, profile_picture } =
+    request.body;
+  if (isNaN(user_id)) {
+    return response.status(400).json({ message: "Invalid user ID" });
+  }
+  try {
+    const insertQuery = {
+      text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",
+      values: [name, surname, email, contact_number, profile_picture, user_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(`Updated user with Id ${user_id}`);
+  } catch (error) {
+    console.error("Error checking user existence:", error);
+    throw error;
+  }
+}
 export default {
   createUserService,
   signInUserService,
   passwordResetOTPService,
-  updateUserPasswordService
+  updateUserPasswordService,
+  updateUserProfileService,
 };
-
-// Check if user is there and return the data

@@ -3,6 +3,7 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
+  updateUserProfileController
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
@@ -137,7 +138,56 @@ user_router.post("/sendOTP", passwordResetOTPController);
  *              password:
  *                 type: string
  *                 default: string
+ *     responses:
+ *      200:
+ *        description: Success
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Internal Server Error
+ */
+user_router.post("/passwordReset/:id", updatePasswordController);
+
+
+
+
+
+/**
+ * @openapi
+ * '/api/user/update_profile/{id}':
+ *  put:
+ *     tags:
+ *     - User Route
+ *     summary: Update Profile
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: user_id
+ *        required: true
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - user_id
+ *            properties:
+ *              name:
+ *                 type: string
+ *                 default: string
+ *              surname:
+ *                 type: string
+ *                 default: string
  *              email:
+ *                 type: string
+ *                 default: string
+ *              contact_number:
+ *                 type: string
+ *                 default: string
+ *              profile_picture:
  *                 type: string
  *                 default: string
  *     responses:
@@ -150,6 +200,6 @@ user_router.post("/sendOTP", passwordResetOTPController);
  *      500:
  *        description: Internal Server Error
  */
-user_router.post("/passwordReset/:id", updatePasswordController);
+user_router.put("/update_profile/:user_id", updateUserProfileController);
 
 export default user_router;
