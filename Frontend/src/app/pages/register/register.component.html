@@ -1,19 +1,27 @@
-<section class="vh-100 bg-image"
-  style="background-color: white">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+<div class="container">
+
+
+
+
+<section class="vh-100 bg-image">
+
+
+
+  <div class="d-flex align-items-center justify-content-center">
+    <div class=" h-100">
+      <div class=" d-flex justify-content-center align-items-center">
        
 
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="col-12 col-md-12 col-lg-12 col-xl-12">
          
-            <div class=" bd-highlight">
-              <span class="span mybgcolor fs-3">Bank</span><span class="text-wrapper-2   fs-3">Lingo  </span>
-          </div>
-
-            <div class="card-body p-5">
+          
+            <div class="card-body">
               
-              <h2 class="text-center mb-5">Register</h2>
+              <div class=" bd-highlight mb-2 headerTop">
+                <span class="span mybgcolor fs-3">Bank</span><span class="text-wrapper-2   fs-3">Lingo  </span>
+              </div>
+
+              <h2 class="text-center mb-5 headerTop" >Register</h2>
 
               <form [formGroup]="fb" (ngSubmit)="onSubmit()">
 
@@ -79,8 +87,9 @@
                   <button type="submit"
                     class="btn">Register</button>
                 </div>
+                <p class="text-center text-muted my-4">or</p>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" routerLink="/login"
+                <p class="text-center text-muted">Already have an account? <a href="#!" routerLink="/login"
                     class="text ml-1 font-medium text-blue-400"><u>Login here</u></a></p>
 
               </form>
@@ -92,3 +101,5 @@
     </div>
 
 </section>
+
+</div>
