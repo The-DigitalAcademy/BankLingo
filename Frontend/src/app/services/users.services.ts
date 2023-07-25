@@ -11,7 +11,7 @@ import { Users } from '../types/users';
 
 export class UsersService {
 
-  private apiUrls = 'http://localhost:4500';
+  private apiUrls = 'https://banklingoapi.onrender.com';
 
   constructor(private http: HttpClient) { }
 

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PasswordServiceService {
-  private apiUrls = 'http://localhost:4500';
+  private apiUrls = 'https://banklingoapi.onrender.com';
  
   constructor(private http: HttpClient) {}
 
