@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
@@ -14,59 +14,69 @@ import { HttpClient } from '@angular/common/http';
 export class EditProfileComponent implements OnInit{
 
   
- 
-  users?: Users;
+ // @Input() user?: Users
+  //users: Users[] = []
 
-  user:Users[]=[]
+  //name: string='';
+    //surname: string='';
+    //age: string='';
+    //email: string='';
+    //password: data.name,
+    //contact_number: string='';
+    //profile_picture: string='';
   
  
 
         constructor(
-          private usersService: UsersService,
-          private router: Router,
+         // private usersService: UsersService,
+         // private router: Router,
          
-          private http: HttpClient 
+          //private http: HttpClient 
           ) { }
 
-          getUsers() {
-            this.usersService.getAllUsers().subscribe(products => {
-              this.users
-               
-            })
         
-          }
+
+          
 
           ngOnInit(): void {
-            this.getUsers()
+            //this.getUsers()
           }
 
-          updateProducts(data:any , _id: string) {
+          //getUsers() {
+           // this.usersService.getAllUsers().subscribe(users => {
+             // this.users = users
+               
+           // })
+        
+          //}
+
+          //updateProducts(data:any , _id: string) {
 
 
-            let body = {
+           // let body = {
              
         
                  
 
 
                 
-    name: data.name,
-    surname: data.surname,
-    age: data.age,
-    email: data.email,
+    //name: data.name,
+   // surname: data.surname,
+    //age: data.age,
+   // email: data.email,
     //password: data.name,
-    contact_number: data.contact_number,
-    profile_picture: data.name,
+    //contact_number: data.contact_number,
+    //profile_picture: data.name,
     //created_date: Date;
    // updated_date: Date;
                 }
-                console.log(body,"this the body");
+               // console.log(body,"this the body");
                 
-            this.usersService.updateData(body,_id).subscribe(data=>{
-              this.users=data
-            })
+           // this.usersService.updateData(body,_id).subscribe(data=>{
+              //this.users=data
+            //})
            // window.location.reload()
-          }
+         // }
           
 
    
@@ -77,4 +87,4 @@ export class EditProfileComponent implements OnInit{
 
   
 
-}
+//}
