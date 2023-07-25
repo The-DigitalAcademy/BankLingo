@@ -39,6 +39,12 @@ constructor(private session : SessionsService){}
 
   }
 
+  searchTerm(prompt : string){
+    
+  }
+
+
+
   
 
 }
