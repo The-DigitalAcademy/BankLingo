@@ -15,6 +15,7 @@ async function emailExists(email) {
     const emailResult = await client.query(emailQuery);
     if (emailResult && emailResult.rows.length > 0) {
       return emailResult.rows[0];
+      console.log(emailResult.rows[0]);
     }
   } catch (error) {
     console.error("Error checking user existence:", error);
@@ -93,6 +94,7 @@ export async function signInUserService(request, response) {
         surname: results.rows[0].surname,
         userId: results.rows[0].user_id,
         age: results.rows[0].age,
+        searchedbefore: results.rows[0].searchedbefore,
         token: token,
       };
       return response.status(200).json(successObject);
