@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
+import { SessionsService } from 'src/app/services/sessions.service';
 
 
 
@@ -14,18 +15,17 @@ import { CoreService } from 'src/app/services/core.service';
 export class SearchBarComponent {
 
   queryText = ""
-  // @Output() searchTextEmitter = new EventEmitter<string>();
-
-  // onSearchTextChange() {
-  //   this.searchTextEmitter.emit(this.queryText);
-  // }
-  constructor(private core : CoreService){
+  
+  constructor(private core : CoreService, private session : SessionsService){
   }
 
 
   searchQuery(){
-    this.core.SearchTerm(this.queryText).subscribe(response =>{
+    this.core.SearchTerm({message : this.queryText}).subscribe(response =>{
       console.log(response, "this the response");
+      this.session.saveQueryResponse(response)
+
+
       
     })
 

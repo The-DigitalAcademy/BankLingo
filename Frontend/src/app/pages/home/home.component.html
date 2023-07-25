@@ -50,41 +50,41 @@
 
 
   
- <!-- =================recyclerview================ -->
+ <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
   <div *ngIf="searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
     <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
       <div class="card-body">
         <h5 class="card-title">Credit card</h5>
-        <p class="card-text">A magical card that lets you buy toys now and tells your parents to pay later, but be careful not to spend too much!</p>
+        <p class="card-text">{{responseBody}}</p>
       
       </div>
       <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
 
       
     </div>
-    <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
+    <!-- <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
       <div class="card-body">
         <h5 class="card-title">Over-draft</h5>
         <p class="card-text">Banks let you spend more money than you have, but you'll pay extra fees.</p>
       </div>
       <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
 
-    </div>
-    <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
+    </div> -->
+    <!-- <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       </div>
       <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
 
-    </div>   
+    </div>    -->
     
     
 </div>
 
 
 
- <!-- =================recyclerview================ -->
+ <!-- =================recyclerview FOR FUN FACTS================ -->
  <div *ngIf="!searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
   <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
     <div class="card-body">

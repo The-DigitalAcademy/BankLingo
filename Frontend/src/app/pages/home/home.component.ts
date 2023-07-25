@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
   img : string | undefined
   searchedBefore = false
   cardLabel = ""
+  responseBody = ""
+
 
 
 @Input() activeP?: string;
@@ -42,6 +44,9 @@ searchText: string = '';
 
     if(this.searchedBefore==true){
         this.cardLabel = "Recent searched terms"
+        this.responseBody = this.session.getQueryResponse()
+        
+
     }else{
       this.cardLabel = "Fun facts about ABSA"
     }
