@@ -42,23 +42,35 @@ getUser(id: any): Observable<any> {
 }
 
 
-// Update a user by the id in the request
+  // sendOTP(email: string): Observable<any> {
+  //   const url = `${this.apiUrls}/api/sendOTP`;
+  //   return this.http.post(url, { email });
+  // }
 
-updateUser(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}/api/user/${_id}`, data)
+  updatePassword(email: string, otp: number, password: string): Observable<any> {
+    const url = `${this.apiUrls}/api/user/update-password`;
+    return this.http.post(url, { email, otp, password });
+  }
+  
+
+  sendPasswordResetOTP(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrls}/api/user/sendOTP`, {
+      email: email,
+    });
+  }
+
+  verifyOTP(email: string, otp: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
+      email: email,
+      otp: otp,
+    });
+  }
+
+  resetPassword(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrls}/api/user/passwordReset`, {
+      email: email,
+      password: password,
+    });
+  }
 }
 
-getAllUsers() : Observable<Array<Users>> {
-  return this.http.get<Array<Users>>(
-    `${URL}/api/user  
-   `
-  )
-
-}
-
-updateData(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}/user/${_id}`, data)
-}
-
-
-}
