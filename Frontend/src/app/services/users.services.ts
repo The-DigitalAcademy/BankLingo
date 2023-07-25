@@ -69,5 +69,19 @@ getUser(id: any): Observable<any> {
       password: password,
     });
   }
+updateUser(data: any, _id: string): Observable<any> {
+  return this.http.patch(`${this.apiUrls}/update_profile/$user_id`, data)
+}
+
+getAllUsers() : Observable<Array<Users>> {
+  return this.http.get<Array<Users>>(
+    `${this.apiUrls}/get_profile/:user_id  
+   `
+  )
+
+}
+
+updateData(data: any, _id: string): Observable<any> {
+  return this.http.patch(`${this.apiUrls}update_profile/:user_id`, data)
 }
 

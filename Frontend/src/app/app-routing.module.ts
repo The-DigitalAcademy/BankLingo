@@ -40,7 +40,9 @@ const routes: Routes = [
   {path: 'search', component:SearchBarComponent},
   {path: 'resetpassword', component:ResetPasswordComponent},
 
-  { path: '', redirectTo: 'landing', pathMatch: 'full' }
+
+  { path: '', redirectTo: 'register', pathMatch: 'full' }
+
 
 
 ];
