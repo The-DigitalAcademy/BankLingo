@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
 
 @Component({
@@ -21,7 +22,8 @@ export class OtpComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UsersService
+    private userService: UsersService,
+    private sessions : SessionsService
   ) {}
 
   

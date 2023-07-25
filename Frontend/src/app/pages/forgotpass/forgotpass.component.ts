@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
 
 @Component({
@@ -16,7 +17,7 @@ export class ForgotpassComponent implements OnInit{
 
   email!: string;
 
-  constructor(private router: Router, private userService: UsersService) {}
+  constructor(private router: Router, private userService: UsersService, private sessions : SessionsService) {}
 
   ngOnInit(): void {}
 
@@ -32,7 +33,7 @@ export class ForgotpassComponent implements OnInit{
         response => {
           this.email = response;
           console.log(response,"this the otp");
-          
+          this.sessions.saveOTP(response)
           /**
            * TODO: Verify entered otp with response.number
 
