@@ -3,7 +3,9 @@ import {
   askQuestionHumourService,
   createLessonPlanService,
   deleteLessonPlanService,
-  getPlanByUserService
+  getPlanByUserService,
+  GenerateTopicsFromPlanService,
+  getTopicByIDService
 } from "../../services/GptServices/gpt_services.js";
 
 export async function askSimpleQuestionController(request, response) {
@@ -46,7 +48,6 @@ export async function deleteLessonPlanController(request, response) {
   }
 }
 
-
 export async function getPlanByUserController(request, response) {
   try {
     const result = await getPlanByUserService(request, response);
@@ -56,4 +57,33 @@ export async function getPlanByUserController(request, response) {
     return response.status(500).json({ message: "Internal server error" });
   }
 }
-export default { askSimpleQuestionController, askQuestionHumourController ,createLessonPlanController, deleteLessonPlanController, getPlanByUserController};
+
+export async function GenerateTopicsFromPlanController(request, response) {
+  try {
+    const result = await GenerateTopicsFromPlanService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in GenerateTopicsFromPlanService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+
+
+export async function getTopicByIDController(request, response) {
+  try {
+    const result = await getTopicByIDService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in getTopicByIDService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+export default {
+  askSimpleQuestionController,
+  askQuestionHumourController,
+  createLessonPlanController,
+  deleteLessonPlanController,
+  getPlanByUserController,
+  GenerateTopicsFromPlanController,
+  getTopicByIDController
+};

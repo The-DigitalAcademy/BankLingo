@@ -72,6 +72,9 @@ export async function getUserDetailsController(request, response) {
 }
 
 
+
+
+
 export default {
   createUserController,
   signInUserController,

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
 import { Users } from 'src/app/types/users';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,9 @@ export class LoginComponent implements OnInit {
 
   constructor( private auth: UsersService,
     private router: Router,
-    private formB : FormBuilder,) {
+    private formB : FormBuilder,
+    private session : SessionsService
+    ) {
       this.loginForm=this.formB.group({
         email:['',[Validators.required,Validators.email]],
         password:['',[Validators.required]],
@@ -33,13 +37,27 @@ export class LoginComponent implements OnInit {
   onLogin() {
 
     if (this.loginForm.valid) {       // Form is valid, perform login logic      
-      this.auth.login(this.loginForm.value).subscribe(res=>{
-        console.log("success");  
-      const user = { email: this.email };        
-      localStorage.setItem('currentUser', JSON.stringify(user));             
-    })  
-
-    this.router.navigate(['/home']); 
+    
+    this.auth.login(this.loginForm.value).subscribe(response => {
+        // Handle the successful response here.
+        console.log(response,"success");
+        this.session.saveLoggedUser(response)
+         Swal.fire({
+          icon: 'success',
+          title: 'Login Successful!',
+          text: 'You have successfully logged in.',
+          confirmButtonColor: '#38A3A5',
+        }).then((result)=>{
+          if (result.value){
+            this.router.navigate(["/home"])
+          }})
+        
+      },
+      (error) => {
+        // Handle the error here or display it to the user.
+        console.error(error);
+      }
+    );
      
    } else {
     this.invalidCredentials = true;
