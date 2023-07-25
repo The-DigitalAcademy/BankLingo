@@ -50,10 +50,10 @@ export class EditProfileComponent implements OnInit{
         
           //}
 
-          ngOnInit(): void {
-          //  this.getUsers()
+          // ngOnInit() {
+          // //  this.getUsers()
 
-          }
+          // }
 
           //getUsers() {
            // this.usersService.getAllUsers().subscribe(users => {
@@ -107,3 +107,4 @@ export class EditProfileComponent implements OnInit{
   
 
 //}
+              }
