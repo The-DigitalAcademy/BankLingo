@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 
+
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -56,7 +57,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
