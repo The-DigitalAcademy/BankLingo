@@ -43,7 +43,7 @@ export class ForgotpassComponent implements OnInit{
 
 
           // OTP sent successfully, navigate to OTP verification page
-        //  this.router.navigate(['/otp'], { queryParams: { email } });
+         this.router.navigate(['/otp'], { queryParams: { email } });
         },
         (error) => {
           // Handle OTP sending failure, show error message
