@@ -28,16 +28,16 @@ export class EditProfileComponent implements OnInit{
           private http: HttpClient 
           ) { }
 
-          getUsers() {
-            this.usersService.getAllUsers().subscribe(products => {
-              this.users
+          // getUsers() {
+          //   this.usersService.getAllUsers().subscribe(products => {
+          //     this.users
                
-            })
+          //   })
         
-          }
+          //}
 
           ngOnInit(): void {
-            this.getUsers()
+          //  this.getUsers()
           }
 
           updateProducts(data:any , _id: string) {
@@ -62,9 +62,9 @@ export class EditProfileComponent implements OnInit{
                 }
                 console.log(body,"this the body");
                 
-            this.usersService.updateData(body,_id).subscribe(data=>{
-              this.users=data
-            })
+            // this.usersService.updateData(body,_id).subscribe(data=>{
+            //   this.users=data
+            // })
            // window.location.reload()
           }
           
