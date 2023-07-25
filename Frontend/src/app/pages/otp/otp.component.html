@@ -18,7 +18,12 @@
             src="assets/img/Guy with the key is trying to log into his account.png"
           />
       </div>
-      <div id="otp" class="inputs d-flex flex-row justify-content-center mt " style="color: #444">  <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" /> <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" /> <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" /> <input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" /> </div>
+      <div id="otp" class="inputs d-flex flex-row justify-content-center mt " style="color: #444">  
+        <input class="m-2 text-center form-control rounded" [(ngModel)]="first" type="text" id="second" maxlength="1" /> 
+        <input class="m-2 text-center form-control rounded" [(ngModel)]="second" type="text" id="third" maxlength="1" /> 
+        <input class="m-2 text-center form-control rounded" [(ngModel)]="third" type="text" id="fourth" maxlength="1" /> 
+        <input class="m-2 text-center form-control rounded" [(ngModel)]="forth" type="text" id="fifth" maxlength="1" /> 
+    </div>
        <br>
     <br>
     <div class=" bd-highlight text-center">

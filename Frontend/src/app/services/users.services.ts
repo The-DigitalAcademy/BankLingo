@@ -59,11 +59,8 @@ getUser(id: any): Observable<any> {
     });
   }
 
-  verifyOTP(email: string, otp: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
-      email: email,
-      otp: otp,
-    });
+  verifyOTP(email: string, otp: string, userOTP : string){
+    
   }
 
   resetPassword(email: string, password: string): Observable<any> {
