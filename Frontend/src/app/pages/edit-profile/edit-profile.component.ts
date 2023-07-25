@@ -34,12 +34,25 @@ export class EditProfileComponent implements OnInit{
           //private http: HttpClient 
           ) { }
 
+
         
 
           
 
           ngOnInit(): void {
             //this.getUsers()
+
+          // getUsers() {
+          //   this.usersService.getAllUsers().subscribe(products => {
+          //     this.users
+               
+          //   })
+        
+          //}
+
+          ngOnInit(): void {
+          //  this.getUsers()
+
           }
 
           //getUsers() {
@@ -72,9 +85,15 @@ export class EditProfileComponent implements OnInit{
                 }
                // console.log(body,"this the body");
                 
+
            // this.usersService.updateData(body,_id).subscribe(data=>{
               //this.users=data
             //})
+
+            // this.usersService.updateData(body,_id).subscribe(data=>{
+            //   this.users=data
+            // })
+
            // window.location.reload()
          // }
           

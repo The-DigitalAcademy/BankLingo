@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   name : string | undefined
   surname : string | undefined
   img : string | undefined
+  searchedBefore = false
+  cardLabel = ""
 
 @Input() activeP?: string;
 constructor(private session : SessionsService){}
@@ -23,7 +25,16 @@ constructor(private session : SessionsService){}
      this.name =  this.session.getLoggedUser().name
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
+    this.searchedBefore = this.session.getLoggedUser().searchedbefore
+  
     
+    
+
+    if(this.searchedBefore==true){
+        this.cardLabel = "Recent searched terms"
+    }else{
+      this.cardLabel = "Fun facts about ABSA"
+    }
 
 
   }
