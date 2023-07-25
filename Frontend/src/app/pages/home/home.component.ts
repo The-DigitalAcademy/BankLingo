@@ -33,7 +33,7 @@ constructor(private session : SessionsService){}
     if(this.searchedBefore==true){
         this.cardLabel = "Recent searched terms"
     }else{
-      this.cardLabel = "Absa Fun facts"
+      this.cardLabel = "Fun facts about ABSA"
     }
 
 
