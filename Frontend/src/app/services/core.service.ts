@@ -12,8 +12,10 @@ export class CoreService {
 
   constructor(private http: HttpClient, public storage:SessionsService) {}
 
-  SearchTerm(prompt: { queryMessage: string }): Observable<any> {
-    return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
+  SearchTerm(prompt: string): Observable<any> {
+    // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
+      return this.http.post("http://localhost:4500/api/gpt", prompt).pipe(
+
       catchError((error: HttpErrorResponse) => {
         return throwError(error.error.message);
       })

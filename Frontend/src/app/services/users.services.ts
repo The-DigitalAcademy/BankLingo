@@ -85,3 +85,4 @@ updateData(data: any, _id: string): Observable<any> {
   return this.http.patch(`${this.apiUrls}update_profile/:user_id`, data)
 }
 
+}

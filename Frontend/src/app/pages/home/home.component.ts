@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
 
@@ -17,8 +18,17 @@ export class HomeComponent implements OnInit {
   searchedBefore = false
   cardLabel = ""
 
+
 @Input() activeP?: string;
-constructor(private session : SessionsService){}
+constructor(private session : SessionsService, private core : CoreService){}
+
+searchText: string = '';
+
+// onSearchTextChange(searchText: string) {
+//   this.searchText = searchText;
+//   // Perform any operations with the entered text here.
+//   console.log('Entered text:', this.searchText);
+// }
 
   ngOnInit(): void {
     this.activeP = "home"
@@ -39,9 +49,7 @@ constructor(private session : SessionsService){}
 
   }
 
-  searchTerm(prompt : string){
-    
-  }
+
 
 
 
