@@ -8,13 +8,13 @@
         <div class="card-body p-head">
           <div class="d-flex text-black">
             <div class="flex-shrink-0">
-              <img src="../../../assets/img/pp.jpeg"
+              <img src="../../../assets/img/profile_placeholder.jpeg"
                 alt="Generic placeholder image" class="img-fluid profileImage"
                 style="width: 70px; height:70px; border-radius: 35px;">
             </div>
             <div class="flex-grow-1 ms-3">
-              <h5 class="mb-1">Welcome back</h5>
-              <p class="mb-1 p-1" style="color: #2b2a2a;">Altharia Maenetja</p>
+              <h5 class="mb-1 mt-1">Welcome back</h5>
+              <p class="mb-1 p-1" style="color: #2b2a2a;">{{name}} {{surname}}</p>
             
              
             </div>
@@ -27,20 +27,20 @@
   </div>
   <hr>
  
-  <div class="headingFont d-flex justify-content-center my-4" >Banking Made Simple!</div>
+  <div class="headingFont d-flex justify-content-center my-4">Banking Made Simple!</div>
 
   <app-search-bar></app-search-bar>
 
   <div class="card humorPosition form-group">
 
-   <label class="form-check-label" for="flexSwitchCheckDefault">Include humor</label>
+   <label class="form-check-label" for="flexSwitchCheckDefault" style="color: #212529;">Sense of humor</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
     </div>
   </div>
 
 
-  <div class="headingFont d-flex" style="margin-top:42px; margin-bottom:20px;" >Recent searched terms</div>
+  <div class="headingFont d-flex" style="margin-top:42px; margin-bottom:20px;">{{cardLabel}}</div>
 
 
   <div>
@@ -50,7 +50,7 @@
 
   
  <!-- =================recyclerview================ -->
-  <div class="d-flex flex-row flex-nowrap overflow-auto">
+  <div *ngIf="searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
     <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
       <div class="card-body">
         <h5 class="card-title">Credit card</h5>
@@ -76,8 +76,45 @@
       </div>
       <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
 
-    </div>            
+    </div>   
+    
+    
 </div>
+
+
+
+ <!-- =================recyclerview================ -->
+ <div *ngIf="!searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
+  <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
+    <div class="card-body">
+      <h5 class="card-title" style="color:#212529; font-style: oblique;">Did you know?</h5>
+      <p class="card-text">The name "ABSA" stands for "Amalgamated Banks of South Africa.</p>
+    
+    </div>
+    <!-- <span class="badge bg-light text-dark push-to-bottomm">Learn more</span> -->
+
+    
+  </div>
+  <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
+    <div class="card-body">
+      <h5 class="card-title" style="color: #212529; font-style: italic;">Did you know?</h5>
+      <p class="card-text">ABSA provides a wide range of financial services, including retail banking, corporate and investment banking, wealth management, and insurance.</p>
+    </div>
+    <!-- <span class="badge bg-light text-dark push-to-bottomm">Learn more</span> -->
+
+  </div>
+  <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
+    <div class="card-body">
+      <h5 class="card-title" style="color: #212529">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+    <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
+
+  </div>   
+  
+  
+</div>
+
 
 
 <div style="margin-top: 16px;">
