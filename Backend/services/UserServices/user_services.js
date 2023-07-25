@@ -15,6 +15,7 @@ async function emailExists(email) {
     const emailResult = await client.query(emailQuery);
     if (emailResult && emailResult.rows.length > 0) {
       return emailResult.rows[0];
+      console.log(emailResult.rows[0]);
     }
   } catch (error) {
     console.error("Error checking user existence:", error);
