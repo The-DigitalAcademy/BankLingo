@@ -32,13 +32,13 @@
 
   <!-- <app-search-bar (searchTextEmitter)="onSearchTextChange($event)"></app-search-bar> -->
 
-  <div class="card humorPosition form-group">
+  <!-- <div class="card humorPosition form-group">
 
    <label class="form-check-label" for="flexSwitchCheckDefault" style="color: #212529;">Sense of humor</label>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
     </div>
-  </div>
+  </div> -->
 
 
   <div class="headingFont d-flex" style="margin-top:42px; margin-bottom:20px;">{{cardLabel}}</div>
@@ -51,34 +51,36 @@
 
   
  <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
-  <div *ngIf="searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
-    <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
-      <div class="card-body">
-        <h5 class="card-title">Credit card</h5>
-        <p class="card-text">{{responseBody}}</p>
-      
+  <div  *ngIf="searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
+    <div *ngIf="showSearched">
+      <div  class="card cardStyle card-block mx-2" style="min-width: 240px;">
+        <div class="card-body">
+          <h5 class="card-title">{{responseQuestion}}</h5>
+          <p class="card-text">{{responseBody}}</p>
+        
+        </div>
+        <span class="badge bg-light text-dark push-to-bottomm" routerLink="/lesson-plan-calender">Learn more</span>
+  
+        
       </div>
-      <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
-
-      
     </div>
-    <!-- <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
+   
+    <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
       <div class="card-body">
         <h5 class="card-title">Over-draft</h5>
         <p class="card-text">Banks let you spend more money than you have, but you'll pay extra fees.</p>
       </div>
       <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
 
-    </div> -->
-    <!-- <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
+    </div>
+    <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <h5 class="card-title">Tax return</h5>
+        <p class="card-text">Tax return is when you give some money back to the government if they took too much from you</p>
       </div>
       <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
 
-    </div>    -->
-    
+    </div> 
     
 </div>
 
@@ -106,7 +108,7 @@
   </div>
   <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
     <div class="card-body">
-      <h5 class="card-title" style="color: #212529">Card title</h5>
+      <h5 class="card-title" style="color: #212529">Tax return </h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     </div>
     <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
@@ -119,7 +121,7 @@
 
 
 <div style="margin-top: 16px;">
-  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="113" viewBox="0 0 375 163" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" viewBox="0 0 375 163" fill="none">
     <path d="M0.5 42.0645H374.5V136.71H0.5V42.0645Z" fill="white"/>
     <path d="M90.5 115.677C90.5 141.813 70.3528 163 45.5 163C20.6472 163 0.5 141.813 0.5 115.677C0.5 89.5419 20.6472 68.3548 45.5 68.3548C70.3528 68.3548 90.5 89.5419 90.5 115.677Z" fill="url(#paint0_linear_983_5022)"/>
     <path d="M308.5 68.3548C308.5 106.106 279.399 136.71 243.5 136.71C207.601 136.71 178.5 106.106 178.5 68.3548C178.5 30.6035 207.601 0 243.5 0C279.399 0 308.5 30.6035 308.5 68.3548Z" fill="url(#paint1_linear_983_5022)"/>

@@ -16,8 +16,10 @@ export class HomeComponent implements OnInit {
   surname : string | undefined
   img : string | undefined
   searchedBefore = false
+  showSearched = false
   cardLabel = ""
   responseBody = ""
+  responseQuestion : any
 
 
 
@@ -40,15 +42,15 @@ searchText: string = '';
   
     
     
-
     if(this.searchedBefore==true){
       this.cardLabel = "Recent searched terms"
-      
+      this.showSearched = true
       this.responseBody = this.session.getQueryResponse().message
-
-
+      this.responseQuestion = this.session.getQueryQuestion()
+      this.responseQuestion.substring(1)
+      console.log(this.responseQuestion,"response question");
       
-        
+
 
     }else{
       this.cardLabel = "Fun facts about ABSA"
