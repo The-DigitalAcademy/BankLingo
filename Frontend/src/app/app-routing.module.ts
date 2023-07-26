@@ -36,7 +36,7 @@ const routes: Routes = [
   {path: 'topics', component:TopicsComponent},
   {path: 'nav-bar', component:NavBarComponent},
   {path: 'topics', component:TopicsComponent},
-  {path: 'lesson_plan_Calender', component:NavBarComponent},
+  {path: 'lesson_plan_Calender', component:LessonPlanCalenderComponent},
   {path: 'search', component:SearchBarComponent},
   {path: 'resetpassword', component:ResetPasswordComponent},
 

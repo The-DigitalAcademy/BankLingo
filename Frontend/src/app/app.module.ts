@@ -5,6 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -52,6 +56,7 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
+    
 
     ResetPasswordComponent,
     HomeBeforeComponent,
@@ -62,7 +67,10 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    
+    BrowserAnimationsModule 
   ],
+   
   providers: [],
   bootstrap: [AppComponent]
 })
