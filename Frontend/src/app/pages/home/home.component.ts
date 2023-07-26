@@ -33,7 +33,6 @@ searchText: string = '';
 // }
 
   ngOnInit(): void {
-    this.activeP = "home"
      this.name =  this.session.getLoggedUser().name
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
@@ -43,8 +42,12 @@ searchText: string = '';
     
 
     if(this.searchedBefore==true){
-        this.cardLabel = "Recent searched terms"
-        this.responseBody = this.session.getQueryResponse()
+      this.cardLabel = "Recent searched terms"
+      
+      this.responseBody = this.session.getQueryResponse().message
+
+
+      
         
 
     }else{
