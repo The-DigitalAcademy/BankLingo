@@ -14,22 +14,22 @@ export class SessionsService {
 
 
   clean(): void {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
   }
 
   public saveLoggedUser(user: any): void {
-    window.sessionStorage.removeItem(LOGGED_USER);
-    window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(user));
+    window.localStorage.removeItem(LOGGED_USER);
+    window.localStorage.setItem(LOGGED_USER, JSON.stringify(user));
   }
 
   public isLogged(isLogged: boolean): void {
-    window.sessionStorage.removeItem(LOGGED_USER);
-    window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(isLogged));
+    window.localStorage.removeItem(LOGGED_USER);
+    window.localStorage.setItem(LOGGED_USER, JSON.stringify(isLogged));
   }
 
 
   public getLoggedUser(): any {
-    const song = window.sessionStorage.getItem(LOGGED_USER);
+    const song = window.localStorage.getItem(LOGGED_USER);
 
     if (song) {
       return JSON.parse(song);

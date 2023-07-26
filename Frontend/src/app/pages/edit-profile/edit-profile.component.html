@@ -16,41 +16,43 @@
                   </div>
     
                 
-              <form  >
+              <form [formGroup]="profileForm" (ngSubmit)="updaterUser()" >
 
                 <div class="form-outline mb-4" >
                     <label for="floatingInput">First name</label>
                   <input   class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                  id="name" 
+                  id="name" formControlName="name"
                   />
                  
 </div>
                 <div class="form-outline mb-4">
                     <label for="floatingInput">Last name</label>
-                    <input id ="surname" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                     />
+                    <input id ="surname" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="surname"
+                    />
                    
 
                 </div>
 
                 
+                <div class="form-outline mb-4">
+                    <label for="floatingInput">Email</label>
+                  <input id="age" type="text" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="age"
+                    />
 
+                </div>
                  
 
                 <div class="form-outline mb-4">
                     <label for="floatingInput">Email</label>
-                  <input id="email" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                  />
+                  <input id="email" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="email"
+                    />
 
-                    
-                  
-                  
                 </div>
 
                 <div class="form-outline mb-4">
                     <label for="floatingInput">Phone number</label>
-                    <input id="Contact_number" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                   />
+                    <input id="contact_number" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="contact_number"
+                    />
 
                    
                     
@@ -58,12 +60,12 @@
                   <label for="floatingInput">Click to upload image</label>
                   <div class="input-group mb-4">
                    
-                    <input type="file" class="form-control" style=" border: 1px solid; border-color: black;" id="profile_picture" >
+                    <input type="file" class="form-control" style=" border: 1px solid; border-color: black;" id="profile_picture" formControlName="profile_picture" >
                   
                   </div>
 
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <button type="submit" class="btn btn-primary btn-sm" >Save</button>
                     <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
                 </div>
                
@@ -93,3 +95,15 @@
 
 </section>
 
+ <!-- <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <label>Name:</label>
+    <input type="text" formControlName="name" />
+  
+    <label>Email:</label>
+    <input type="email" formControlName="email" />
+  
+    <label>Profile Picture:</label>
+    <input type="text" formControlName="profilePicture" />
+  
+    <button type="submit">Save Changes</button>
+  </form> -->

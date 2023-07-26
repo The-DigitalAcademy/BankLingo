@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/forms';
+import { AbstractControl, FormControl,FormGroup,Validators ,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
 import { HttpClient } from '@angular/common/http';
+import { SessionsService } from 'src/app/services/sessions.service';
+
+const URL = 'http://localhost:4500'
 
 
 @Component({
@@ -12,80 +15,68 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit{
-
-  
- // @Input() user?: Users
-  //users: Users[] = []
-
-  //name: string='';
-    //surname: string='';
-    //age: string='';
-    //email: string='';
-    //password: data.name,
-    //contact_number: string='';
-    //profile_picture: string='';
-  
- 
-
-        constructor(
-         // private usersService: UsersService,
-         // private router: Router,
+  user!:any;
+  profileForm!: FormGroup
+        constructor( private formBuilder: FormBuilder, 
+        private usersService: UsersService,
+        private session: SessionsService  
+        ) {
          
-          //private http: HttpClient 
-          ) { }
+         }
+
+          ngOnInit() {
+             
+            // Retrieve the user data from session storage
+              this.user = this.session.getLoggedUser();
+
+              // Check if the user variable contains valid user data before initializing the form
+              if (this.user && Object.keys(this.user).length > 0) {
+                this.initializeForm();
+              } else {
+                // Handle the case when the user data is not available
+                console.log('User data not found in session storage');
+                // You can take appropriate actions, such as redirecting the user to the login page.
+              }
+            
+            this.initializeForm();
+          }
 
       
 
-          ngOnInit(): void {
-            //this.getUsers()
-
+          initializeForm(){
+            this.profileForm = this.formBuilder.group({
+              name: [this.user.name, Validators.required],
+              surname: [this.user.surname, Validators.required],
+              age: [this.user.age, Validators.required],
+              contact_number: [this.user.contact_number, Validators.required],
+              email: [this.user.email, [Validators.required, Validators.email]],
+              profile_picture: [this.user.profile_picture],
+            });
           }
 
-          //getUsers() {
-           // this.usersService.getAllUsers().subscribe(users => {
-             // this.users = users
-               
-           // })
-        
-          //}
+         
 
+          updaterUser(){
+            if (this.profileForm.valid)
+            {
+              const updatedData = this.profileForm.value;
 
-          //updateProducts(data:any , _id: string) {
+              // Make sure user.user_id is not undefined
+              if (!this.user.userId) {
+                console.error('User ID is not defined.' + this.user.userId);
+                return;
+              }
 
-           // let body = {
-             
-        
-                 
+              console.log('Updating profile with ID:', this.user.userId);
+              console.log('Updated data:', updatedData);
 
-
+              this.usersService.updateProfile(this.user.userId, updatedData).subscribe(res=>{
+                this.user = res;
+                console.log('success  ' + res);
                 
-    //name: data.name,
-   // surname: data.surname,
-    //age: data.age,
-   // email: data.email,
-    //password: data.name,
-    //contact_number: data.contact_number,
-    //profile_picture: data.name,
-    //created_date: Date;
-   // updated_date: Date;
-                }
-               // console.log(body,"this the body");
-                
+              })
+            }
+          }
 
 
-            //this.usersService.updateData(body,_id).subscribe(data=>{
-              //this.users=data
-           // })
-           // window.location.reload()
-          //}
-          
-
-   
-
-   
-
-          
-
-  
-
-//}
+        }

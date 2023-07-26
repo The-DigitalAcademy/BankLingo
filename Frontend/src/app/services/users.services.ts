@@ -5,6 +5,8 @@ import { Users } from '../types/users';
 
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,11 +37,7 @@ login(credentials: { email: string, password: string }): Observable<any> {
 }
 
 
-// Getting user by id
 
-getUser(id: any): Observable<any> {
-  return this.http.get(`${this.apiUrls}/api/user/${id}`);
-}
 
 
   // sendOTP(email: string): Observable<any> {
@@ -69,19 +67,32 @@ getUser(id: any): Observable<any> {
       password: password,
     });
   }
-updateUser(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}/update_profile/$user_id`, data)
+
+  update2Password(email: string, newPassword: string): Observable<any> {
+    const url = `${this.apiUrls}/api/user/update-password`;
+
+    // Create a request body with the email and new password
+    const body = {
+      email: email,
+      password: newPassword
+    };
+
+    return this.http.put<any>(url, body);
+  }
+
+
+  getUser(users:Users):Observable<any>{
+
+    return this.http.get(`${this.apiUrls}/api/user/get_profile`);
+  }
+
+// updateProfile(id: number, data:Users): Observable<any> {
+//   return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/{id}${id}`, data);
+// }
+
+updateProfile(id: number, data: Users): Observable<any> {
+  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data);
 }
 
-getAllUsers() : Observable<Array<Users>> {
-  return this.http.get<Array<Users>>(
-    `${this.apiUrls}/get_profile/:user_id  
-   `
-  )
 
 }
-
-updateData(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}update_profile/:user_id`, data)
-}
-

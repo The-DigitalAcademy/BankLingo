@@ -207,6 +207,10 @@ export async function updateUserProfileService(request, response) {
       values: [name, surname, email, contact_number, profile_picture, user_id],
     };
     const results = await client.query(insertQuery);
+     // Check if any rows were affected by the update
+     if (results.rowCount === 0) {
+      return response.status(404).json({ message: "User not found" });
+    }
     return response.status(200).json(`Updated user with Id ${user_id}`);
   } catch (error) {
     console.error("Error checking user existence:", error);
