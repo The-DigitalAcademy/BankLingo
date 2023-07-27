@@ -14,7 +14,7 @@
                       alt="Generic placeholder image" class="img-fluid profileImage"
                       style="width: 120px; height:120px; border-radius: 120px;">
                   </div>
-    
+                  
                 
               <form [formGroup]="profileForm" (ngSubmit)="updaterUser()" >
 
@@ -35,7 +35,7 @@
 
                 
                 <div class="form-outline mb-4">
-                    <label for="floatingInput">Email</label>
+                    <label for="floatingInput">Age</label>
                   <input id="age" type="text" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="age"
                     />
 
@@ -65,7 +65,8 @@
                   </div>
 
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-sm" >Save</button>
+                  
+                    <button type="submit" [disabled]="!profileForm.valid" class="btn btn-primary btn-sm" >Save</button>
                     <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
                 </div>
                

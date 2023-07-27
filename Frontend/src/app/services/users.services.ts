@@ -90,9 +90,10 @@ login(credentials: { email: string, password: string }): Observable<any> {
 //   return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/{id}${id}`, data);
 // }
 
-updateProfile(id: number, data: Users): Observable<any> {
-  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data);
-}
+updateProfile(id: number, data: any): Observable<any> {
 
+  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data);
+
+}
 
 }
