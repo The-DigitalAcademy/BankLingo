@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { Users } from 'src/app/types/users';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
 
   loggedUser : Users | undefined
   name : string | undefined
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
   cardLabel = ""
   responseBody = ""
   responseQuestion : any
+  isIconFilled = false;
 
 
 
@@ -44,12 +47,23 @@ searchText: string = '';
     
     if(this.searchedBefore==true){
       this.cardLabel = "Recent searched terms"
-      this.showSearched = true
       this.responseBody = this.session.getQueryResponse().message
-      this.responseQuestion = this.session.getQueryQuestion()
-      this.responseQuestion.substring(1)
-      console.log(this.responseQuestion,"response question");
-      
+      if(this.responseBody.length!=0){
+        this.showSearched = true
+        this.responseQuestion = this.session.getQueryQuestion()
+        // Swal.fire({
+        //   // icon: 'success',
+        //   title: this.responseQuestion,
+        //   text: this.responseBody,
+        //   confirmButtonColor: '#38A3A5',
+        // }).then((result)=>{
+        //   if (result.value){
+        //   }})
+      }
+
+
+    
+    
 
 
     }else{
@@ -59,5 +73,20 @@ searchText: string = '';
 
   }
 
+  saveSearch() {
+
+    this.isIconFilled = !this.isIconFilled;
+    const search = { 
+      query_searched: this.responseQuestion,
+      response_searched: this.responseBody
+      }
+    this.core.saveToFavorites(10,search).subscribe(response =>{
+      console.log(response,"saving to db");
+      
+    })
+    }
+
+
+    
 
 }
