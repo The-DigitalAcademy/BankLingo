@@ -56,6 +56,13 @@ export class LoginComponent implements OnInit {
       (error) => {
         // Handle the error here or display it to the user.
         console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'User not found',
+          text: 'Try again.',
+          confirmButtonColor: '#38A3A5',
+        })
+        
       }
     );
      

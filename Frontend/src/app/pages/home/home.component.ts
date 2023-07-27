@@ -60,9 +60,4 @@ searchText: string = '';
   }
 
 
-
-
-
-  
-
 }

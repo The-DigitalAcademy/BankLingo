@@ -1,14 +1,12 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SessionsService } from './sessions.service';
-import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoreService {
 
-  private apiUrls = 'http://localhost:4500';
 
   constructor(private http: HttpClient, public storage:SessionsService) {}
 

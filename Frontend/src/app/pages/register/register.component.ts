@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl,FormGroup,Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
@@ -17,23 +17,34 @@ export class RegisterComponent implements OnInit{
   fb!:FormGroup;
   users!:Users;
   regInvalid = false;
+name: any;
 
         constructor(
           private usersService: UsersService,
           private router: Router,
-          ) { }
+          private formb: FormBuilder
+          ) {
+            this.fb =this.formb.group({
+      
+              name: [null,[Validators.required,Validators.minLength(3)]],
+              surname:[null,[Validators.required,Validators.minLength(3)]], 
+              age: [null,[Validators.required,this.ageValidator]],
+              email:[null,[Validators.required,Validators.email]],
+              password:[null,[Validators.required,Validators.minLength(8),this.passwordValidator]],
+            });
+           }
 
           ngOnInit(){
             this.regInvalid = false;
 
-            this.fb = new FormGroup({
+            // this.fb = new FormGroup({
       
-              name: new FormControl(null,[Validators.required,Validators.min(3)]),
-              surname:new FormControl(null,[Validators.required,Validators.min(3)]), 
-              age:new FormControl(null,[Validators.required,this.ageValidator]),
-              email:new FormControl(null,[Validators.required,Validators.email]),
-              password:new FormControl(null,[Validators.required,Validators.min(8),this.passwordValidator]),
-            });
+            //   name: new FormControl(null,[Validators.required,Validators.minLength(3)]),
+            //   surname:new FormControl(null,[Validators.required,Validators.minLength(3)]), 
+            //   age:new FormControl(null,[Validators.required,this.ageValidator]),
+            //   email:new FormControl(null,[Validators.required,Validators.email]),
+            //   password:new FormControl(null,[Validators.required,Validators.minLength(8),this.passwordValidator]),
+            // });
           }
 
     passwordValidator(control:FormControl):{[key:string]:boolean}|null{
@@ -74,15 +85,12 @@ export class RegisterComponent implements OnInit{
                 Swal.fire({
                   icon: 'success',
                   title: 'Registration Successful!',
-                  text: 'You can now login',
+                  //text: 'You can now login',
                   confirmButtonColor: '#38A3A5',
                 }).then((result)=>{
                   if (result.value){
-                    this.router.navigate(["/login"])
-                  }})
-
-                  this.router.navigate(['/login']); 
-                      console.log("Register successful");       
+                    this.router.navigate(["/home"])
+                  }}) 
               }
               else{
                 this.regInvalid = true;

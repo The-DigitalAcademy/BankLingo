@@ -11,7 +11,7 @@ import { Users } from '../types/users';
 
 export class UsersService {
 
-  private apiUrls = 'http://localhost:4500';
+  private apiUrls = 'https://banklingoapi.onrender.com';
 
   constructor(private http: HttpClient) { }
 
@@ -59,8 +59,11 @@ getUser(id: any): Observable<any> {
     });
   }
 
-  verifyOTP(email: string, otp: string, userOTP : string){
-    
+  verifyOTP(email: string, otp: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
+      email: email,
+      otp: otp,
+    });
   }
 
   resetPassword(email: string, password: string): Observable<any> {
@@ -69,20 +72,6 @@ getUser(id: any): Observable<any> {
       password: password,
     });
   }
-updateUser(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}/update_profile/$user_id`, data)
-}
-
-getAllUsers() : Observable<Array<Users>> {
-  return this.http.get<Array<Users>>(
-    `${this.apiUrls}/get_profile/:user_id  
-   `
-  )
-
-}
-
-updateData(data: any, _id: string): Observable<any> {
-  return this.http.patch(`${this.apiUrls}update_profile/:user_id`, data)
 }
 
 }
