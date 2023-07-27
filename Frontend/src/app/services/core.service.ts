@@ -21,7 +21,15 @@ export class CoreService {
     );
   }
   
+  saveToFavorites(user_id: number, search: { query_searched: string, response_searched: string }): Observable<any> {
+    // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
+      return this.http.post(`https://banklingoapi.onrender.com/api/search/store_search/${user_id}`, search).pipe(
 
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error.error.message);
+      })
+    );
+  }
 
 
 }

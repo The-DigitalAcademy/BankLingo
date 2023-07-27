@@ -12,8 +12,9 @@ const QUERY_QUESTION = "query_question"
 })
 export class SessionsService {
 
-  constructor() { }
+  constructor() {
 
+   }
 
   clean(): void {
     window.sessionStorage.clear();
@@ -65,14 +66,12 @@ export class SessionsService {
     const question = window.sessionStorage.getItem(QUERY_QUESTION);
 
     if (question) {
-      return question;
+      return JSON.parse(question);
     }
 
     return {};
   }
  
-
-
-
+ 
 
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   cardLabel = ""
   responseBody = ""
   responseQuestion : any
+  isIconFilled = false;
 
 
 
@@ -48,12 +50,20 @@ searchText: string = '';
       this.responseBody = this.session.getQueryResponse().message
       if(this.responseBody.length!=0){
         this.showSearched = true
-
+        this.responseQuestion = this.session.getQueryQuestion()
+        // Swal.fire({
+        //   // icon: 'success',
+        //   title: this.responseQuestion,
+        //   text: this.responseBody,
+        //   confirmButtonColor: '#38A3A5',
+        // }).then((result)=>{
+        //   if (result.value){
+        //   }})
       }
-      this.responseQuestion = this.session.getQueryQuestion()
-      this.responseQuestion.substring(1)
-      console.log(this.responseQuestion,"response question");
-      
+
+
+    
+    
 
 
     }else{
@@ -64,7 +74,19 @@ searchText: string = '';
   }
 
   saveSearch() {
-    throw new Error('Method not implemented.');
+
+    this.isIconFilled = !this.isIconFilled;
+    const search = { 
+      query_searched: this.responseQuestion,
+      response_searched: this.responseBody
+      }
+    this.core.saveToFavorites(10,search).subscribe(response =>{
+      console.log(response,"saving to db");
+      
+    })
     }
+
+
+    
 
 }
