@@ -46,6 +46,7 @@ export async function askSimpleQuestionService(request, response) {
         ],
       })
       .then((res) => {
+        
         let object = {
           message: res.data.choices[0].message.content,
         };

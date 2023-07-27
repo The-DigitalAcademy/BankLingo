@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
 
@@ -15,13 +16,25 @@ export class HomeComponent implements OnInit {
   surname : string | undefined
   img : string | undefined
   searchedBefore = false
+  showSearched = false
   cardLabel = ""
+  responseBody = ""
+  responseQuestion : any
+
+
 
 @Input() activeP?: string;
-constructor(private session : SessionsService){}
+constructor(private session : SessionsService, private core : CoreService){}
+
+searchText: string = '';
+
+// onSearchTextChange(searchText: string) {
+//   this.searchText = searchText;
+//   // Perform any operations with the entered text here.
+//   console.log('Entered text:', this.searchText);
+// }
 
   ngOnInit(): void {
-    this.activeP = "home"
      this.name =  this.session.getLoggedUser().name
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
@@ -29,9 +42,16 @@ constructor(private session : SessionsService){}
   
     
     
-
     if(this.searchedBefore==true){
-        this.cardLabel = "Recent searched terms"
+      this.cardLabel = "Recent searched terms"
+      this.showSearched = true
+      this.responseBody = this.session.getQueryResponse().message
+      this.responseQuestion = this.session.getQueryQuestion()
+      this.responseQuestion.substring(1)
+      console.log(this.responseQuestion,"response question");
+      
+
+
     }else{
       this.cardLabel = "Fun facts about ABSA"
     }
@@ -39,6 +59,5 @@ constructor(private session : SessionsService){}
 
   }
 
-  
 
 }

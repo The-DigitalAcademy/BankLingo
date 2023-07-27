@@ -74,3 +74,4 @@ getUser(id: any): Observable<any> {
   }
 }
 
+}
