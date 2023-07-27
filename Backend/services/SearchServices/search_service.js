@@ -20,4 +20,21 @@ export async function SearchHistoryService(request, response) {
   }
 }
 
-export default SearchHistoryService
+export async function getSearchHistoryLimitService(request,response){
+const user_id = parseInt(request.params.user_id);
+  try{
+    const insertQuery = {
+      text: "SELECT * FROM search_history  WHERE user_id = $1 ORDER BY date_created DESC LIMIT 7 OFFSET 0",
+      values: [user_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(results.rows[0]);
+  } catch(error){
+    console.error("Error saving user to the database:", error);
+    return response.status(500).send({message: "Search history for user does not exist"})
+  
+  }
+
+}
+
+export default {SearchHistoryService,getSearchHistoryLimitService}
