@@ -11,6 +11,7 @@ import { Users } from 'src/app/types/users';
 })
 export class HomeComponent implements OnInit {
 
+
   loggedUser : Users | undefined
   name : string | undefined
   surname : string | undefined
@@ -44,8 +45,11 @@ searchText: string = '';
     
     if(this.searchedBefore==true){
       this.cardLabel = "Recent searched terms"
-      this.showSearched = true
       this.responseBody = this.session.getQueryResponse().message
+      if(this.responseBody.length!=0){
+        this.showSearched = true
+
+      }
       this.responseQuestion = this.session.getQueryQuestion()
       this.responseQuestion.substring(1)
       console.log(this.responseQuestion,"response question");
@@ -59,5 +63,8 @@ searchText: string = '';
 
   }
 
+  saveSearch() {
+    throw new Error('Method not implemented.');
+    }
 
 }

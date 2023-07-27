@@ -23,12 +23,5 @@ export class CoreService {
   
 
 
-//   searchSong(songName: string) {
-//     const url = 'http://localhost:4000/detect/song';
 
-//     return this.http.get(url, { params: { songName } });
-    
-
-    
-// }
 }
