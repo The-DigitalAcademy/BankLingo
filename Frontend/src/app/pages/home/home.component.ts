@@ -39,6 +39,8 @@ searchText: string = '';
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
      this.searchedBefore = this.session.getLoggedUser().searchedbefore
+
+   
   
     /**
      * TODO: when user search and its a first time, it must change the searched before to true, so they no longer see the fun facts

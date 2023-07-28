@@ -83,6 +83,9 @@ export class SearchBarComponent {
 
   searchQuery() {
 
+   const searchedB4 = this.session.getLoggedUser().searchedbefore
+   
+
 
     if (this.humourSwitch) {
       this.core.SearchTermWithHumor({ message: this.queryText }).subscribe(response=>{
