@@ -34,9 +34,17 @@
                
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="password" placeholder="Password"/>
-                 
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="password" placeholder="Password" type="{{ showPassword ? 'text' : 'password' }}" [(ngModel)]="password"/>
+                  <label (click)="togglePasswordVisibility()">
+                    {{ showPassword ? 'Hide Password' : 'Show Password' }}
+                  </label>
                 </div>
+                
+                 
+                 
+                  
+               
+                
 
                 <div *ngIf="invalidCredentials" class="text-center text-danger mb-3">
                   Invalid credentials. Please try again.
