@@ -38,6 +38,25 @@
  
   <div *ngIf="searchedBefore" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
     <div class="card cardStyle card-block mx-2" *ngFor="let searchObj of favoutitesArray"  style="min-width: 250px; background-color: #64d2ff">
+     
+      <!-- <div *ngIf="searchObj.ishumour" class="card-body">
+       
+        <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
+
+        <p class="card-text">
+         {{searchObj.response_searched}}  
+          <span style="font-size: 1.3rem;">
+          😂 
+         </span>
+       
+
+        </p> 
+
+
+      
+      </div> -->
+
+     
       <div class="card-body">
        
         <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>

@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
   responseBody = ""
   responseQuestion : any
   isIconFilled = false;
-  favoutitesArray: SearchObject[] = []
+  favoutitesArray: SearchObject[] = [];
+  user_id = 0
 
 
 
@@ -39,6 +40,7 @@ searchText: string = '';
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
      this.searchedBefore = this.session.getLoggedUser().searchedbefore
+     this.user_id = this.session.getLoggedUser().userId
 
    
   
@@ -68,7 +70,7 @@ searchText: string = '';
       query_searched: this.responseQuestion,
       response_searched: this.responseBody
       }
-    this.core.saveToFavorites(10,search).subscribe(response =>{
+    this.core.saveToFavorites(this.user_id,search).subscribe(response =>{
       console.log(response,"saving to db");
       
     })
@@ -77,9 +79,12 @@ searchText: string = '';
 
     initiateUserHistory(){
 
-      this.core.getLatestFavouriteSearch(10).subscribe(response =>{
+      this.core.getLatestFavouriteSearch(this.user_id).subscribe(response =>{
         
         this.favoutitesArray = response
+       // console.log(this.favoutitesArray[0].ishumour,"fav array");
+
+        
 
       })
 
