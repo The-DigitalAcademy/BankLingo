@@ -78,7 +78,7 @@ export class SessionsService {
    updateObj.searchedbefore = true;
    const updatedObjectString = JSON.stringify(updateObj);
    sessionStorage.setItem(LOGGED_USER, updatedObjectString);
-   window.location.reload()
+  //  window.location.reload()
    
   }
  

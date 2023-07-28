@@ -93,7 +93,6 @@ export class SearchBarComponent implements OnInit {
     }
     this.core.updateSearchedBefore(firstSearch).subscribe(response=>{
     this.session.updateUserFirstTimeSearch()
-      console.log(response,"Updated to searched before");
       
     })
 
