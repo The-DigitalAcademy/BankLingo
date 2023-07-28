@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 const LOGGED_USER = "loggedUser"
 const IS_LOGGED = true
+const QUERY_RESPONSE = "query_response"
+const QUERY_QUESTION = "query_question"
 
 
 @Injectable({
@@ -10,8 +12,9 @@ const IS_LOGGED = true
 })
 export class SessionsService {
 
-  constructor() { }
+  constructor() {
 
+   }
 
   clean(): void {
     window.sessionStorage.clear();
@@ -20,6 +23,16 @@ export class SessionsService {
   public saveLoggedUser(user: any): void {
     window.sessionStorage.removeItem(LOGGED_USER);
     window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(user));
+  }
+
+  public saveQueryResponse(message: any): void {
+    window.sessionStorage.removeItem(QUERY_RESPONSE);
+    window.sessionStorage.setItem(QUERY_RESPONSE, JSON.stringify(message));
+  }
+
+  public saveQueryQuestion(question: any): void {
+    window.sessionStorage.removeItem(QUERY_QUESTION);
+    window.sessionStorage.setItem(QUERY_QUESTION, JSON.stringify(question));
   }
 
   public isLogged(isLogged: boolean): void {
@@ -37,9 +50,28 @@ export class SessionsService {
 
     return {};
   }
+
+
+  public getQueryResponse(): any {
+    const response = window.sessionStorage.getItem(QUERY_RESPONSE);
+
+    if (response) {
+      return JSON.parse(response);
+    }
+
+    return {};
+  }
  
+  public getQueryQuestion(): any {
+    const question = window.sessionStorage.getItem(QUERY_QUESTION);
 
+    if (question) {
+      return JSON.parse(question);
+    }
 
-
+    return {};
+  }
+ 
+ 
 
 }
