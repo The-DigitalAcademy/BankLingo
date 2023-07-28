@@ -33,6 +33,9 @@ import {
  *              response_searched:
  *                type: string
  *                default: string
+ *              ishumour:
+ *                type: Boolean
+ *                default: false
  *     responses:
  *      201:
  *        description: Created
