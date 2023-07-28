@@ -45,11 +45,14 @@ export class LoginComponent implements OnInit {
          Swal.fire({
           icon: 'success',
           title: 'Login Successful!',
-          text: 'You have successfully logged in.',
+          text: 'Successfully logged in.',
           confirmButtonColor: '#38A3A5',
+          showConfirmButton: false,
+          timer: 1400
         }).then((result)=>{
+          this.router.navigate(["/home"])
           if (result.value){
-            this.router.navigate(["/home"])
+         
           }})
         
       },
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'User not found',
-          text: 'Try again.',
+          text: 'Please enter correct credentials.',
           confirmButtonColor: '#38A3A5',
         })
         
