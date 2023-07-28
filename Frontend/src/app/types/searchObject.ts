@@ -4,4 +4,5 @@ export interface SearchObject {
     query_searched: string;
     response_searched: string;
     created_date: Date;
+    ishumour:boolean
 }

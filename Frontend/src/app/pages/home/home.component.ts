@@ -82,7 +82,7 @@ searchText: string = '';
       this.core.getLatestFavouriteSearch(this.user_id).subscribe(response =>{
         
         this.favoutitesArray = response
-       // console.log(this.favoutitesArray[0].ishumour,"fav array");
+        console.log(this.favoutitesArray[0].ishumour,"fav array");
 
         
 
