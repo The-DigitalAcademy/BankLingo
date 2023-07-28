@@ -34,6 +34,11 @@ export async function isValidName(name) {
   return nameAndUsernameRegex.test(name);
 }
 
+export async function isValidSAPhoneNumber(phoneNumber) {
+  const saPhoneNumberRegex = /^(\+27|0)[6-8][0-9]{8}$/;
+  return saPhoneNumberRegex.test(phoneNumber);
+}
+
 export async function createUserService(request, response) {
   const {
     name,
@@ -69,7 +74,14 @@ export async function createUserService(request, response) {
       .status(409)
       .json({ message: "name must be atleast 3 Characters" });
   }
-
+  const isValidSaNumber = isValidSAPhoneNumber(contact_number);
+  if (!isValidSaNumber) {
+    return response
+      .status(409)
+      .send({
+        message: "Sa Phone number is not correct format start with +27 or 0",
+      });
+  }
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
