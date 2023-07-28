@@ -3,12 +3,7 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController,
-
-  getUserDetailsController
-
-
-  
+  updateUserProfileController, 
 
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
@@ -203,6 +198,5 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  */
 user_router.put("/api/user/update_profile/{id}", updateUserProfileController);
 
-user_router.get("/get_profile/", getUserDetailsController);
 
 export default user_router;
