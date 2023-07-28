@@ -10,14 +10,7 @@ import { UsersService } from 'src/app/services/users.services';
 })
 export class OtpComponent {
   email!: string;
-  otp?: number;
-  strOTP : string =""
-  emailOtp  = ""
-
-  first : string =""
-   second : string =""
-   third : string =""
-   forth : string =""
+  otp!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,8 +19,6 @@ export class OtpComponent {
     private sessions : SessionsService
   ) {}
 
-  
-
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.email = params['email'];
@@ -35,31 +26,19 @@ export class OtpComponent {
   }
 
   onSubmit(): void {
-  this.emailOtp =  String(this.otp);
-  console.log(this.otp,"this opt");
+    this.userService.verifyOTP(this.email, this.otp).subscribe(
+      (response) => {
+        // OTP verification successful, redirect to reset password page
+        this.router.navigate(['/resetpassword'], {
+          queryParams: { email: this.email },
+        });
+      },
+      (error) => {
+        // Handle OTP verification failure, show error message
+        console.error('Error verifying OTP:', error);
+        // You can display an error message on the UI here
+      }
+    );
   
-this.combineOTP()
-console.log(this.emailOtp,"emailOTP");
-console.log(this.strOTP,"strOTP");
-
-
-this.verifyOTP(this.email,this.emailOtp,this.strOTP)
 }
-
-combineOTP() {
-  this.strOTP = this.first+this.second+this.third+this.forth
-  
-}
-
-verifyOTP(email: string, otp: string, userOTP: string){
-
-  if(otp==userOTP){
-console.log("otp matches");
-  }else{
-    console.log("otp do not matches");
-
-  }
-}
-
-
 }

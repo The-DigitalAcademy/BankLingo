@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'forgotpass', component:ForgotpassComponent},
   {path: 'home', component:HomeComponent},
   {path: 'landing', component:LandingComponent},
-  {path: 'leeson-plan-calender', component:LessonPlanCalenderComponent},
+  {path: 'lesson-plan-calender', component:LessonPlanCalenderComponent},
   {path: 'lesson-plans', component:LessonPlansComponent},
   {path: 'login', component:LoginComponent},
   {path: 'otp', component:OtpComponent},
@@ -36,7 +36,6 @@ const routes: Routes = [
   {path: 'topics', component:TopicsComponent},
   {path: 'nav-bar', component:NavBarComponent},
   {path: 'topics', component:TopicsComponent},
-  {path: 'lesson_plan_Calender', component:NavBarComponent},
   {path: 'search', component:SearchBarComponent},
   {path: 'resetpassword', component:ResetPasswordComponent},
 

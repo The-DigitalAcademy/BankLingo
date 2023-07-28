@@ -39,12 +39,21 @@ export class EditProfileComponent implements OnInit{
 
           
 
-       
-
-
           ngOnInit(): void {
-            // this.getUsers()
-          }
+            //this.getUsers()
+
+          // getUsers() {
+          //   this.usersService.getAllUsers().subscribe(products => {
+          //     this.users
+               
+          //   })
+        
+          //}
+
+          // ngOnInit() {
+          // //  this.getUsers()
+
+          // }
 
           //getUsers() {
            // this.usersService.getAllUsers().subscribe(users => {
@@ -85,9 +94,6 @@ export class EditProfileComponent implements OnInit{
             //   this.users=data
             // })
 
-            // this.usersService.updateData(body,_id).subscribe(data=>{
-            //   this.users=data
-            // })
            // window.location.reload()
          // }
           
@@ -101,3 +107,4 @@ export class EditProfileComponent implements OnInit{
   
 
 //}
+              }
