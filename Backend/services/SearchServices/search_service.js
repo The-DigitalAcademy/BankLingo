@@ -28,7 +28,8 @@ const user_id = parseInt(request.params.user_id);
       values: [user_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json(results.rows[0]);
+   
+    return response.status(200).json(results.rows);
   } catch(error){
     console.error("Error saving user to the database:", error);
     return response.status(500).send({message: "Search history for user does not exist"})
