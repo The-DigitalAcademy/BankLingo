@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
-import Swal from 'sweetalert2';
+import { SearchObject } from 'src/app/types/searchObject';
+
 
 
 @Component({
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   responseBody = ""
   responseQuestion : any
   isIconFilled = false;
+  favoutitesArray: SearchObject[] = []
 
 
 
@@ -31,11 +33,6 @@ constructor(private session : SessionsService, private core : CoreService){}
 
 searchText: string = '';
 
-// onSearchTextChange(searchText: string) {
-//   this.searchText = searchText;
-//   // Perform any operations with the entered text here.
-//   console.log('Entered text:', this.searchText);
-// }
 
   ngOnInit(): void {
      this.name =  this.session.getLoggedUser().name
@@ -46,32 +43,19 @@ searchText: string = '';
     
     
     if(this.searchedBefore==true){
-      this.cardLabel = "Recent searched terms"
+      this.cardLabel = "Favourite searched terms"
+      this.initiateUserHistory()
       this.responseBody = this.session.getQueryResponse().message
       if(this.responseBody.length!=0){
         this.showSearched = true
         this.responseQuestion = this.session.getQueryQuestion()
-        // Swal.fire({
-        //   // icon: 'success',
-        //   title: this.responseQuestion,
-        //   text: this.responseBody,
-        //   confirmButtonColor: '#38A3A5',
-        // }).then((result)=>{
-        //   if (result.value){
-        //   }})
       }
-
-
-    
-    
-
-
     }else{
       this.cardLabel = "Fun facts about ABSA"
     }
 
-
   }
+
 
   saveSearch() {
 
@@ -87,6 +71,18 @@ searchText: string = '';
     }
 
 
-    
+    initiateUserHistory(){
+
+      this.core.getLatestFavouriteSearch(10).subscribe(response =>{
+        
+        this.favoutitesArray = response
+
+
+        console.log(this.favoutitesArray, " got favourite searches");
+      })
+
+    }
+
+
 
 }

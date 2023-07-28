@@ -32,4 +32,15 @@ export class CoreService {
   }
 
 
+  getLatestFavouriteSearch(user_id: number): Observable<any> {
+    // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
+      return this.http.get(`https://banklingoapi.onrender.com/api/search/get_history/${user_id}`).pipe(
+
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error.error.message);
+      })
+    );
+  }
+
+
 }

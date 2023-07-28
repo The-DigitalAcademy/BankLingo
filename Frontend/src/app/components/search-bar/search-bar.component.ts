@@ -11,9 +11,6 @@ import Swal from 'sweetalert2';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-
-
-
 export class SearchBarComponent {
 
   queryText = ""
@@ -29,6 +26,8 @@ export class SearchBarComponent {
       query_searched: this.responseQuestion,
       response_searched: this.responseBody
       }
+      console.log(search,"this is now");
+      
     this.core.saveToFavorites(10,search).subscribe(response =>{
       console.log(response,"saving to db");
       Swal.fire({
@@ -49,11 +48,14 @@ export class SearchBarComponent {
 
   searchQuery(){
     this.core.SearchTerm({message : this.queryText}).subscribe(response =>{
-      this.session.saveQueryResponse(response)
-      this.session.saveQueryQuestion(this.queryText)
-     this.responseBody=this.session.getQueryResponse().message
+    this.session.saveQueryResponse(response)
+    this.session.saveQueryQuestion(this.queryText)
+    this.responseBody=this.session.getQueryResponse().message
+    this.responseQuestion = this.session.getQueryQuestion()
+    console.log(this.responseQuestion,"responsne question got");
+    
      
-      // 
+      
       Swal.fire({
         icon: 'info',
         titleText: this.queryText,
