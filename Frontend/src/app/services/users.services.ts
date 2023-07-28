@@ -13,7 +13,7 @@ import { Users } from '../types/users';
 
 export class UsersService {
 
-  private apiUrls = 'http://localhost:4500';
+  private apiUrls = 'https://banklingoapi.onrender.com';
 
   constructor(private http: HttpClient) { }
 
@@ -57,8 +57,11 @@ login(credentials: { email: string, password: string }): Observable<any> {
     });
   }
 
-  verifyOTP(email: string, otp: string, userOTP : string){
-    
+  verifyOTP(email: string, otp: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
+      email: email,
+      otp: otp,
+    });
   }
 
   resetPassword(email: string, password: string): Observable<any> {

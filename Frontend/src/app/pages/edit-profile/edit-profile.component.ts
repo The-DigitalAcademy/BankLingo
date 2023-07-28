@@ -22,7 +22,29 @@ export class EditProfileComponent implements OnInit{
         private session: SessionsService  
         ) {
          
-         }
+          //private http: HttpClient 
+          ) { }
+
+
+        
+
+          
+
+          ngOnInit(): void {
+            //this.getUsers()
+
+          // getUsers() {
+          //   this.usersService.getAllUsers().subscribe(products => {
+          //     this.users
+               
+          //   })
+        
+          //}
+
+          // ngOnInit() {
+          // //  this.getUsers()
+
+          // }
 
           ngOnInit() {
              

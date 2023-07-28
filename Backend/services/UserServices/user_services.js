@@ -67,30 +67,6 @@ export async function createUserService(request, response) {
   }
 }
 
-export async function getAllUsersService(request, response) {
- 
-  try {
-    // Perform a SELECT query to fetch all users from the database
-    const selectQuery = {
-      text: "SELECT * FROM users",
-    };
-    const results = await client.query(selectQuery);
-
-    // If users are found, return them in the response
-    if (results.rows.length > 0) {
-      return response.status(200).json(results.rows);
-    } else {
-      // If no users found, return an empty array or an appropriate response
-      return response.status(404).json({ message: "No users found" });
-    }
-  } catch (error) {
-    console.error("Error in getAllUsersService:", error);
-    return response.status(500).json({ message: "Internal server error" });
-  }
-    
-}
-
-
 export async function signInUserService(request, response) {
   try {
     const { email, password } = request.body;
@@ -223,5 +199,4 @@ export default {
   passwordResetOTPService,
   updateUserPasswordService,
   updateUserProfileService,
-  getAllUsersService
 };
