@@ -5,6 +5,7 @@ import { Users } from '../types/users';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,25 @@ export class UsersService {
   private apiUrls = 'https://banklingoapi.onrender.com';
 
   constructor(private http: HttpClient) { }
+
+  private isAuthenticated = false;
+
+  
+
+  // Simulate a login operation
+  logins() {
+    this.isAuthenticated = true;
+    // You might store the authentication token or user information in the session/local storage
+  }
+
+  // Simulate a logout operation
+  logout() {
+    this.isAuthenticated = false;
+    // Clear the authentication token or user information from the session/local storage
+  }
+
+  // Check if the user is authenticated (you might have a more sophisticated check in real-world scenarios)
+ 
 
 
 //create user
@@ -33,8 +53,9 @@ login(credentials: { email: string, password: string }): Observable<any> {
     })
   );
 }
-
-
+isLoggedIn(): boolean {
+  return this.isAuthenticated;
+}
 // Getting user by id
 
 getUser(id: any): Observable<any> {

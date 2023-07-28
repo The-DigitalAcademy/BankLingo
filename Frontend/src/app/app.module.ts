@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+import { MatProgressBarModule } from '@angular/material/progress-bar'; // Import the progress bar module
+
+
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
