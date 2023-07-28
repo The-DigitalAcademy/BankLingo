@@ -29,6 +29,11 @@ export async function isValidPassword(password) {
   return passwordRegex.test(password);
 }
 
+export async function isValidName(name) {
+  const nameAndUsernameRegex = /^.{3,}$/;
+  return nameAndUsernameRegex.test(name);
+}
+
 export async function createUserService(request, response) {
   const {
     name,
@@ -44,7 +49,6 @@ export async function createUserService(request, response) {
 
   // Backend validation for the Email
   const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
-
   if (!emailRegularExpression.test(email)) {
     return response
       .status(404)
@@ -52,15 +56,19 @@ export async function createUserService(request, response) {
   }
   const isPassValid = await isValidPassword(password);
   if (!isPassValid) {
+    return response.status(409).json({
+      message:
+        "The password needs to have atleast 8 Characters, One special character, and atleast one number",
+    });
+  }
+
+  const isValidNameCheck = await isValidName(name);
+
+  if (!isValidNameCheck) {
     return response
       .status(409)
-      .json({
-        message:
-          "The password needs to have atleast 8 Characters, One special character, and atleast one number",
-      });
+      .json({ message: "name must be atleast 3 Characters" });
   }
-  // Backend validation for surname and name
-  // The values must be atleast 3 Characters
 
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
