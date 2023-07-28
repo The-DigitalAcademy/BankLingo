@@ -66,6 +66,11 @@ export async function createUserService(request, response) {
         "The password needs to have atleast 8 Characters, One special character, and atleast one number",
     });
   }
+  if (age < 10) {
+    return response
+      .status(409)
+      .json({ message: "You need to be atleast 10 Years to register" });
+  }
 
   const isValidNameCheck = await isValidName(name);
 
@@ -76,11 +81,9 @@ export async function createUserService(request, response) {
   }
   const isValidSaNumber = isValidSAPhoneNumber(contact_number);
   if (!isValidSaNumber) {
-    return response
-      .status(409)
-      .send({
-        message: "Sa Phone number is not correct format start with +27 or 0",
-      });
+    return response.status(409).send({
+      message: "Sa Phone number is not correct format start with +27 or 0",
+    });
   }
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
