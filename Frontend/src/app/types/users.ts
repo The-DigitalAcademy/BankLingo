@@ -3,7 +3,7 @@ export interface Users {
     name?: string;
     surname?: string;
     age?: number;
-    email?: string;
+    email: string;
     password?: string;
     contact_number?: string;
     profile_picture?: string;

@@ -4,9 +4,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +11,7 @@ import { Users } from '../types/users';
 export class UsersService {
 
   private apiUrls = 'https://banklingoapi.onrender.com';
+  //private apiUrls = 'http://localhost:4500';
 
   constructor(private http: HttpClient) { }
 

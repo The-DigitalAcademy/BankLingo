@@ -47,7 +47,7 @@ export class EditProfileComponent implements OnInit {
       name: [this.user.name, Validators.required],
       surname: [this.user.surname, Validators.required],
       age: [this.user.age, Validators.required],
-      contact_number: [this.user.contact_number, Validators.required],
+      contact_number: [this.user.contact_number],
       email: [this.user.email, [Validators.required, Validators.email]],
       profile_picture: [this.user.profile_picture],
     });
@@ -69,8 +69,12 @@ export class EditProfileComponent implements OnInit {
       this.usersService
         .updateProfile(this.user.userId, updatedData)
         .subscribe((res) => {
-          this.user = res;
-          console.log('success  ' + res);
+            // Merge the updatedData with the existing user object
+        this.user = { ...this.user, ...res };
+        console.log('success  ' + res);
+
+        // Save the updated user data to session storage
+        this.session.saveLoggedUser(this.user);
         });
     }
   }

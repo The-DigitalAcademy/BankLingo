@@ -17,12 +17,12 @@ export class SessionsService {
    }
 
   clean(): void {
-    window.localStorage.clear();
+    window.sessionStorage.clear();
   }
 
   public saveLoggedUser(user: any): void {
-    window.localStorage.removeItem(LOGGED_USER);
-    window.localStorage.setItem(LOGGED_USER, JSON.stringify(user));
+    window.sessionStorage.removeItem(LOGGED_USER);
+    window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(user));
   }
 
   public saveQueryResponse(message: any): void {
@@ -36,13 +36,13 @@ export class SessionsService {
   }
 
   public isLogged(isLogged: boolean): void {
-    window.localStorage.removeItem(LOGGED_USER);
-    window.localStorage.setItem(LOGGED_USER, JSON.stringify(isLogged));
+    window.sessionStorage.removeItem(LOGGED_USER);
+    window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(isLogged));
   }
 
 
   public getLoggedUser(): any {
-    const song = window.localStorage.getItem(LOGGED_USER);
+    const song = window.sessionStorage.getItem(LOGGED_USER);
 
     if (song) {
       return JSON.parse(song);
