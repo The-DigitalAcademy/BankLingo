@@ -5,6 +5,7 @@ const LOGGED_USER = "loggedUser"
 const IS_LOGGED = true
 const QUERY_RESPONSE = "query_response"
 const QUERY_QUESTION = "query_question"
+const UPDATE_USER = "UPDATE_USER_BOOLEAN"
 
 
 @Injectable({
@@ -70,6 +71,15 @@ export class SessionsService {
     }
 
     return {};
+  }
+
+  public updateUserFirstTimeSearch(){
+   const updateObj = this.getLoggedUser()
+   updateObj.searchedbefore = true;
+   const updatedObjectString = JSON.stringify(updateObj);
+   sessionStorage.setItem(LOGGED_USER, updatedObjectString);
+   window.location.reload()
+   
   }
  
  

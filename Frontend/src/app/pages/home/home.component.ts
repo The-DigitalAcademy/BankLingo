@@ -63,33 +63,15 @@ searchText: string = '';
   }
 
 
-  saveSearch() {
-
-    this.isIconFilled = !this.isIconFilled;
-    const search = { 
-      query_searched: this.responseQuestion,
-      response_searched: this.responseBody
-      }
-    this.core.saveToFavorites(this.user_id,search).subscribe(response =>{
-      console.log(response,"saving to db");
-      
-    })
-    }
-
-
     initiateUserHistory(){
 
       this.core.getLatestFavouriteSearch(this.user_id).subscribe(response =>{
         
         this.favoutitesArray = response
-        console.log(this.favoutitesArray[0].ishumour,"fav array");
-
-        
+        console.log(this.favoutitesArray[0],"fav array"); 
 
       })
 
     }
-
-
 
 }

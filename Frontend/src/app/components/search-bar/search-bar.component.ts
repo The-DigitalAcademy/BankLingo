@@ -87,10 +87,15 @@ export class SearchBarComponent implements OnInit {
 
    const searchedB4 = this.session.getLoggedUser().searchedbefore
    if(searchedB4==false){  
-    // this.core.updateSearchedBefore().subscribe(response=>{
-    //   console.log(response,"Updated to searched before");
+    const firstSearch = {
+      searchedbefore: true,
+      email: this.session.getLoggedUser().email
+    }
+    this.core.updateSearchedBefore(firstSearch).subscribe(response=>{
+    this.session.updateUserFirstTimeSearch()
+      console.log(response,"Updated to searched before");
       
-    // })
+    })
 
    }
 

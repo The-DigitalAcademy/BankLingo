@@ -32,7 +32,7 @@
 
 
   <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
-  <div style="height:250px">
+  <div style="height:250px" *ngIf="searchedBefore">
 
 
     <div *ngIf="searchedBefore" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
@@ -90,7 +90,10 @@
 
 
 <!-- =================recyclerview FOR FUN FACTS================ -->
-<div *ngIf="!searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
+<div style="height:250px" *ngIf="!searchedBefore">
+
+
+<div class="d-flex flex-row flex-nowrap overflow-auto" *ngIf="!searchedBefore" style="height: auto">
   <div class="card cardStyle card-block mx-2" style="min-width: 240px">
     <div class="card-body">
       <h5 class="card-title" style="color: #212529; font-style: oblique">
@@ -123,9 +126,11 @@
         bulk of the card's content.
       </p>
     </div>
-    <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
   </div>
 </div>
+</div>
+
+
 
 <div style="z-index: -9999999; padding-top: 2px">
   <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" viewBox="0 0 375 163" fill="none">
