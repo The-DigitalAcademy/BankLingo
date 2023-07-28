@@ -20,6 +20,18 @@ export class CoreService {
       })
     );
   }
+
+
+  SearchTermWithHumor(prompt: { message: string }): Observable<any> {
+    // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
+      return this.http.post("https://banklingoapi.onrender.com/api/gpt/humour", prompt).pipe(
+
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error.error.message);
+      })
+    );
+  }
+
   
   saveToFavorites(user_id: number, search: { query_searched: string, response_searched: string }): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(

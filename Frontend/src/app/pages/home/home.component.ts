@@ -38,9 +38,11 @@ searchText: string = '';
      this.name =  this.session.getLoggedUser().name
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
-    this.searchedBefore = this.session.getLoggedUser().searchedbefore
+     this.searchedBefore = this.session.getLoggedUser().searchedbefore
   
-    
+    /**
+     * TODO: when user search and its a first time, it must change the searched before to true, so they no longer see the fun facts
+     */
     
     if(this.searchedBefore==true){
       this.cardLabel = "Favourite searched terms"
@@ -77,8 +79,6 @@ searchText: string = '';
         
         this.favoutitesArray = response
 
-
-        console.log(this.favoutitesArray, " got favourite searches");
       })
 
     }
