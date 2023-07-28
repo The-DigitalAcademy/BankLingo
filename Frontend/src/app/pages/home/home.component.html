@@ -1,199 +1,175 @@
 <div class="container fullScreen side-margins">
-  
-
-
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col col-md-9 col-lg-7 col-xl-5">
-     
-        <div class="card-body p-head">
-          <div class="d-flex text-black">
-            <div class="flex-shrink-0">
-              <img src="../../../assets/img/profile_placeholder.jpeg"
-                alt="Generic placeholder image" class="img-fluid profileImage"
-                style="width: 70px; height:70px; border-radius: 35px;">
-            </div>
-            <div class="flex-grow-1 ms-3">
-              <h5 class="mb-1 mt-1">Welcome back</h5>
-              <p class="mb-1 p-1" style="color: #2b2a2a;">{{name}} {{surname}}</p>
-            
-             
-            </div>
-            
+      <div class="card-body p-head">
+        <div class="d-flex text-black">
+          <div class="flex-shrink-0">
+            <img src="../../../assets/img/profile_placeholder.jpeg" alt="Generic placeholder image"
+              class="img-fluid profileImage" style="width: 70px; height: 70px; border-radius: 35px" />
           </div>
-         
+          <div class="flex-grow-1 ms-3">
+            <h5 class="mb-1 mt-1">Welcome back</h5>
+            <p class="mb-1 p-1" style="color: #2b2a2a">
+              {{ name }} {{ surname }}
+            </p>
+          </div>
         </div>
-        
+      </div>
     </div>
   </div>
-  <hr>
- 
-  <div class="headingFont d-flex justify-content-center my-3  ">Banking Made Simple!</div>
+  <hr />
+
+  <div class="headingFont d-flex justify-content-center my-3">
+    Banking Made Simple!
+  </div>
   <app-search-bar></app-search-bar>
 
-  <!-- <app-search-bar (searchTextEmitter)="onSearchTextChange($event)"></app-search-bar> -->
 
-  <div class="card humorPosition form-group">
 
-   <label class="form-check-label" for="flexSwitchCheckDefault" style="color: #212529;">Sense of humor</label>
-    <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-    </div>
+  <div class="headingFont d-flex" style="margin-top: 42px; margin-bottom: 20px">
+    {{ cardLabel }}
   </div>
 
+  <div></div>
 
-  <div class="headingFont d-flex" style="margin-top:42px; margin-bottom:20px;">{{cardLabel}}</div>
-
-
-  <div>
-
-  </div>
-
-
-  
- <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
-  <div  *ngIf="searchedBefore" style="height:auto" class="d-flex flex-row flex-nowrap overflow-auto">
-    <div *ngIf="showSearched">
-      <div  class="card cardStyle card-block mx-2" style="min-width: 240px;">
-        <div class="card-body">
-          <h5 class="card-title" style="color:#212529">{{responseQuestion}}</h5>
-          <p class="card-text">{{responseBody}}</p>
-        </div>
-
-<div class="d-flex push-to-bottomm justify-content-between" style="width:100%">
-  <span class="badge bg-light text-dark px-3" routerLink="/lesson-plan-calender">Learn more</span>
-  
- <!-- <svg xmlns="http://www.w3.org/2000/svg" (click)="saveSearch()" width="22" height="21" class="bi bi-star" viewBox="0 0 16 16">
-  <g [attr.fill]="isIconFilled ? 'currentColor' : 'none'">
-    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-  </g>
-</svg> -->
-
-
-<i class="bi bi-star-fill"></i>
-
-</div>
-       
-        
-      </div>
-    </div>
-   
-    <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
-      <div class="card-body">
-        <h5 class="card-title">Over-draft</h5>
-        <p class="card-text">Banks let you spend more money than you have, but you'll pay extra fees.</p>
-      </div>
-      <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
-
-    </div>
-    <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
-      <div class="card-body">
-        <h5 class="card-title">Tax return</h5>
-        <p class="card-text">Tax return is when you give some money back to the government if they took too much from you</p>
-      </div>
-      <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
-
-    </div> 
-    
-</div>
-
-
-
- <!-- =================recyclerview FOR FUN FACTS================ -->
- <div *ngIf="!searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
-  <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
-    <div class="card-body">
-      <h5 class="card-title" style="color:#212529; font-style: oblique;">Did you know?</h5>
-      <p class="card-text">The name "ABSA" stands for "Amalgamated Banks of South Africa.</p>
-    
-    </div>
-    <!-- <span class="badge bg-light text-dark push-to-bottomm">Learn more</span> -->
-
-    
-  </div>
-  <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64D2FF;">
-    <div class="card-body">
-      <h5 class="card-title" style="color: #212529; font-style: italic;">Did you know?</h5>
-      <p class="card-text">ABSA provides a wide range of financial services, including retail banking, corporate and investment banking, wealth management, and insurance.</p>
-    </div>
-    <!-- <span class="badge bg-light text-dark push-to-bottomm">Learn more</span> -->
-
-  </div>
-  <div class="card cardStyle card-block mx-2" style="min-width: 240px;">
-    <div class="card-body">
-      <h5 class="card-title" style="color: #212529">Tax return </h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-    <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
-
-  </div>   
-  
-  
-</div>
-
-
-
-<div style="z-index:-9999999; padding-top: 2px;">
-  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto"  viewBox="0 0 375 163" fill="none">
-    <path d="M0.5 42.0645H374.5V136.71H0.5V42.0645Z" fill="white"/>
-    <path d="M90.5 115.677C90.5 141.813 70.3528 163 45.5 163C20.6472 163 0.5 141.813 0.5 115.677C0.5 89.5419 20.6472 68.3548 45.5 68.3548C70.3528 68.3548 90.5 89.5419 90.5 115.677Z" fill="url(#paint0_linear_983_5022)"/>
-    <path d="M308.5 68.3548C308.5 106.106 279.399 136.71 243.5 136.71C207.601 136.71 178.5 106.106 178.5 68.3548C178.5 30.6035 207.601 0 243.5 0C279.399 0 308.5 30.6035 308.5 68.3548Z" fill="url(#paint1_linear_983_5022)"/>
-    <defs>
-    <linearGradient id="paint0_linear_983_5022" x1="187.5" y1="0" x2="187.5" y2="163" gradientUnits="userSpaceOnUse">
-    <stop stop-color="#48CAE4"/>
-    <stop offset="0.8" stop-color="#D9D9D9" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="paint1_linear_983_5022" x1="243.5" y1="0" x2="243.5" y2="136.71" gradientUnits="userSpaceOnUse">
-    <stop stop-color="#46F1D2"/>
-    <stop offset="0.6" stop-color="#D9D9D9" stop-opacity="0"/>
-    </linearGradient>
-    </defs>
-    </svg>
-   
-</div>
-
-<div class="tab-bar-iphone push-to-bottom">
-  <div class="tab-bar-buttons-wrapper">
-    <div class="tab-bar-buttons">
-      <div class="frame" id="homeNav" routerLink="/home">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#0d6efd" class="bi bi-house-fill" viewBox="0 0 16 16">
-            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-          </svg>
-        <div class="label" style="color:#0d6efd;">Home</div>
-        </div>
-      <div  class="frame" id="LessonNav" routerLink="/lesson_plan_Calender">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
-            <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
-            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1ZM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V8Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"/>
-          </svg>
-        <div class="text-wrapper">Lesson</div>
-        </div>
-      <div class="frame" id="homeProgress" routerLink="/progress">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
-            <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
-            <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
-          </svg>
-        <div class="text-wrapper">Progress</div>
-      </div>
-      <div class="frame" id="profileNav" routerLink="/profile">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-          </svg>
-        <div class="text-wrapper">Profile</div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-  
-
-
-
-
-
-
-   
-    
+  <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
+  <div style="height:250px">
 
  
+  <div *ngIf="searchedBefore" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
+    <div class="card cardStyle card-block mx-2" *ngFor="let searchObj of favoutitesArray"  style="min-width: 250px; background-color: #64d2ff">
+      <div class="card-body">
+       
+        <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
+
+        <p class="card-text">
+         {{searchObj.response_searched}}  
+          <span style="font-size: 1.3rem;">
+          😂 
+         </span>
+       
+
+        </p> 
+
+
+      
+      </div>
+     
+      <div class="d-flex push-to-bottomm justify-content-between" style="width: 100%">
+        <span class="badge bg-light text-dark px-3" routerLink="/lesson-plan-calender">Learn more</span>
+
+       
+        <!-- <i class="bi bi-star-fill"></i> -->
+      </div>    </div>
+   
+  </div>
+</div>
+
+
+  <!-- =================recyclerview FOR FUN FACTS================ -->
+  <div *ngIf="!searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
+    <div class="card cardStyle card-block mx-2" style="min-width: 240px">
+      <div class="card-body">
+        <h5 class="card-title" style="color: #212529; font-style: oblique">
+          Did you know?
+        </h5>
+        <p class="card-text">
+          The name "ABSA" stands for "Amalgamated Banks of South Africa.
+        </p>
+      </div>
+      <!-- <span class="badge bg-light text-dark push-to-bottomm">Learn more</span> -->
+    </div>
+    <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64d2ff">
+      <div class="card-body">
+        <h5 class="card-title" style="color: #212529; font-style: italic">
+          Did you know?
+        </h5>
+        <p class="card-text">
+          ABSA provides a wide range of financial services, including retail
+          banking, corporate and investment banking, wealth management, and
+          insurance.
+        </p>
+      </div>
+      <!-- <span class="badge bg-light text-dark push-to-bottomm">Learn more</span> -->
+    </div>
+    <div class="card cardStyle card-block mx-2" style="min-width: 240px">
+      <div class="card-body">
+        <h5 class="card-title" style="color: #212529">Tax return</h5>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+      </div>
+      <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
+    </div>
+  </div>
+
+  <div style="z-index: -9999999; padding-top: 2px">
+    <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" viewBox="0 0 375 163" fill="none">
+      <path d="M0.5 42.0645H374.5V136.71H0.5V42.0645Z" fill="white" />
+      <path
+        d="M90.5 115.677C90.5 141.813 70.3528 163 45.5 163C20.6472 163 0.5 141.813 0.5 115.677C0.5 89.5419 20.6472 68.3548 45.5 68.3548C70.3528 68.3548 90.5 89.5419 90.5 115.677Z"
+        fill="url(#paint0_linear_983_5022)" />
+      <path
+        d="M308.5 68.3548C308.5 106.106 279.399 136.71 243.5 136.71C207.601 136.71 178.5 106.106 178.5 68.3548C178.5 30.6035 207.601 0 243.5 0C279.399 0 308.5 30.6035 308.5 68.3548Z"
+        fill="url(#paint1_linear_983_5022)" />
+      <defs>
+        <linearGradient id="paint0_linear_983_5022" x1="187.5" y1="0" x2="187.5" y2="163"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="#48CAE4" />
+          <stop offset="0.8" stop-color="#D9D9D9" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="paint1_linear_983_5022" x1="243.5" y1="0" x2="243.5" y2="136.71"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="#46F1D2" />
+          <stop offset="0.6" stop-color="#D9D9D9" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="tab-bar-iphone push-to-bottom">
+    <div class="tab-bar-buttons-wrapper">
+      <div class="tab-bar-buttons">
+        <div class="frame" id="homeNav" routerLink="/home">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#0d6efd" class="bi bi-house-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
+            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+          </svg>
+          <div class="label" style="color: #0d6efd">Home</div>
+        </div>
+        <div class="frame" id="LessonNav" routerLink="/lesson_plan_Calender">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+            class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
+            <path
+              d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z" />
+            <path
+              d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1ZM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V8Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" />
+          </svg>
+          <div class="text-wrapper">Lesson</div>
+        </div>
+        <div class="frame" id="homeProgress" routerLink="/progress">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list-task"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z" />
+            <path
+              d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z" />
+            <path fill-rule="evenodd"
+              d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z" />
+          </svg>
+          <div class="text-wrapper">Progress</div>
+        </div>
+        <div class="frame" id="profileNav" routerLink="/profile">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill"
+            viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+          </svg>
+          <div class="text-wrapper">Profile</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
