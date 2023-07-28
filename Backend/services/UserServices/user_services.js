@@ -23,6 +23,17 @@ async function emailExists(email) {
   }
 }
 
+export async function isValidPassword(password) {
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!#$%^&*()\-_=+\\|[\]{};:'",.<>/?])[A-Za-z\d@!#$%^&*()\-_=+\\|[\]{};:'",.<>/?]{8,}$/;
+  return passwordRegex.test(password);
+}
+
+export async function isValidName(name) {
+  const nameAndUsernameRegex = /^.{3,}$/;
+  return nameAndUsernameRegex.test(name);
+}
+
 export async function createUserService(request, response) {
   const {
     name,
@@ -35,6 +46,30 @@ export async function createUserService(request, response) {
     created_date,
     updated_date,
   } = request.body;
+
+  // Backend validation for the Email
+  const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegularExpression.test(email)) {
+    return response
+      .status(404)
+      .json({ message: "Email is not the right format required" });
+  }
+  const isPassValid = await isValidPassword(password);
+  if (!isPassValid) {
+    return response.status(409).json({
+      message:
+        "The password needs to have atleast 8 Characters, One special character, and atleast one number",
+    });
+  }
+
+  const isValidNameCheck = await isValidName(name);
+
+  if (!isValidNameCheck) {
+    return response
+      .status(409)
+      .json({ message: "name must be atleast 3 Characters" });
+  }
+
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
