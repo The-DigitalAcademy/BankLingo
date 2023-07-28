@@ -11,6 +11,7 @@ import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
 import { HttpClient } from '@angular/common/http';
 import { SessionsService } from 'src/app/services/sessions.service';
+import Swal from 'sweetalert2';
 
 const URL = 'http://localhost:4500';
 
@@ -25,7 +26,8 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
-    private session: SessionsService
+    private session: SessionsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -76,6 +78,14 @@ export class EditProfileComponent implements OnInit {
         // Save the updated user data to session storage
         this.session.saveLoggedUser(this.user);
         });
+        Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated Successfully!',
+          confirmButtonColor: '#38A3A5',
+        }).then((result)=>{
+          if (result.value){
+            this.router.navigate(["/profile"])
+          }}) 
     }
   }
 }
