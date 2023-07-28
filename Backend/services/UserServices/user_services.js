@@ -95,6 +95,8 @@ export async function signInUserService(request, response) {
         userId: results.rows[0].user_id,
         age: results.rows[0].age,
         searchedbefore: results.rows[0].searchedbefore,
+        contact_number: results.rows[0].contact_number,
+        profile_picture: results.rows[0].profile_picture,
         token: token,
       };
       return response.status(200).json(successObject);
