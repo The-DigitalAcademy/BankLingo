@@ -191,10 +191,28 @@ export async function updateUserProfileService(request, response) {
     throw error;
   }
 }
+
+export async function updateUserSearchedBooleanService(request, response) {
+  const { searchedbefore, email } = request.body;
+
+  try {
+    const insertQuery = {
+      text: "UPDATE users SET searchedbefore = $1 WHERE email = $2",
+      values: [searchedbefore, email],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(`Updated searched with email ${email}`);
+  } catch (error) {
+    console.error("Error updating user searchedbefore:", error);
+    throw error;
+  }
+}
+
 export default {
   createUserService,
   signInUserService,
   passwordResetOTPService,
   updateUserPasswordService,
   updateUserProfileService,
+  updateUserSearchedBooleanService,
 };
