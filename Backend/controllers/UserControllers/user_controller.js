@@ -3,7 +3,8 @@ import {
   signInUserService,
   passwordResetOTPService,
   updateUserPasswordService,
-  updateUserProfileService
+  updateUserProfileService,
+  updateUserSearchedBooleanService,
 } from "../../services/UserServices/user_services.js";
 
 export async function createUserController(request, response) {
@@ -49,7 +50,6 @@ export async function updatePasswordController(request, response) {
   }
 }
 
-
 export async function updateUserProfileController(request, response) {
   try {
     const result = await updateUserProfileService(request, response);
@@ -60,14 +60,21 @@ export async function updateUserProfileController(request, response) {
   }
 }
 
-
-
-
+export async function updateUserSearchedBooleanController(request, response) {
+  try {
+    const result = await updateUserSearchedBooleanService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in updateUserSearchedBooleanService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
 
 export default {
   createUserController,
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController
+  updateUserProfileController,
+  updateUserSearchedBooleanController
 };
