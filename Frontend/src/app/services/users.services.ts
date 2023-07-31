@@ -13,6 +13,7 @@ import { Users } from '../types/users';
 export class UsersService {
 
   private apiUrls = 'https://banklingoapi.onrender.com';
+  //private apiUrls = 'http://localhost:4500';
 
   constructor(private http: HttpClient) { }
 
@@ -58,9 +59,6 @@ isLoggedIn(): boolean {
 }
 // Getting user by id
 
-getUser(id: any): Observable<any> {
-  return this.http.get(`${this.apiUrls}/api/user/${id}`);
-}
 
 
   // sendOTP(email: string): Observable<any> {
@@ -93,5 +91,33 @@ getUser(id: any): Observable<any> {
       password: password,
     });
   }
+
+  update2Password(email: string, newPassword: string): Observable<any> {
+    const url = `${this.apiUrls}/api/user/update-password`;
+
+    // Create a request body with the email and new password
+    const body = {
+      email: email,
+      password: newPassword
+    };
+
+    return this.http.put<any>(url, body);
+  }
+
+
+  getUser(users:Users):Observable<any>{
+
+    return this.http.get(`${this.apiUrls}/api/user/get_profile`);
+  }
+
+// updateProfile(id: number, data:Users): Observable<any> {
+//   return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/{id}${id}`, data);
+// }
+
+updateProfile(id: number, data: any): Observable<any> {
+
+  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data);
+
 }
 
+}

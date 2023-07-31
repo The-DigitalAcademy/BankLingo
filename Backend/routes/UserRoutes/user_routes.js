@@ -3,7 +3,8 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController,
+  updateUserProfileController, 
+
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
@@ -151,7 +152,7 @@ user_router.post("/passwordReset/:id", updatePasswordController);
 
 /**
  * @openapi
- * '/api/user/update_profile/{id}':
+ '/api/user/update_profile/{id}':
  *  put:
  *     tags:
  *     - User Route
@@ -195,6 +196,7 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  *      500:
  *        description: Internal Server Error
  */
-user_router.put("/update_profile/:user_id", updateUserProfileController);
+user_router.put("/api/user/update_profile/{id}", updateUserProfileController);
+
 
 export default user_router;

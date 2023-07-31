@@ -95,6 +95,8 @@ export async function signInUserService(request, response) {
         userId: results.rows[0].user_id,
         age: results.rows[0].age,
         searchedbefore: results.rows[0].searchedbefore,
+        contact_number: results.rows[0].contact_number,
+        profile_picture: results.rows[0].profile_picture,
         token: token,
       };
       return response.status(200).json(successObject);
@@ -183,6 +185,10 @@ export async function updateUserProfileService(request, response) {
       values: [name, surname, email, contact_number, profile_picture, user_id],
     };
     const results = await client.query(insertQuery);
+     // Check if any rows were affected by the update
+     if (results.rowCount === 0) {
+      return response.status(404).json({ message: "User not found" });
+    }
     return response.status(200).json(`Updated user with Id ${user_id}`);
   } catch (error) {
     console.error("Error checking user existence:", error);
