@@ -34,7 +34,7 @@ export class CoreService {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
     return this.http
-      .post('http://localhost:4500/api/gpt', prompt, { headers })
+      .post('https://banklingoapi.onrender.com/api/gpt', prompt, { headers })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
