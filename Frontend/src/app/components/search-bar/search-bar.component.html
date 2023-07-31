@@ -1,9 +1,14 @@
 <div class=" rounded d-flex">
   <div class="searchLayout">
     <input type="search" class="form-control rounded inputBorder" [(ngModel)]="queryText"  style="width:90%" placeholder="Ask me to explain anything..." aria-label="Search" aria-describedby="search-addon" />
-    <span class="input-group-text border-0 btnBorder" id="search-addon" (click)="searchQuery()">
+    <span class="input-group-text border-0 btnBorder gap-1" id="search-addon" (click)="searchQuery()">
         <i class="bi bi-search" style="color: #007bff;"></i>
+        <div class="microphone_container">
+          <i class="bi bi-mic-fill"></i>
+        </div>
     </span>
+   
+   
   </div>
 
  

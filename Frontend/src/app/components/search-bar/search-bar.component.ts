@@ -3,7 +3,7 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
-
+declare var $: any; 
 
 
 @Component({
@@ -19,6 +19,10 @@ export class SearchBarComponent implements OnInit {
   responseBody = ""
   humourSwitch = false;
   user_id = 0
+  //Web speech
+  recognition: any;
+  textboxContent = '';
+  isRecognizing = false;
 
   constructor(private core: CoreService, private session: SessionsService, private location: Location) {
   
