@@ -5,15 +5,26 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           <div class="card-body p-5">
             <div class="align-items-center justify-content-center d-flex">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                alt="Generic placeholder image"
-                class="img-fluid profileImage"
-                style="width: 120px; height: 120px; border-radius: 120px"
-              />
+              <div *ngIf="imagePreviewUrl">
+                <img
+                  src="{{ imagePreviewUrl }}"
+                  alt=""
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+              </div>
+              <!-- If you want to show a default image when `imagePreviewUrl` is not available -->
+              <div *ngIf="!imagePreviewUrl">
+                <img
+                  src="path/to/default/image.png"
+                  alt="Default Image"
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+              </div>
             </div>
 
-            <form [formGroup]="profileForm" (ngSubmit)="updaterUser()">
+            <form [formGroup]="profileForm" (ngSubmit)="updateUser()">
               <div class="form-outline mb-4">
                 <label for="floatingInput">First name</label>
                 <input
@@ -68,9 +79,29 @@
                   type="file"
                   class="form-control"
                   style="border: 1px solid; border-color: black"
+                  (change)="onFileSelected($event)"
+                  #fileInput
                   formControlName="profile_picture"
                 />
+
+
+                <!-- <button style="width: 20px; height:20px;" (click)="onUpload()" class="btn btn-secondary btn-md">Upload Image</button> -->
+
               </div>
+
+              <div *ngIf="imagePreviewUrl">
+                <img
+                  [src]="imagePreviewUrl"
+                  alt=""
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+                <button style="width: 100px; height: 50px" (click)="onUpload()" class="btn btn-secondary btn-sm">Upload Image</button>
+              
+              </div>
+              
+              <br>
+              <br>
 
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary btn-sm">

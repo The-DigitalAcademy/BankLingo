@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
-
-
 
 
 @Injectable({
@@ -13,11 +11,27 @@ import { Users } from '../types/users';
 export class UsersService {
 
   private apiUrls = 'https://banklingoapi.onrender.com';
+  accessToken!: any;
+  user!: any;
   //private apiUrls = 'http://localhost:4500';
 
   constructor(private http: HttpClient) { }
 
   private isAuthenticated = false;
+
+  private getHeaders(): HttpHeaders {
+    this.accessToken = sessionStorage.getItem('loggedUser');
+    this.user = JSON.parse(this.accessToken) as 'loggedUser';
+    if (!this.user) {
+      console.log('There is no user');
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.user.token}`,
+      'Content-Type': 'application/json',
+    });
+    return headers;
+  }
+
 
   
 
@@ -115,8 +129,8 @@ isLoggedIn(): boolean {
 // }
 
 updateProfile(id: number, data: any): Observable<any> {
-
-  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data);
+  const headers = this.getHeaders();
+  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data, {headers});
 
 }
 

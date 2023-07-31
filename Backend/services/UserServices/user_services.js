@@ -6,6 +6,14 @@ import secret from "../../configuration/secrets/jwt_secret.js";
 import transporter from "../../configuration/communication/email_configurations.js";
 import { request } from "express";
 
+import cloudinary from "cloudinary";
+
+cloudinary.config({
+  cloud_name: "dbdhrolar",
+  api_key: "716837615899186",
+  api_secret: "Z5nCMDCFGf5PYUimMJHCzVGdtR4",
+});
+
 async function emailExists(email) {
   try {
     const emailQuery = {
@@ -221,7 +229,7 @@ export async function updateUserPasswordService(request, response) {
     throw error;
   }
 }
-
+//first one
 export async function updateUserProfileService(request, response) {
   const user_id = parseInt(request.params.user_id);
   const { name, surname, email, contact_number, profile_picture } =
@@ -229,11 +237,19 @@ export async function updateUserProfileService(request, response) {
   if (isNaN(user_id)) {
     return response.status(400).json({ message: "Invalid user ID" });
   }
+
+
   try {
+
+    const resultCloud = await cloudinary.uploader.upload(profile_picture,{
+      folder:"bankpictures",
+    })
+    const profile_picture = resultCloud.secure_url;
     const insertQuery = {
       text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",
       values: [name, surname, email, contact_number, profile_picture, user_id],
     };
+
     const results = await client.query(insertQuery);
      // Check if any rows were affected by the update
      if (results.rowCount === 0) {
@@ -245,6 +261,59 @@ export async function updateUserProfileService(request, response) {
     throw error;
   }
 }
+
+// export async function updateUserProfileService(request, response) {
+//   const user_id = parseInt(request.params.user_id);
+//   const { name, surname, email, contact_number, profile_picture } = request.body;
+
+//   if (isNaN(user_id)) {
+//     return response.status(400).json({ message: "Invalid user ID" });
+//   }
+
+//   try {
+//     // Check if the request contains a file upload
+//     upload.single("profile_picture")(request, response, async (err) => {
+//       if (err) {
+//         console.error("Error uploading profile picture:", err);
+//         return response.status(500).json({ message: "Internal server error" });
+//       }
+
+//       // Get the file path of the uploaded image (if any)
+//       const filePath = request.file ? request.file.path : null;
+
+//       // Upload the image to Cloudinary
+//       let profilePictureUrl = null;
+//       if (filePath) {
+//         const cloudinaryResponse = await cloudinary.uploader.upload(filePath);
+//         profilePictureUrl = cloudinaryResponse.secure_url;
+//         profile_picture = profilePictureUrl;
+//       }
+
+//       const insertQuery = {
+//         text: "UPDATE users SET name = $1, surname = $2, email = $3, contact_number = $4, profile_picture = $5 WHERE user_id = $6",
+//         values: [
+//           name,
+//           surname,
+//           email,
+//           contact_number,
+//           profile_picture, // Save the public URL in the database
+//           user_id,
+//         ],
+//       };
+
+//       const results = await client.query(insertQuery);
+//       // Check if any rows were affected by the update
+//       if (results.rowCount === 0) {
+//         return response.status(404).json({ message: "User not found" });
+//       }
+
+//       return response.status(200).json(`Updated user with ID ${user_id}`);
+//     });
+//   } catch (error) {
+//     console.error("Error updating user profile:", error);
+//     return response.status(500).json({ message: "Internal server error" });
+//   }
+// }
 
 export async function updateUserSearchedBooleanService(request, response) {
   const { searchedbefore, email } = request.body;
