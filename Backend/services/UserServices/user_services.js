@@ -46,6 +46,11 @@ export async function createUserService(request, response) {
     created_date,
     updated_date,
   } = request.body;
+  
+  // Surname validation
+  if (surname === null || surname === undefined) {
+    return response.status(400).json({ message: "Surname is required" });
+  }
 
   // Backend validation for the Email
   const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
