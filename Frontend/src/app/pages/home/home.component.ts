@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
   responseBody = ""
   responseQuestion : any
   isIconFilled = false;
-  favoutitesArray: SearchObject[] = []
+  favoutitesArray: SearchObject[] = [];
+  user_id = 0
 
 
 
@@ -39,6 +40,9 @@ searchText: string = '';
      this.surname = this.session.getLoggedUser().surname
      this.img = this.session.getLoggedUser().profile_picture
      this.searchedBefore = this.session.getLoggedUser().searchedbefore
+     this.user_id = this.session.getLoggedUser().userId
+
+   
   
     /**
      * TODO: when user search and its a first time, it must change the searched before to true, so they no longer see the fun facts
@@ -59,30 +63,15 @@ searchText: string = '';
   }
 
 
-  saveSearch() {
-
-    this.isIconFilled = !this.isIconFilled;
-    const search = { 
-      query_searched: this.responseQuestion,
-      response_searched: this.responseBody
-      }
-    this.core.saveToFavorites(10,search).subscribe(response =>{
-      console.log(response,"saving to db");
-      
-    })
-    }
-
-
     initiateUserHistory(){
 
-      this.core.getLatestFavouriteSearch(10).subscribe(response =>{
+      this.core.getLatestFavouriteSearch(this.user_id).subscribe(response =>{
         
         this.favoutitesArray = response
+        console.log(this.favoutitesArray[0],"fav array"); 
 
       })
 
     }
-
-
 
 }

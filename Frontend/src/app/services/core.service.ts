@@ -32,6 +32,18 @@ export class CoreService {
     );
   }
 
+
+  updateSearchedBefore(prompt: { searchedbefore: boolean, email:string }): Observable<any> {
+    // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
+      return this.http.put("https://banklingoapi.onrender.com/api/user/update_boolean", prompt).pipe(
+
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error.error.message);
+      })
+    );
+  }
+
+
   
   saveToFavorites(user_id: number, search: { query_searched: string, response_searched: string }): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(

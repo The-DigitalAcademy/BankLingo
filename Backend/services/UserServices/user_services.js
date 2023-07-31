@@ -23,6 +23,22 @@ async function emailExists(email) {
   }
 }
 
+export async function isValidPassword(password) {
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!#$%^&*()\-_=+\\|[\]{};:'",.<>/?])[A-Za-z\d@!#$%^&*()\-_=+\\|[\]{};:'",.<>/?]{8,}$/;
+  return passwordRegex.test(password);
+}
+
+export async function isValidName(name) {
+  const nameAndUsernameRegex = /^.{3,}$/;
+  return nameAndUsernameRegex.test(name);
+}
+
+export async function isValidSAPhoneNumber(phoneNumber) {
+  const saPhoneNumberRegex = /^(\+27|0)[6-8][0-9]{8}$/;
+  return saPhoneNumberRegex.test(phoneNumber);
+}
+
 export async function createUserService(request, response) {
   const {
     name,
@@ -35,6 +51,40 @@ export async function createUserService(request, response) {
     created_date,
     updated_date,
   } = request.body;
+
+  // Backend validation for the Email
+  const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegularExpression.test(email)) {
+    return response
+      .status(404)
+      .json({ message: "Email is not the right format required" });
+  }
+  const isPassValid = await isValidPassword(password);
+  if (!isPassValid) {
+    return response.status(409).json({
+      message:
+        "The password needs to have atleast 8 Characters, One special character, and atleast one number",
+    });
+  }
+  if (age < 10) {
+    return response
+      .status(409)
+      .json({ message: "You need to be atleast 10 Years to register" });
+  }
+
+  const isValidNameCheck = await isValidName(name);
+
+  if (!isValidNameCheck) {
+    return response
+      .status(409)
+      .json({ message: "name must be atleast 3 Characters" });
+  }
+  const isValidSaNumber = isValidSAPhoneNumber(contact_number);
+  if (!isValidSaNumber) {
+    return response.status(409).send({
+      message: "Sa Phone number is not correct format start with +27 or 0",
+    });
+  }
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
@@ -195,10 +245,28 @@ export async function updateUserProfileService(request, response) {
     throw error;
   }
 }
+
+export async function updateUserSearchedBooleanService(request, response) {
+  const { searchedbefore, email } = request.body;
+
+  try {
+    const insertQuery = {
+      text: "UPDATE users SET searchedbefore = $1 WHERE email = $2",
+      values: [searchedbefore, email],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(`Updated searched with email ${email}`);
+  } catch (error) {
+    console.error("Error updating user searchedbefore:", error);
+    throw error;
+  }
+}
+
 export default {
   createUserService,
   signInUserService,
   passwordResetOTPService,
   updateUserPasswordService,
   updateUserProfileService,
+  updateUserSearchedBooleanService,
 };

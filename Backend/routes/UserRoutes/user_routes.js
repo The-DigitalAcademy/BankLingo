@@ -3,7 +3,8 @@ import {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController, 
+  updateUserProfileController,
+  updateUserSearchedBooleanController,
 
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
@@ -198,5 +199,40 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  */
 user_router.put("/api/user/update_profile/{id}", updateUserProfileController);
 
+
+/**
+ * @openapi
+ * '/api/user/update_boolean':
+ *  put:
+ *     tags:
+ *     - User Route
+ *     summary: Update Boolean
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - user_id
+ *            properties:
+ *              searchedbefore:
+ *                 type: Boolean
+ *                 default: false
+ *              email:
+ *                 type: string
+ *                 default: string
+ *     responses:
+ *      200:
+ *        description: Success
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Internal Server Error
+ */
+
+user_router.put("/update_boolean", updateUserSearchedBooleanController);
 
 export default user_router;
