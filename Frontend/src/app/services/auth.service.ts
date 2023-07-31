@@ -11,11 +11,12 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     // Retrieve the JSON-formatted string from sessionStorage
-    const accessToken = sessionStorage.getItem('loggedUser');
+    this.accessToken = sessionStorage.getItem('loggedUser');
+    
 
-    if (accessToken) {
+    if (this.accessToken) {
       // If accessToken is not null or undefined, parse it to get the user object
-      this.user = JSON.parse(accessToken) as loggedUser;
+      this.user = JSON.parse(this.accessToken) as loggedUser;
       const accessTokenValue = this.user.token;
 
       // Check if the user has a valid access token
