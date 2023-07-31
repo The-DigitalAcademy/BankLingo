@@ -6,6 +6,7 @@ import {
   updateUserProfileController,
   updateUserSearchedBooleanController,
 } from "../../controllers/UserControllers/user_controller.js";
+import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
 const user_router = express.Router();
 
@@ -29,7 +30,7 @@ const user_router = express.Router();
  *              name:
  *                type: string
  *                default: string
- *              surnaname:
+ *              surname:
  *                type: string
  *                default: string
  *              age:
@@ -196,7 +197,11 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  *      500:
  *        description: Internal Server Error
  */
-user_router.put("/update_profile/:user_id", updateUserProfileController);
+user_router.put(
+  "/update_profile/:user_id",
+  authenticateToken,
+  updateUserProfileController
+);
 
 /**
  * @openapi
@@ -231,6 +236,10 @@ user_router.put("/update_profile/:user_id", updateUserProfileController);
  *        description: Internal Server Error
  */
 
-user_router.put("/update_boolean", updateUserSearchedBooleanController);
+user_router.put(
+  "/update_boolean",
+  authenticateToken,
+  updateUserSearchedBooleanController
+);
 
 export default user_router;
