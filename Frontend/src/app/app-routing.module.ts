@@ -18,34 +18,47 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [
+  {
+    path: 'edit_profile',
+    component: EditProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'forgotpass', component: ForgotpassComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'landing', component: LandingComponent },
+  {
+    path: 'lesson-plan-calender',
+    component: LessonPlanCalenderComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'lesson-plans',
+    component: LessonPlansComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'otp', component: OtpComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'progress', component: ProgressComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'topic_content',
+    component: TopicContentComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
+  { path: 'nav-bar', component: NavBarComponent },
+  { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchBarComponent, canActivate: [AuthGuard] },
+  { path: 'resetpassword', component: ResetPasswordComponent },
 
-  {path: 'edit_profile', component:EditProfileComponent},
-  {path: 'forgotpass', component:ForgotpassComponent},
-  {path: 'home', component:HomeComponent},
-  {path: 'landing', component:LandingComponent},
-  {path: 'lesson-plan-calender', component:LessonPlanCalenderComponent},
-  {path: 'lesson-plans', component:LessonPlansComponent},
-  {path: 'login', component:LoginComponent},
-  {path: 'otp', component:OtpComponent},
-  {path: 'profile', component:ProfileComponent},
-  {path: 'progress', component:ProgressComponent},
-  {path: 'register', component:RegisterComponent},
-  {path: 'topic_content', component:TopicContentComponent},
-  {path: 'topics', component:TopicsComponent},
-  {path: 'nav-bar', component:NavBarComponent},
-  {path: 'topics', component:TopicsComponent},
-  {path: 'search', component:SearchBarComponent},
-  {path: 'resetpassword', component:ResetPasswordComponent},
-
-  { path: '', redirectTo: 'landing', pathMatch: 'full' }
-
-
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
