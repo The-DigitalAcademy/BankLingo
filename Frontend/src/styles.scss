@@ -3,6 +3,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
+
 .headingFont{
     color: #38A3A5;
 font-feature-settings: 'clig' off, 'liga' off;
@@ -46,3 +47,6 @@ letter-spacing: -0.4px;
 
 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
