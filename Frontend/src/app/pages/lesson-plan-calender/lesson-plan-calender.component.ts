@@ -98,14 +98,25 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   handleDateClick(arg: DateClickArg) {
     // Toggle the class on the clicked day element
-
-    
     arg.dayEl.classList.toggle('clicked-day');
-    console.log('clicked');
+
+    // Update the selectedDates array
+    const clickedDate = arg.date;
+    const index = this.selectedDates.findIndex(date => date.toISOString() === clickedDate.toISOString());
+    if (index === -1) {
+      this.selectedDates.push(clickedDate);
+    } else {
+      this.selectedDates.splice(index, 1);
+    }
+  }
+
+  getSelectedDaysCount() {
+    return this.selectedDates.length;
+  }
 
   }
  
-}
+
 
 
 
