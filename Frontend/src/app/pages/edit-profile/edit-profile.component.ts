@@ -8,6 +8,7 @@ import { SessionsService } from 'src/app/services/sessions.service';
 import Swal from 'sweetalert2';
 import { UploadImageService } from 'src/app/services/uploadImage.service';
 import { Observable, Observer } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-profile',
@@ -28,10 +29,12 @@ export class EditProfileComponent implements OnInit {
     private usersService: UsersService,
     private session: SessionsService,
     private router: Router,
-    private uploadService: UploadImageService
+    private uploadService: UploadImageService,
+    private titlePage : Title
   ) {}
 
   ngOnInit() {
+    this.titlePage.setTitle("Edit profile")
     // Retrieve the user data from session storage
     this.user = this.session.getLoggedUser();
 

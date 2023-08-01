@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -17,7 +18,12 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   calendarOptions!: CalendarOptions;
 
+
+  constructor(private titlePage : Title){}
+
   ngOnInit() {
+    this.titlePage.setTitle("Lesson")
+
     this.initializeCalendar();
   }
 

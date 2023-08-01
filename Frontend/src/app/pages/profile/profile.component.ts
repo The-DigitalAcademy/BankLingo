@@ -16,6 +16,7 @@ import { Users } from 'src/app/types/users';
 import { HttpClient } from '@angular/common/http';
 import { SessionsService } from 'src/app/services/sessions.service';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
 
 const URL = 'http://localhost:4500';
 
@@ -44,8 +45,8 @@ export class ProfileComponent {
   maxValue = 100;constructor(
     private usersService: UsersService,
     private router: Router, private formBuilder: FormBuilder,
-    
     private session: SessionsService,
+    private titlePage : Title
   ) {}
 
 
@@ -53,6 +54,7 @@ export class ProfileComponent {
   ngOnInit() {
     // Retrieve the user data from session storage
     this.user = this.session.getLoggedUser();
+    this.titlePage.setTitle("Profile")
 
     // Check if the user variable contains valid user data before initializing the form
     if (this.user && Object.keys(this.user).length > 0) {
