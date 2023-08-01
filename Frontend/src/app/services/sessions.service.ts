@@ -5,6 +5,7 @@ const LOGGED_USER = "loggedUser"
 const IS_LOGGED = true
 const QUERY_RESPONSE = "query_response"
 const QUERY_QUESTION = "query_question"
+const UPDATE_USER = "UPDATE_USER_BOOLEAN"
 
 
 @Injectable({
@@ -23,6 +24,8 @@ export class SessionsService {
   public saveLoggedUser(user: any): void {
     window.sessionStorage.removeItem(LOGGED_USER);
     window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(user));
+    // this.isLogged(true)
+
   }
 
   public saveQueryResponse(message: any): void {
@@ -33,6 +36,7 @@ export class SessionsService {
   public saveQueryQuestion(question: any): void {
     window.sessionStorage.removeItem(QUERY_QUESTION);
     window.sessionStorage.setItem(QUERY_QUESTION, JSON.stringify(question));
+   
   }
 
   public isLogged(isLogged: boolean): void {
@@ -40,6 +44,7 @@ export class SessionsService {
     window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(isLogged));
   }
 
+  
 
   public getLoggedUser(): any {
     const song = window.sessionStorage.getItem(LOGGED_USER);
@@ -70,6 +75,15 @@ export class SessionsService {
     }
 
     return {};
+  }
+
+  public updateUserFirstTimeSearch(){
+   const updateObj = this.getLoggedUser()
+   updateObj.searchedbefore = true;
+   const updatedObjectString = JSON.stringify(updateObj);
+   sessionStorage.setItem(LOGGED_USER, updatedObjectString);
+  //  window.location.reload()
+   
   }
  
  

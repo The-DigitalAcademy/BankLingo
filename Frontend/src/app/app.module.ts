@@ -2,7 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+
+
+// import { MatProgressBarModule } from '@angular/material/progress-bar'; // Import the progress bar module
+
+
+
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
+
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -49,6 +60,7 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
+    
 
     ResetPasswordComponent,
     HomeBeforeComponent,
@@ -59,8 +71,10 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
+    
+    BrowserAnimationsModule 
   ],
+   
   providers: [],
   bootstrap: [AppComponent]
 })

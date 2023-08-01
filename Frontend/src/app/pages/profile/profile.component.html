@@ -1,2 +1,198 @@
-<p>profile works!</p>
-<app-bottom-nav-bar></app-bottom-nav-bar>
+<!-- 
+       
+
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+         
+            <div class="card-body p-5">
+              
+                <div class="align-items-center justify-content-center d-flex">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                      alt="Generic placeholder image" class="img-fluid profileImage"
+                      style="width: 200px; height:200px; border-radius: 200px;">
+                  </div>
+    
+
+              <form >
+
+                <div class="form-outline mb-4"><div class="row justify-content-center">
+                    <div class="col-6">
+                        <h3>First name</h3> 
+                    </div>
+                    <div class="col-6">
+                        <div class="frame" id="profileNav" routerLink="/edit_profile">
+                            <span id="boot-icon" class="bi bi-pencil" style="font-size: 2rem; color: rgb(0, 0, 0);"></span>
+                         
+        </div>
+                    </div>
+                  </div>
+
+
+                    
+                   
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      
+                     
+                    </div>
+                  </div>
+
+
+
+                
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Progress bar</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Cheque Account</h6>
+                      <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                 
+
+               
+                   
+                    
+                
+               
+               
+            
+
+              </form>
+
+
+            </div>
+          
+     
+    
+    
+               
+              
+          </div>
+          <app-bottom-nav-bar></app-bottom-nav-bar>
+      
+
+
+ -->
+ <section style="background-color: #ffffff;">
+  <div class="container py-5">
+   
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <div class="align-items-center justify-content-center d-flex">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                alt="Generic placeholder image"
+                class="img-fluid profileImage"
+                style="width: 120px; height: 120px; border-radius: 120px"
+              />
+            </div>
+            <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
+            
+            <div class="d-flex justify-content-center mb-2">
+              <a routerLink="/edit_profile">
+              <button type="button" class="btn btn-primary">Edit Profile</button>
+              
+            </a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row" >
+              <div class="col-sm-3">
+                <p class="mb-0">First Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Last Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.surname}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Age</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.age}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Contact number</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.contact_number}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.email}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1">Lesson plan progress status</span> 
+                </p>
+              
+                <p class="mt-4 mb-1" style="font-size: .77rem;">Cheque Account</p>
+
+                <div>
+                  <progress [value]="progressValue" [max]="maxValue"></progress>
+                  <span>{{ progressValue }}% Complete</span>
+                </div>
+
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1">Favourites term searched</span>
+                </p>
+                
+               
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Saving</li>
+                  <li class="list-group-item">Cardless</li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <i class="bi bi-box-arrow-right" style="font-size: 25px;" (click)="logout()"></i> Logout
+
+        
+      </div>
+    </div>
+  </div>
+  
+</section>
+<!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->

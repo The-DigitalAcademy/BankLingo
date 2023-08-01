@@ -34,11 +34,6 @@ export async function isValidName(name) {
   return nameAndUsernameRegex.test(name);
 }
 
-export async function isValidSAPhoneNumber(phoneNumber) {
-  const saPhoneNumberRegex = /^(\+27|0)[6-8][0-9]{8}$/;
-  return saPhoneNumberRegex.test(phoneNumber);
-}
-
 export async function createUserService(request, response) {
   const {
     name,
@@ -71,11 +66,6 @@ export async function createUserService(request, response) {
         "The password needs to have atleast 8 Characters, One special character, and atleast one number",
     });
   }
-  if (age < 10) {
-    return response
-      .status(409)
-      .json({ message: "You need to be atleast 10 Years to register" });
-  }
 
   const isValidNameCheck = await isValidName(name);
 
@@ -84,12 +74,7 @@ export async function createUserService(request, response) {
       .status(409)
       .json({ message: "name must be atleast 3 Characters" });
   }
-  const isValidSaNumber = isValidSAPhoneNumber(contact_number);
-  if (!isValidSaNumber) {
-    return response.status(409).send({
-      message: "Sa Phone number is not correct format start with +27 or 0",
-    });
-  }
+
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
@@ -240,6 +225,10 @@ export async function updateUserProfileService(request, response) {
       values: [name, surname, email, contact_number, profile_picture, user_id],
     };
     const results = await client.query(insertQuery);
+     // Check if any rows were affected by the update
+     if (results.rowCount === 0) {
+      return response.status(404).json({ message: "User not found" });
+    }
     return response.status(200).json(`Updated user with Id ${user_id}`);
   } catch (error) {
     console.error("Error checking user existence:", error);

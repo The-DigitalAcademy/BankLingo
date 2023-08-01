@@ -1,4 +1,4 @@
-<div class="container fullScreen side-margins">
+<div class="container  side-margins">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col col-md-9 col-lg-7 col-xl-5">
       <div class="card-body p-head">
@@ -8,7 +8,7 @@
               class="img-fluid profileImage" style="width: 70px; height: 70px; border-radius: 35px" />
           </div>
           <div class="flex-grow-1 ms-3">
-            <h5 class="mb-1 mt-1">Welcome back</h5>
+            <h5 class="mb-1 mt-1" style="font-size: large; font-weight: bold;">Welcome back</h5>
             <p class="mb-1 p-1" style="color: #2b2a2a">
               {{ name }} {{ surname }}
             </p>
@@ -33,7 +33,7 @@
 
 
   <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
-  <div style="height:250px">
+  <div style="height:250px" *ngIf="searchedBefore">
 
 
     <div *ngIf="searchedBefore" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
@@ -45,7 +45,7 @@
             <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
             <p class="card-text">
               {{searchObj.response_searched}}
-              <span style="font-size: 1.3rem;">
+              <span >
                 😂
               </span>
             </p>
@@ -66,12 +66,7 @@
 
             <p class="card-text">
               {{searchObj.response_searched}}
-
-
-
             </p>
-
-
 
           </div>
           <div class="d-flex push-to-bottomm justify-content-between" style="width: 100%">
@@ -91,10 +86,13 @@
 
 
 <!-- =================recyclerview FOR FUN FACTS================ -->
-<div *ngIf="!searchedBefore" class="d-flex flex-row flex-nowrap overflow-auto">
+<div style="height:250px" *ngIf="!searchedBefore">
+
+
+<div class="d-flex flex-row flex-nowrap overflow-auto" *ngIf="!searchedBefore" style="height: auto">
   <div class="card cardStyle card-block mx-2" style="min-width: 240px">
     <div class="card-body">
-      <h5 class="card-title" style="color: #212529; font-style: oblique">
+      <h5 class="card-title" style="color: #212529">
         Did you know?
       </h5>
       <p class="card-text">
@@ -105,7 +103,7 @@
   </div>
   <div class="card cardStyle card-block mx-2" style="min-width: 240px; background-color: #64d2ff">
     <div class="card-body">
-      <h5 class="card-title" style="color: #212529; font-style: italic">
+      <h5 class="card-title" style="color: #212529;">
         Did you know?
       </h5>
       <p class="card-text">
@@ -124,12 +122,14 @@
         bulk of the card's content.
       </p>
     </div>
-    <span class="badge bg-light text-dark push-to-bottomm">Learn more</span>
   </div>
 </div>
+</div>
+
+
 
 <div style="z-index: -9999999; padding-top: 2px">
-  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" viewBox="0 0 375 163" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="130" viewBox="0 0 375 163" fill="none">
     <path d="M0.5 42.0645H374.5V136.71H0.5V42.0645Z" fill="white" />
     <path
       d="M90.5 115.677C90.5 141.813 70.3528 163 45.5 163C20.6472 163 0.5 141.813 0.5 115.677C0.5 89.5419 20.6472 68.3548 45.5 68.3548C70.3528 68.3548 90.5 89.5419 90.5 115.677Z"
@@ -151,7 +151,7 @@
   </svg>
 </div>
 
-<div class="tab-bar-iphone push-to-bottom">
+<!-- <div class="tab-bar-iphone push-to-bottom">
 
   <div class="tab-bar-buttons-wrapper">
     <div class="tab-bar-buttons">
@@ -195,5 +195,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- </div> -->

@@ -5,6 +5,7 @@ import {
   updatePasswordController,
   updateUserProfileController,
   updateUserSearchedBooleanController,
+
 } from "../../controllers/UserControllers/user_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
@@ -153,7 +154,7 @@ user_router.post("/passwordReset/:id", updatePasswordController);
 
 /**
  * @openapi
- * '/api/user/update_profile/{id}':
+ '/api/user/update_profile/{id}':
  *  put:
  *     tags:
  *     - User Route

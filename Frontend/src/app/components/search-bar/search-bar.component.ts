@@ -102,13 +102,14 @@ export class SearchBarComponent implements OnInit {
       showCloseButton: true,
       showCancelButton: true,
       confirmButtonText:
-        '<i class="bi bi-hand-thumbs-up-fill"></i> Understood!',
+        '<i class="bi bi-hand-thumbs-up-fill"></i> Add to favourites!',
       confirmButtonAriaLabel: 'Thumbs up',
-      cancelButtonText: '<i class="bi bi-star-fill"></i> Add to favourites',
-      cancelButtonAriaLabel: 'Add to favourites',
+      cancelButtonText: '<i class="bi bi-star-fill"></i> Understood!',
+      cancelButtonAriaLabel: 'Understood!',
       footer: '<a href="lesson-plan-calender">Learn more?</a>',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.saveSearch()
       } else if (result.isDismissed) {
         console.log('Modal dismissed');
       } else {
@@ -118,12 +119,21 @@ export class SearchBarComponent implements OnInit {
   }
 
   searchQuery() {
-    const searchedB4 = this.session.getLoggedUser().searchedbefore;
-    if (searchedB4 == false) {
-      // this.core.updateSearchedBefore().subscribe(response=>{
-      //   console.log(response,"Updated to searched before");
-      // })
+
+   const searchedB4 = this.session.getLoggedUser().searchedbefore
+   if(searchedB4==false){  
+    const firstSearch = {
+      searchedbefore: true,
+      email: this.session.getLoggedUser().email
     }
+    this.core.updateSearchedBefore(firstSearch).subscribe(response=>{
+    this.session.updateUserFirstTimeSearch()
+      
+    })
+
+   }
+
+
 
     if (this.humourSwitch) {
       this.humourSwitch = true;

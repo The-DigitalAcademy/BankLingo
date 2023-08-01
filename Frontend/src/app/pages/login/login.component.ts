@@ -29,6 +29,13 @@ export class LoginComponent implements OnInit {
       });
     }
 
+    password: string = '';
+  showPassword: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   ngOnInit() {
 
     this.invalidCredentials = false;
