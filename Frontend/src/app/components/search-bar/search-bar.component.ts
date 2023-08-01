@@ -102,13 +102,14 @@ export class SearchBarComponent implements OnInit {
       showCloseButton: true,
       showCancelButton: true,
       confirmButtonText:
-        '<i class="bi bi-hand-thumbs-up-fill"></i> Understood!',
+        '<i class="bi bi-hand-thumbs-up-fill"></i> Add to favourites!',
       confirmButtonAriaLabel: 'Thumbs up',
-      cancelButtonText: '<i class="bi bi-star-fill"></i> Add to favourites',
-      cancelButtonAriaLabel: 'Add to favourites',
+      cancelButtonText: '<i class="bi bi-star-fill"></i> Understood!',
+      cancelButtonAriaLabel: 'Understood!',
       footer: '<a href="lesson-plan-calender">Learn more?</a>',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.saveSearch()
       } else if (result.isDismissed) {
         console.log('Modal dismissed');
       } else {
