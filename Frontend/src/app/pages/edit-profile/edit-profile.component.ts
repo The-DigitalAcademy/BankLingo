@@ -80,12 +80,13 @@ export class EditProfileComponent implements OnInit {
         // The response should contain the Cloudinary URL
         const profilePictureUrl = response.secure_url;
         console.log('Uploaded profile picture URL:', profilePictureUrl);
+        alert('Uploaded Successfullly')
   
         // Set the profile_picture value in the form with the Cloudinary URL
         this.profileForm.get('profile_picture')?.setValue(profilePictureUrl);
   
         // Now, submit the form with the updated profile_picture value
-        this.updateUser();
+        //this.updateUser();
       },
       (error: any) => {
         console.error('Error uploading profile picture:', error);
@@ -138,6 +139,8 @@ export class EditProfileComponent implements OnInit {
           icon: 'success',
           title: 'Profile Updated Successfully!',
           confirmButtonColor: '#38A3A5',
+          showConfirmButton: false,
+          timer: 1400
         }).then((result)=>{
           if (result.value){
             this.router.navigate(["/profile"])
