@@ -1,9 +1,23 @@
 
-<full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+<!-- <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
 <div class="d-flex justify-content-center">
     <button type="submit" class="btn"
       >Generate</button>
-      
-  </div>
 
+  </div> -->
+  <h5 class="text-center mb-5 headerTop">Select duration of your lesson plan</h5>
+
+
+<form  (ngSubmit)="onSaveDate()">
+  <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+<div *ngIf="duration">
+   
+  <p>You have selected: {{ duration | date: 'longDate' }}</p>
+</div>
+<div class="d-flex justify-content-center">
+    <button type="submit" class="btn"
+      >Generate</button>
+      </div>
+    </form>
 <app-bottom-nav-bar></app-bottom-nav-bar>

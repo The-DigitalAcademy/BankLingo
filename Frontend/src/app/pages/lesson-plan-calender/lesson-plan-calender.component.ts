@@ -3,6 +3,8 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarOptions, DateClickArg } from 'fullcalendar';
+import { HttpClient } from '@angular/common/http';
+import { LessonPlan } from 'src/app/types/lessonPlan';
 
 
 
@@ -13,9 +15,59 @@ import { CalendarOptions, DateClickArg } from 'fullcalendar';
   encapsulation: ViewEncapsulation.None
 })
 export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
+
+  private apiUrls = 'https://banklingoapi.onrender.com';
+
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
 
-  calendarOptions!: CalendarOptions;
+  events: LessonPlan[] = [
+   
+    // Add more events as needed
+  ];
+
+  
+
+  duration: Date |
+   undefined = new Date();
+
+   selectedDates: Date[] = [];
+
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    dateClick: (info) => {
+      this.duration = info.date;
+    }
+  };
+
+
+  constructor(private http: HttpClient) { }
+
+  
+
+  onDateClick(date: Date) {
+    const index = this.selectedDates.findIndex(d => d.toISOString() === date.toISOString());
+    if (index === -1) {
+      this.selectedDates.push(date);
+    } else {
+      this.selectedDates.splice(index, 1);
+    }
+  }
+
+  onSaveDate() {
+    const numberOfDays = this.selectedDates.length;
+    // Make a POST request to the backend API to save the number of days
+    this.http.post('${this.apiUrls}/api/gpt/create', { numberOfDays }).subscribe(
+      (response: any) => {
+        console.log(response.message);
+      },
+      (error) => {
+        console.error('Error saving number of days:', error);
+      }
+    );
+    
+  } 
+
+ // calendarOptions!: CalendarOptions;
 
   ngOnInit() {
     this.initializeCalendar();
@@ -35,17 +87,19 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay',
       },
-      events: [
-        // Add your events data here
-        // Example: { title: 'Event 1', date: '2023-08-01' },
-        //          { title: 'Event 2', date: '2023-08-05' },
-      ],
+      // events: [
+      //   //Add your events data here
+      //   { title: 'Event 1', date: '2023-08-01' },
+      //            { title: 'Event 2', date: '2023-08-05' },
+      // ],
       dateClick: this.handleDateClick.bind(this),
     };
   }
 
   handleDateClick(arg: DateClickArg) {
     // Toggle the class on the clicked day element
+
+    
     arg.dayEl.classList.toggle('clicked-day');
     console.log('clicked');
 
