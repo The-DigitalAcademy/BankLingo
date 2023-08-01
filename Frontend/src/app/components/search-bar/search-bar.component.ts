@@ -28,6 +28,7 @@ export class SearchBarComponent implements OnInit {
   recognition: any;
   isRecognizing = false;
   content?: any;
+  browserSupport: boolean = false;
 
   constructor(
     private core: CoreService,
@@ -35,26 +36,31 @@ export class SearchBarComponent implements OnInit {
     private location: Location,
     private renderer: Renderer2
   ) {
-    this.recognition = new webkitSpeechRecognition(); // SpeechRecognition
-    this.recognition.continuous = true;
+    const microContainer = document.querySelector('.microphonebox');
+    if ('webkitSpeechRecognition' in window) {
+      this.browserSupport = true;
+      this.recognition = new webkitSpeechRecognition(); // SpeechRecognition
+      this.recognition.continuous = true;
 
-    this.recognition.onstart = () => {
-      this.isRecognizing = true;
-    };
+      this.recognition.onstart = () => {
+        this.isRecognizing = true;
+      };
 
-    this.recognition.onspeechend = () => {
-      this.isRecognizing = false;
-    };
+      this.recognition.onspeechend = () => {
+        this.isRecognizing = false;
+      };
 
-    this.recognition.onerror = () => {};
+      this.recognition.onerror = () => {};
 
-    this.recognition.onresult = async (event: any) => {
-      var current = event.resultIndex;
-      var transcript = await event.results[current][0].transcript;
-      console.log(transcript);
-      this.queryText = transcript;
-    
-    };
+      this.recognition.onresult = async (event: any) => {
+        var current = event.resultIndex;
+        var transcript = await event.results[current][0].transcript;
+        console.log(transcript);
+        this.queryText = transcript;
+      };
+    } else {
+      this.browserSupport = false;
+    }
   }
   ngOnInit(): void {
     this.user_id = this.session.getLoggedUser().userId;
@@ -148,7 +154,6 @@ export class SearchBarComponent implements OnInit {
     this.isRecognizing = false;
     this.queryText = this.queryText;
     setTimeout(this.stopRecognition, 1000);
-    
   }
 
   onTextboxInput(event: Event) {

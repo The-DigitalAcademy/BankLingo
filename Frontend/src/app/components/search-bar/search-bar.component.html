@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="microphonebox">
+<div class="microphonebox" *ngIf="browserSupport === true">
   <div class="microphone_container" *ngIf="isRecognizing === false">
     <i class="bi bi-mic-fill" (click)="startRecognition()"></i>
   </div>
