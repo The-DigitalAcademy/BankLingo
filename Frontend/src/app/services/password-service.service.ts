@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,12 @@ import { Injectable } from '@angular/core';
 export class PasswordServiceService {
   private apiUrls = 'https://banklingoapi.onrender.com';
  
+ 
   constructor(private http: HttpClient) {}
 
+
+ 
+  
   // Method to change the user's password
   changePassword(newPassword: string) {
     const requestBody = { newPassword: newPassword };

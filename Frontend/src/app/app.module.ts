@@ -13,7 +13,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
-import { MatProgressBarModule } from '@angular/material/progress-bar'; // Import the progress bar module
+// import { MatProgressBarModule } from '@angular/material/progress-bar'; // Import the progress bar module
 
 
 
@@ -48,6 +48,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { HomeBeforeComponent } from './pages/home-before/home-before.component';
+import { TitleBarComponent } from './components/title-bar/title-bar.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
 
     ResetPasswordComponent,
     HomeBeforeComponent,
+    TitleBarComponent,
   ],
   imports: [
     BrowserModule,
