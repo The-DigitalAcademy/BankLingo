@@ -3,7 +3,11 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarOptions, DateClickArg } from 'fullcalendar';
-import { HttpClient } from '@angular/common/http';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+
 import { LessonPlan } from 'src/app/types/lessonPlan';
 
 
@@ -15,8 +19,21 @@ import { LessonPlan } from 'src/app/types/lessonPlan';
   encapsulation: ViewEncapsulation.None
 })
 export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
+  private apiUrls = 'https://banklingoapi.onrender.com/api/gpt/create';
 
-  private apiUrls = 'https://banklingoapi.onrender.com';
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.apiUrls}` // Add your authentication header here
+    })
+  };
+
+  formData: any = {
+    // Other form fields...
+    duration: 0 // Initialize with a default value, update this based on user input
+  };
+
+  //private apiUrls = 'http://localhost:4500';
 
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
 
@@ -25,17 +42,19 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     // Add more events as needed
   ];
 
+
+
   
 
-  duration: Date |
+  selectedDates: Date |
    undefined = new Date();
 
-   selectedDates: Date[] = [];
+   duration: Date[] = [];
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     dateClick: (info) => {
-      this.duration = info.date;
+      this.selectedDates = info.date;
     }
   };
 
@@ -45,27 +64,50 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   
 
   onDateClick(date: Date) {
-    const index = this.selectedDates.findIndex(d => d.toISOString() === date.toISOString());
+    const index = this.duration.findIndex(d => d.toISOString() === date.toISOString());
     if (index === -1) {
-      this.selectedDates.push(date);
+      this.duration.push(date);
     } else {
-      this.selectedDates.splice(index, 1);
+      this.duration.splice(index, 1);
     }
   }
 
   onSaveDate() {
-    const numberOfDays = this.selectedDates.length;
+   
+
+    const numberOfDays = this.duration.length;
+
+    
+    
     // Make a POST request to the backend API to save the number of days
-    this.http.post('${this.apiUrls}/api/gpt/create', { numberOfDays }).subscribe(
+
+    this.http.post<any>(this.apiUrls, {numberOfDays} , this.httpOptions).subscribe(
       (response: any) => {
-        console.log(response.message);
+        console.log('Data saved successfully:', response);
+        // Do something on successful save
       },
+
+
       (error) => {
-        console.error('Error saving number of days:', error);
+        if (error.status === 401) {
+          console.error('Unauthorized. Please provide valid credentials.');
+          // Handle unauthorized access here, show login form, etc.
+        } else {
+          console.error('Error saving number of days:', error);
+          // Handle other errors
+        }
+    
       }
     );
     
-  } 
+  
+}
+
+  
+
+   
+     
+  
 
  // calendarOptions!: CalendarOptions;
 
@@ -102,16 +144,16 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
     // Update the selectedDates array
     const clickedDate = arg.date;
-    const index = this.selectedDates.findIndex(date => date.toISOString() === clickedDate.toISOString());
+    const index = this.duration.findIndex(date => date.toISOString() === clickedDate.toISOString());
     if (index === -1) {
-      this.selectedDates.push(clickedDate);
+      this.duration.push(clickedDate);
     } else {
-      this.selectedDates.splice(index, 1);
+      this.duration.splice(index, 1);
     }
   }
 
   getSelectedDaysCount() {
-    return this.selectedDates.length;
+    return this.duration.length;
   }
 
   }

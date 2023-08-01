@@ -5,17 +5,19 @@
       >Generate</button>
 
   </div> -->
-  <h5 class="text-center mb-5 headerTop">Select duration of your lesson plan</h5>
+  <form (ngSubmit)="onSaveDate()" style="margin-top: 
+  5%;margin-bottom: 5%;margin-left: 5%;margin-right: 5%;">
+  <h5 class="text-center mb-5 headerTop">Select duration of your lesson plan</h5><br>
 
 
-<form  (ngSubmit)="onSaveDate()">
+<br>
 
     <div class="calendar-container" >
         <full-calendar [options]="calendarOptions"></full-calendar>
       </div>
       
       <div class="d-flex justify-content-center">
-      <div *ngIf="selectedDates.length > 0">
+      <div *ngIf="duration.length > 0">
         <h5> {{ getSelectedDaysCount() }} Days selected</h5>
       </div>
       </div>
@@ -25,8 +27,10 @@
 
 
 <div class="d-flex justify-content-center">
-    <button type="submit" class="btn"
-      >Generate</button>
+    <button type="submit" class="btn" (click)=" onSaveDate()"
+      >Generate Lesson Plan</button>
       </div>
+
+
     </form>
 
