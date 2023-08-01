@@ -4,8 +4,19 @@
       <div class="card-body p-head">
         <div class="d-flex text-black">
           <div class="flex-shrink-0">
-            <img src="../../../assets/img/profile_placeholder.jpeg" alt="Generic placeholder image"
+            <div *ngIf="img">
+            <img src={{img}} 
               class="img-fluid profileImage" style="width: 70px; height: 70px; border-radius: 35px" />
+            </div>
+              <div *ngIf="!img">
+                <img
+                  src="../../../assets/img/profile_placeholder.jpeg"
+                  
+                  class="img-fluid profileImage"
+                  style="width: 70px; height: 70px; border-radius: 120px"
+                />
+              </div>
+
           </div>
           <div class="flex-grow-1 ms-3">
             <h5 class="mb-1 mt-1" style="font-size: large; font-weight: bold;">Welcome back</h5>

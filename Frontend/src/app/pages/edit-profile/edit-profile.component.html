@@ -8,20 +8,29 @@
       <div class="d-flex justify-content-center align-items-center h-100 side-margins">
 
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card-body">
-
-
-            <div class="align-items-center justify-content-center d-flex headerTop">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                alt="Generic placeholder image"
-                class="img-fluid profileImage"
-                style="width: 120px; height: 120px; border-radius: 120px"
-              />
+          <div class="card-body p-5">
+            <div class="align-items-center justify-content-center d-flex">
+              <div *ngIf="imagePreviewUrl">
+                <img
+                  src="{{ imagePreviewUrl }}"
+                  alt=""
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+              </div>
+              <!-- If you want to show a default image when `imagePreviewUrl` is not available -->
+              <div *ngIf="!imagePreviewUrl">
+                <img
+                  src="../../../assets/img/profile_placeholder.jpeg"
+                  alt="Default Image"
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+              </div>
             </div>
 
-            <form [formGroup]="profileForm" (ngSubmit)="updaterUser()">
-              <div class="form-outline mb-3">
+            <form [formGroup]="profileForm">
+              <div class="form-outline mb-4">
                 <label for="floatingInput">First name</label>
                 <input
                   class="form-control form-control-lg"
@@ -75,15 +84,31 @@
                   type="file"
                   class="form-control"
                   style="border: 1px solid; border-color: black"
+                  (change)="onFileSelected($event)"
+                  #fileInput
                   formControlName="profile_picture"
                 />
               </div>
 
+              <div *ngIf="imagePreviewUrl">
+                <img
+                  [src]="imagePreviewUrl"
+                  alt=""
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+                <button style="width: 100px; height: 50px" (click)="onUpload()" class="btn btn-secondary btn-sm">Upload Image</button>
+              
+              </div>
+              
+              <br>
+              <br>
+
               <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-sm">
+                <button type="submit" class="btn btn-primary btn-sm" (click)="updateUser()">
                   Save
                 </button>
-                <button type="submit" class="btn btn-secondary btn-sm">
+                <button type="submit" class="btn btn-secondary btn-sm" routerLink="/profile">
                   Cancel
                 </button>
               </div>
