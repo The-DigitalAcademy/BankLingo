@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +39,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { HomeBeforeComponent } from './pages/home-before/home-before.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -72,7 +73,13 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     FormsModule,
     ReactiveFormsModule,
     
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+         ServiceWorkerModule.register('ngsw-worker.js', {
+           enabled: !isDevMode(),
+           // Register the ServiceWorker as soon as the application is stable
+           // or after 30 seconds (whichever comes first).
+           registrationStrategy: 'registerWhenStable:30000'
+         }) 
   ],
    
   providers: [],
