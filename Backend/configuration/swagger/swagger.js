@@ -9,9 +9,23 @@ const options = {
       description: "API For BankLingo Application ",
       version: "0.0.1",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [{ bearerAuth: [] }],
   },
   // looks for configuration in specified directories
-  apis: ["./routes/UserRoutes/*.js", "./routes/GptRoutes/*.js","./routes/SearchRoutes/*.js"],
+  apis: [
+    "./routes/UserRoutes/*.js",
+    "./routes/GptRoutes/*.js",
+    "./routes/SearchRoutes/*.js",
+  ],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

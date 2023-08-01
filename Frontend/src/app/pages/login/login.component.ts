@@ -78,7 +78,8 @@ export class LoginComponent implements OnInit {
      
    } else {
     this.invalidCredentials = true;
-    console.log("Wrong credentials");
+    window.location.reload
+    
    }
 
   }

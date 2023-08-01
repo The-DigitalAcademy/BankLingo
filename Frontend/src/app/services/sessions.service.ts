@@ -24,6 +24,8 @@ export class SessionsService {
   public saveLoggedUser(user: any): void {
     window.sessionStorage.removeItem(LOGGED_USER);
     window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(user));
+    // this.isLogged(true)
+
   }
 
   public saveQueryResponse(message: any): void {
@@ -34,6 +36,7 @@ export class SessionsService {
   public saveQueryQuestion(question: any): void {
     window.sessionStorage.removeItem(QUERY_QUESTION);
     window.sessionStorage.setItem(QUERY_QUESTION, JSON.stringify(question));
+   
   }
 
   public isLogged(isLogged: boolean): void {
@@ -41,6 +44,7 @@ export class SessionsService {
     window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(isLogged));
   }
 
+  
 
   public getLoggedUser(): any {
     const song = window.sessionStorage.getItem(LOGGED_USER);

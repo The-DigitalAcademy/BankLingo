@@ -1,14 +1,25 @@
-<div class="container fullScreen side-margins">
+<div class="container  side-margins">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col col-md-9 col-lg-7 col-xl-5">
       <div class="card-body p-head">
         <div class="d-flex text-black">
           <div class="flex-shrink-0">
-            <img src="../../../assets/img/profile_placeholder.jpeg" alt="Generic placeholder image"
+            <div *ngIf="img">
+            <img src={{img}} 
               class="img-fluid profileImage" style="width: 70px; height: 70px; border-radius: 35px" />
+            </div>
+              <div *ngIf="!img">
+                <img
+                  src="../../../assets/img/profile_placeholder.jpeg"
+                  
+                  class="img-fluid profileImage"
+                  style="width: 70px; height: 70px; border-radius: 120px"
+                />
+              </div>
+
           </div>
           <div class="flex-grow-1 ms-3">
-            <h5 class="mb-1 mt-1">Welcome back</h5>
+            <h5 class="mb-1 mt-1" style="font-size: large; font-weight: bold;">Welcome back</h5>
             <p class="mb-1 p-1" style="color: #2b2a2a">
               {{ name }} {{ surname }}
             </p>
@@ -23,19 +34,14 @@
     Banking Made Simple!
   </div>
   <app-search-bar></app-search-bar>
+ 
 
 
-<div class="d-flex justify-content-between" style="width: 100%;">
-  <div class="headingFont " style="margin-top: 42px; margin-bottom: 20px">
+
+  <div class="headingFont d-flex" style="margin-top: 42px; margin-bottom: 20px">
     {{ cardLabel }}
-  
   </div>
-  <div class="headingFont " style="margin-top: 42px; margin-bottom: 20px">
-    clear all
-  
-  </div>
-  
-</div>
+
 
   <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
   <div style="height:250px" *ngIf="searchedBefore">
@@ -47,13 +53,10 @@
 
         <div *ngIf="searchObj.ishumour" class="card cardStyle card-block mx-2" style="min-width: 250px; background-color: #64d2ff">
           <div class="card-body">
-            <div class="d-flex justify-content-between"  style="color: #212529">
-            <h5 class="card-title">{{searchObj.query_searched}}</h5>
-            <i class="bi bi-trash3-fill"></i>
-          </div>
+            <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
             <p class="card-text">
               {{searchObj.response_searched}}
-              <span style="font-size: 1.3rem;">
+              <span >
                 😂
               </span>
             </p>
@@ -70,19 +73,11 @@
 
           <div class="card-body">
 
-            <div class="d-flex justify-content-between"  style="color: #212529">
-              <h5 class="card-title">{{searchObj.query_searched}}</h5>
-              <i class="bi bi-trash3-fill"></i>
-            </div>
+            <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
 
             <p class="card-text">
               {{searchObj.response_searched}}
-
-
-
             </p>
-
-
 
           </div>
           <div class="d-flex push-to-bottomm justify-content-between" style="width: 100%">
@@ -145,7 +140,7 @@
 
 
 <div style="z-index: -9999999; padding-top: 2px">
-  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" viewBox="0 0 375 163" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="130" viewBox="0 0 375 163" fill="none">
     <path d="M0.5 42.0645H374.5V136.71H0.5V42.0645Z" fill="white" />
     <path
       d="M90.5 115.677C90.5 141.813 70.3528 163 45.5 163C20.6472 163 0.5 141.813 0.5 115.677C0.5 89.5419 20.6472 68.3548 45.5 68.3548C70.3528 68.3548 90.5 89.5419 90.5 115.677Z"
@@ -167,7 +162,7 @@
   </svg>
 </div>
 
-<div class="tab-bar-iphone push-to-bottom">
+<!-- <div class="tab-bar-iphone push-to-bottom">
 
   <div class="tab-bar-buttons-wrapper">
     <div class="tab-bar-buttons">
@@ -211,5 +206,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- </div> -->
