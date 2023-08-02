@@ -3,6 +3,14 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarOptions, DateClickArg } from 'fullcalendar';
+import { SessionsService } from 'src/app/services/sessions.service';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -14,12 +22,25 @@ import { LessonPlan } from 'src/app/types/lessonPlan';
 
 @Component({
   selector: 'app-lesson-plan-calender',
+  template: `
+  <div *ngIf="UsersService.isLoggedIn()">
+    <!-- Your application content here -->
+    <button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="!UsersService.isLoggedIn()">
+    <!-- Show login page or redirect to login page -->
+  </div>`,
   templateUrl: './lesson-plan-calender.component.html',
   styleUrls: ['./lesson-plan-calender.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
+
+  //End point to save the duration number
   private apiUrls = 'https://banklingoapi.onrender.com/api/gpt/create';
+
+  user!: any;
+  profileForm!: FormGroup;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -59,7 +80,9 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   };
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder,
+    
+    private session: SessionsService,) { }
 
   
 
@@ -72,16 +95,19 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSaveDate() {
+  onSaveDate( ) {
    
-
+    // nDays:{numDays : number}
     const numberOfDays = this.duration.length;
+  const nDays = {duration:numberOfDays}
+ console.log(nDays, "nDays");
 
-    
+
+    // nDays:{numDays : string}
     
     // Make a POST request to the backend API to save the number of days
 
-    this.http.post<any>(this.apiUrls, {numberOfDays} , this.httpOptions).subscribe(
+    this.http.post<any>(this.apiUrls, nDays , this.httpOptions).subscribe(
       (response: any) => {
         console.log('Data saved successfully:', response);
         // Do something on successful save
@@ -105,7 +131,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   
 
-   
+
      
   
 
@@ -113,6 +139,38 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initializeCalendar();
+
+
+     // Retrieve the user data from session storage
+  this.user = this.session.getLoggedUser();
+  this.user=this.session.getQueryQuestion();
+
+ 
+   
+
+  // Check if the user variable contains valid user data before initializing the form
+  if (this.user && Object.keys(this.user).length > 0) {
+    this.initializeForm();
+  } else {
+    // Handle the case when the user data is not available
+    console.log('User data not found in session storage');
+    // You can take appropriate actions, such as redirecting the user to the login page.
+  }
+  }
+  
+
+  initializeForm() {
+
+   
+  
+   
+
+    this.profileForm = this.formBuilder.group({
+      user_id: [this.user.name, Validators.required],
+      plan_name: [this.user.surname, Validators.required],
+      duration: [this.user.duration],
+      
+    });
   }
 
   ngAfterViewInit() {
