@@ -16,6 +16,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
+  
   selectedFile: File | null = null;
   imagePreviewUrl: string | null = null;
   files: File[] = [];
