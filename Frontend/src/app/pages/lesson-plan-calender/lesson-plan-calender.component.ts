@@ -86,7 +86,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder,
 
-    private session: SessionsService,) { }
+    private session: SessionsService,private titlePage : Title) { }
 
 
 
@@ -146,7 +146,6 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   // calendarOptions!: CalendarOptions;
 
 
-  constructor(private titlePage : Title){}
 
   ngOnInit() {
     this.titlePage.setTitle("Lesson")
