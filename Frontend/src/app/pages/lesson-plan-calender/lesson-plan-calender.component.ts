@@ -59,18 +59,18 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
 
   events: LessonPlan[] = [
-   
+
     // Add more events as needed
   ];
 
 
 
-  
+
 
   selectedDates: Date |
-   undefined = new Date();
+    undefined = new Date();
 
-   duration: Date[] = [];
+  duration: Date[] = [];
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -80,11 +80,14 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   };
 
 
+
+
+
   constructor(private http: HttpClient, private formBuilder: FormBuilder,
-    
+
     private session: SessionsService,) { }
 
-  
+
 
   onDateClick(date: Date) {
     const index = this.duration.findIndex(d => d.toISOString() === date.toISOString());
@@ -95,19 +98,23 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSaveDate( ) {
-   
+  onSaveDate() {
+
     // nDays:{numDays : number}
     const numberOfDays = this.duration.length;
-  const nDays = {duration:numberOfDays}
- console.log(nDays, "nDays");
+    const nDays = {
+      duration: numberOfDays,
+      user_id: this.session.getLoggedUser().userId,
+      plan_name: this.session.getQueryQuestion()
+    }
+    console.log(nDays, "nDays");
 
 
     // nDays:{numDays : string}
-    
+
     // Make a POST request to the backend API to save the number of days
 
-    this.http.post<any>(this.apiUrls, nDays , this.httpOptions).subscribe(
+    this.http.post<any>(this.apiUrls, nDays, this.httpOptions).subscribe(
       (response: any) => {
         console.log('Data saved successfully:', response);
         // Do something on successful save
@@ -122,54 +129,54 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
           console.error('Error saving number of days:', error);
           // Handle other errors
         }
-    
+
       }
     );
-    
-  
-}
-
-  
 
 
-     
-  
+  }
 
- // calendarOptions!: CalendarOptions;
+
+
+
+
+
+
+  // calendarOptions!: CalendarOptions;
 
   ngOnInit() {
     this.initializeCalendar();
 
 
-     // Retrieve the user data from session storage
-  this.user = this.session.getLoggedUser();
-  this.user=this.session.getQueryQuestion();
+    // Retrieve the user data from session storage
+    this.user = this.session.getLoggedUser();
+    this.user = this.session.getQueryQuestion();
 
- 
-   
 
-  // Check if the user variable contains valid user data before initializing the form
-  if (this.user && Object.keys(this.user).length > 0) {
-    this.initializeForm();
-  } else {
-    // Handle the case when the user data is not available
-    console.log('User data not found in session storage');
-    // You can take appropriate actions, such as redirecting the user to the login page.
+
+
+    // Check if the user variable contains valid user data before initializing the form
+    if (this.user && Object.keys(this.user).length > 0) {
+      this.initializeForm();
+    } else {
+      // Handle the case when the user data is not available
+      console.log('User data not found in session storage');
+      // You can take appropriate actions, such as redirecting the user to the login page.
+    }
   }
-  }
-  
+
 
   initializeForm() {
 
-   
-  
-   
+
+
+
 
     this.profileForm = this.formBuilder.group({
       user_id: [this.user.name, Validators.required],
       plan_name: [this.user.surname, Validators.required],
       duration: [this.user.duration],
-      
+
     });
   }
 
@@ -183,9 +190,9 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
       plugins: [dayGridPlugin, interactionPlugin],
       initialView: 'dayGridMonth',
       headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        left: 'title',
+        center: '',
+        right: 'prev,next',
       },
       // events: [
       //   //Add your events data here
@@ -211,11 +218,13 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   }
 
   getSelectedDaysCount() {
+
+
     return this.duration.length;
   }
 
-  }
- 
+}
+
 
 
 
