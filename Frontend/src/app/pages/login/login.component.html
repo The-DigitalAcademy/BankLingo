@@ -14,19 +14,13 @@
                 <span class="span mybgcolor fs-3">Bank</span><span class="text-wrapper-2   fs-3">Lingo  </span>
               </div>
               
-
               <h2 class="text-center mb-5 headerTop">Login Here</h2>
-
-
-              
 
               <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <div class="form-outline mb-4">
                   <input type="email"   id="form3Example3cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="email"   placeholder="Email address"/>
                  
                 </div>
-
-               
 
                 <div class="form-outline mb-4">
                   <input type="password" id="form3Example4cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="password" placeholder="Password" type="{{ showPassword ? 'text' : 'password' }}" [(ngModel)]="password"/>

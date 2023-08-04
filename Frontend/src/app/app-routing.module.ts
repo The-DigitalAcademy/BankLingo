@@ -54,7 +54,7 @@ const routes: Routes = [
   { path: 'search', component: SearchBarComponent, canActivate: [AuthGuard] },
   { path: 'resetpassword', component: ResetPasswordComponent },
 
-  // { path: '', redirectTo: 'landing', pathMatch: 'full' },
+   { path: '', redirectTo: 'lesson-plans', pathMatch: 'full' },
 ];
 
 @NgModule({
