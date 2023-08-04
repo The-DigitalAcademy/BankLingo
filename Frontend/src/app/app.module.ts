@@ -2,6 +2,15 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
+
+
+
+
+
+
 
 
 // import { MatProgressBarModule } from '@angular/material/progress-bar'; // Import the progress bar module
@@ -39,7 +48,11 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { HomeBeforeComponent } from './pages/home-before/home-before.component';
+
+import { TitleBarComponent } from './components/title-bar/title-bar.component';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 
 @NgModule({
@@ -65,6 +78,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
     ResetPasswordComponent,
     HomeBeforeComponent,
+    TitleBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +86,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FullCalendarModule,
     
     BrowserAnimationsModule,
          ServiceWorkerModule.register('ngsw-worker.js', {

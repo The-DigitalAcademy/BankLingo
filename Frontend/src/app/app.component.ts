@@ -16,12 +16,19 @@ export class AppComponent {
   ) {}
 
   showNavBar(): boolean {
-    // Check if the current route is the login page
-    // You may need to adjust the route path depending on your actual login page path
     const isLoginPage = this.router.url === '/login';
 
-    // Hide the navigation bar on the login page
-    return !isLoginPage;
+  const isRegisterPage = this.router.url === '/register';
+
+   const isForgotPassPage = this.router.url === '/forgotpass';
+
+  const isLandingPage = this.router.url === '/landing';
+
+  const isOTPPage = this.router.url === '/otp';
+
+  const isResetPassPage = this.router.url === '/resetpassword';
+
+  return !(isLoginPage || isRegisterPage || isLandingPage || isForgotPassPage || isOTPPage || isResetPassPage) ;
   }
   title = 'Frontend';
 

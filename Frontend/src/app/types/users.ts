@@ -1,4 +1,5 @@
 export interface Users {
+    token: any;
     user_id: number;
     name?: string;
     surname?: string;

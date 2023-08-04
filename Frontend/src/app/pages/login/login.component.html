@@ -22,11 +22,6 @@
 
               <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <div class="form-outline mb-4">
-                  
-                  
-            
-                 
-                  
                   <input type="email"   id="form3Example3cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;" formControlName="email"   placeholder="Email address"/>
                  
                 </div>
@@ -47,7 +42,7 @@
                 
 
                 <div *ngIf="invalidCredentials" class="text-center text-danger mb-3">
-                  Invalid credentials. Please try again.
+                  Please fill in your details.
                 </div>
 
 
