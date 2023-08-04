@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 
@@ -12,10 +12,25 @@ import { Users } from '../types/users';
 export class UsersService {
 
   private apiUrls = 'https://banklingoapi.onrender.com';
+  
+  accessToken: any;
+  user: any
 
   constructor(private http: HttpClient) { }
 
-
+  private getHeaders(): HttpHeaders {
+    this.accessToken = sessionStorage.getItem('loggedUser');
+    this.user = JSON.parse(this.accessToken) as 'loggedUser';
+    if (!this.user) {
+      console.log('There is no user');
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.user.token}`,
+      'Content-Type': 'application/json',
+    });
+    return headers;
+  }
+  
 //create user
 
 createUser(users:Users):Observable<any>{
@@ -59,11 +74,17 @@ getUser(id: any): Observable<any> {
     });
   }
 
-  verifyOTP(email: string, otp: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
-      email: email,
-      otp: otp,
-    });
+  // verifyOTP(email: string, otp: number): Observable<any> {
+  //   return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
+  //     email: email,
+  //     otp: otp,
+  //   });
+  // }
+  
+// Method to verify OTP
+  public verifyOTP(otp: string, email: string) {
+    
+    return this.http.post(`${this.apiUrls}/api/user/sendOTP`, {  email, otp });
   }
 
   resetPassword(email: string, password: string): Observable<any> {

@@ -138,12 +138,14 @@ export async function passwordResetOTPService(request, response) {
       number: number,
       user: exists.user_id,
     };
-    return response.status(200).json(successObject);
+
+  return response.status(200).json(successObject);
   } catch (error) {
     console.error("Error sending OTP", error);
     throw error;
   }
 }
+
 
 export async function updateUserPasswordService(request, response) {
   const user_id = parseInt(request.params.id);
@@ -195,4 +197,5 @@ export default {
   passwordResetOTPService,
   updateUserPasswordService,
   updateUserProfileService,
+  verifyOTP
 };

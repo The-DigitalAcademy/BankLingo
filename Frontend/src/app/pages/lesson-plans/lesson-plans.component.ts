@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-lesson-plans',
   templateUrl: './lesson-plans.component.html',
@@ -8,3 +9,4 @@ import { Component } from '@angular/core';
 export class LessonPlansComponent {
 
 }
+

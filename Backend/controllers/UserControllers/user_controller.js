@@ -39,6 +39,16 @@ export async function passwordResetOTPController(request, response) {
   }
 }
 
+export async function verifyOTPController(request, response) {
+  try {
+    const result = await verifyOTP(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in pverifyOTP:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+
 export async function updatePasswordController(request, response) {
   try {
     const result = await updateUserPasswordService(request, response);
@@ -69,5 +79,6 @@ export default {
   signInUserController,
   passwordResetOTPController,
   updatePasswordController,
-  updateUserProfileController
+  updateUserProfileController,
+  verifyOTPController
 };

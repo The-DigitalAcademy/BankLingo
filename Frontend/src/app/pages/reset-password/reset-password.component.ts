@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as e from 'express';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
 import { UsersService } from 'src/app/services/users.services';
@@ -15,10 +16,12 @@ export class ResetPasswordComponent implements OnInit {
   }
   form!: FormGroup<any>;
 
-constructor(private formBuilder: FormBuilder, private passwordService: PasswordServiceService, private userService: UsersService
+  newPassword!: string;
+
+constructor(private formBuilder: FormBuilder, private passwordService: PasswordServiceService, private userService: UsersService,private router:Router
   )  {
     this.form = this.formBuilder.group({
-      Password: ['', [Validators.required, Validators.minLength(12), this.passwordPatternValidator]],
+      password: ['', [Validators.required, Validators.minLength(12), this.passwordPatternValidator]],
       confirmPassword: ['', Validators.required],
     }, { validators: this.passwordMatchValidator });
   }
@@ -32,6 +35,7 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
         (response) => {
           // Handle the response or show success message
           console.log('Password changed successfully.');
+          this.router.navigate(['/resetpassword'])
         },
         (error) => {
           // Handle error response or show error message
@@ -39,6 +43,17 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
         }
       );
     }
+  }
+
+  changePassword() {
+    this.passwordService.changePassword(this.newPassword).subscribe(
+      () => {
+        // Password changed successfully, handle success or redirect to login page
+      },
+      (error) => {
+        // Handle error (e.g., show error message)
+      }
+    );
   }
 
   // Custom validator to check password pattern
@@ -52,7 +67,7 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
 
   // Custom validator to check if passwords match
   private passwordMatchValidator(group: FormGroup) {
-    const password = group.get('Password')?.value;
+    const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { mismatch: true };
   }

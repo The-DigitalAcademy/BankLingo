@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PasswordServiceService } from 'src/app/services/password-service.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
 
@@ -16,35 +17,26 @@ export class ForgotpassComponent implements OnInit{
   });
 
   email!: string;
+  generatedOTP!:number;
 
-  constructor(private router: Router, private userService: UsersService, private sessions : SessionsService) {}
+  constructor(private router: Router, private userService: UsersService, private sessions : SessionsService, private passwordService: PasswordServiceService) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
     // Get the email value from the form control
     const email = this.form.get('email')?.value;
-  
     if (email) {
       // Ensure email is not null or undefined before making the API call
       console.log(email);
       
-      this.userService.sendPasswordResetOTP(email).subscribe(
+      this.passwordService.sendOtp(email).subscribe(
         response => {
-          this.email = response;
-          console.log(response,"this the otp");
-          this.sessions.saveOTP(response)
-          /**
-           * TODO: Verify entered otp with response.number
-
-           */
+          console.log(response);
           
-
-
-
-
           // OTP sent successfully, navigate to OTP verification page
-        //  this.router.navigate(['/otp'], { queryParams: { email } });
+         // this.router.navigate(['/otp'], { queryParams: { email } });
+          this.router.navigate(['/otp'], { queryParams: { email } });
         },
         (error) => {
           // Handle OTP sending failure, show error message
@@ -59,6 +51,24 @@ export class ForgotpassComponent implements OnInit{
     }
   }
   
-  
 
-}
+  sendOtp() {
+
+    const email = this.form.get('email')?.value;
+    if (email) {
+      // Ensure email is not null or undefined before making the API call
+      console.log(email);
+    this.passwordService.sendOtp(email).subscribe(
+      res => {
+        // OTP sent successfully, handle success or redirect to OTP component
+        this.router.navigateByUrl('/otp?email=' + encodeURIComponent(email));
+      },
+      (error) => {
+        // Handle error (e.g., show error message)
+      }
+
+    );
+  }
+  }
+  
+  }
