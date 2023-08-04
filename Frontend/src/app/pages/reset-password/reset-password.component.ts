@@ -3,7 +3,9 @@ import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as e from 'express';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
+import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
+import { Users } from 'src/app/types/users';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,14 +13,16 @@ import { UsersService } from 'src/app/services/users.services';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+
+  seconds = 60;
+  id:any;
   form!: FormGroup<any>;
+  user!:Users;
+  
 
   newPassword!: string;
 
-constructor(private formBuilder: FormBuilder, private passwordService: PasswordServiceService, private userService: UsersService,private router:Router
+constructor(private formBuilder: FormBuilder, private passwordService: PasswordServiceService, private userService: UsersService,private router:Router, private sessions: SessionsService
   )  {
     this.form = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(12), this.passwordPatternValidator]],
@@ -27,14 +31,26 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
   }
 
   
+  ngOnInit(): void {
+    // Implementation of ngOnInit method
+    // Add any initialization code here
+
+    this.user = this.sessions.getOTP();
+  }
+
   onSubmit() {
     if (this.form.valid) {
-      const newPassword = this.form.get('Password')?.value;
+
+      if (!this.user.user_id) {
+        console.error('User ID is not defined.' + this.user.user_id);
+        return;
+      }
+      
+      const newPassword = this.form.get('password')?.value;
       // Call the password service to perform the password change/reset logic
-      this.passwordService.changePassword(newPassword).subscribe(
-        (response) => {
+      this.passwordService.changePassword(newPassword,this.user.user_id).subscribe(
+        response => {
           // Handle the response or show success message
-          console.log('Password changed successfully.');
           this.router.navigate(['/resetpassword'])
         },
         (error) => {
@@ -46,8 +62,15 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
   }
 
   changePassword() {
-    this.passwordService.changePassword(this.newPassword).subscribe(
-      () => {
+    const search = {
+      password: this.form.get('password')?.value
+    }
+
+    const uId = this.sessions.getEmailOTP().user
+    
+    this.passwordService.resetPassword(uId,search).subscribe(response => {
+      this.router.navigate(["/login"])
+      
         // Password changed successfully, handle success or redirect to login page
       },
       (error) => {
@@ -55,7 +78,6 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
       }
     );
   }
-
   // Custom validator to check password pattern
   private passwordPatternValidator(control: any) {
     const password = control.value;

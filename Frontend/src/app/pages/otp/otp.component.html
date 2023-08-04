@@ -64,9 +64,11 @@
     <br>
     <div class=" bd-highlight text-center">
         <h6>Did not receive the OTP? </h6>
-        <button type="Resend" class="btn btn-sm" (click)="resendOtp()">Resend</button>
+        <button type="Resend" class="btn btn-sm" (click)="resendOtp()">Resend in {{seconds}}</button>
     </div>
     <br>
+
+    <br/>
     <div class="row d-flex align-items-center flex-column">
         <button type="submit" class="btn" (click)="verifyOtp()">Submit</button>
     </div>

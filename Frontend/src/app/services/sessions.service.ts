@@ -6,6 +6,7 @@ const IS_LOGGED = true
 const OTP = "otp"
 const QUERY_RESPONSE = "query_response"
 const QUERY_QUESTION = "query_question"
+const SAVE_OTP="save_otp"
 
 
 @Injectable({
@@ -27,6 +28,11 @@ export class SessionsService {
   }
 
 
+  public saveEmailOTP(otp: any): void {
+    window.sessionStorage.removeItem(SAVE_OTP);
+    window.sessionStorage.setItem(SAVE_OTP, JSON.stringify(otp));
+  }
+
   // public saveOTP(otp: string): void {
   //   window.sessionStorage.removeItem(OTP);
   //   window.sessionStorage.setItem(OTP, otp);
@@ -39,14 +45,14 @@ export class SessionsService {
   //   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
   // }
   
-  // sessions.service.ts
+ //sessions.service.ts
 // public saveOTP(otp: string): void {
 //   const otpObject = {
 //     number: Number(otp)
 //   };
 //   window.sessionStorage.removeItem(OTP);
-//   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-// }
+//   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));}
+
 
 // sessions.service.ts
 
@@ -57,17 +63,27 @@ export class SessionsService {
 //   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
 // }
 
-public saveOTP(otp: number | null): void {
-  if (otp !== null) {
-    const otpObject = {
-      number: otp
-    };
+// public saveOTP(otp: number | null): void {
+//   if (otp !== null) {
+//     const otpObject = {
+//       number: otp
+//     };
+//     window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
+//   } else {
+//     window.sessionStorage.removeItem(OTP);
+//   }
+// }
+
+
+
+
+public saveOTP(otpObject: { number: any } | null): void {
+  if (otpObject !== null) {
     window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
   } else {
     window.sessionStorage.removeItem(OTP);
   }
 }
-
 
   
 
@@ -98,41 +114,41 @@ public saveOTP(otp: number | null): void {
     return {};
   }
  
-  // public getOTP(): any {
-  //   const otp = window.sessionStorage.getItem(OTP);
-
-  //   if (otp) {
-  //     return JSON.parse(otp);
-  //   }
-
-  //   return {};
-  // }
-  // public getOTP(): string {
-  //   const otp = window.sessionStorage.getItem(OTP);
-  //   return otp || ''; // Return an empty string if OTP is not found in sessionStorage
-  // }
-
-  public getOTP(): { number: number } | null {
-    const otp = window.sessionStorage.getItem(OTP);
+  public getEmailOTP(): any {
+    const otp = window.sessionStorage.getItem(SAVE_OTP);
 
     if (otp) {
       return JSON.parse(otp);
     }
 
-    return null;
+    return {};
   }
-
-  
-  
-  // public getOTP(): any {
+  // public getOTP(): string {
   //   const otp = window.sessionStorage.getItem(OTP);
-  
+  //   return otp || ''; // Return an empty string if OTP is not found in sessionStorage
+  // }
+
+  // public getOTP(): { number: number } | null {
+  //   const otp = window.sessionStorage.getItem(OTP);
+
   //   if (otp) {
   //     return JSON.parse(otp);
   //   }
-  
+
   //   return null;
   // }
+
+  
+  
+  public getOTP(): any {
+    const otp = window.sessionStorage.getItem(OTP);
+  
+    if (otp) {
+      return JSON.parse(otp);
+    }
+  
+    return null;
+  }
   
  
 

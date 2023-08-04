@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
+import { Users } from 'src/app/types/users';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-otp',
@@ -17,23 +19,42 @@ public otp!: number;
 public otpSent = false;
 number1!: string;
 isInvalidOTP = false;
+seconds = 60;
+user!:Users;
 
 constructor(
   private route: ActivatedRoute,
   private router: Router,
   private userService: UsersService,
   private sessions : SessionsService,
-  private password : PasswordServiceService
+  private password : PasswordServiceService,
+  
 ) {}
 
 ngOnInit(): void {
-  
-  // Fetch the email from the query parameters.
-  this.route.queryParams.subscribe((params) => {
-    this.email = params['email'];
-  });
 
-}
+ 
+
+ /* const makeIteration = () => {
+    console.clear();
+    if (this.seconds > 0) {
+        console.log(this.seconds);
+        this.seconds -= 1;
+        setTimeout(makeIteration, 1000);  // 1 second waiting
+    } else {
+        console.log('Done!');
+    }*/
+    
+};
+
+// setTimeout(makeIteration, 1000); 
+  
+//   // Fetch the email from the query parameters.
+//   this.route.queryParams.subscribe((params) => {
+//     this.email = params['email'];
+//   });
+
+// }
 
 onOtpInput() {
   // Limit the OTP input to numeric characters using regex
@@ -41,19 +62,26 @@ onOtpInput() {
 }
 
 verifyOtp() {
-  this.password.verifyOtp(this.email, this.otp).subscribe(
-    () => {
-      // OTP verification successful, handle success or redirect to reset password component
-      console.log('Successfully verified');
-      this.router.navigate(['/resetpassword'])
-      
-    },
-    (error) => {
-      // Handle error (e.g., show error message)
-      console.log('error');
-      
-    }
-  );
+
+const emailOTP: number = this.otp
+if(emailOTP==this.sessions.getEmailOTP().number){
+  console.log("OTP MATCH");
+
+  this.router.navigate(["/resetpassword"])
+}else{
+  Swal.fire({
+    icon: 'error',
+    title: 'Incorrect OTP',
+    text: 'Please enter correct OTP sent to your email',
+    showConfirmButton: false,
+    timer: 3000
+  }).then((result) => {
+   
+  });
+}
+
+
+
 }
 
 resendOtp() {
@@ -67,5 +95,8 @@ resendOtp() {
     }
   );
 }
+
+
+
 
 }
