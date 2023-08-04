@@ -5,13 +5,6 @@ import client from "../../configuration/database/database_configuration.js";
 import secret from "../../configuration/secrets/jwt_secret.js";
 import transporter from "../../configuration/communication/email_configurations.js";
 import { request } from "express";
-import cloudinary from "cloudinary";
-
-cloudinary.config({
-  cloud_name: process.env.cloud_name,
-  api_key: process.env.api_key,
-  api_secret: process.env.api_secret,
-});
 
 async function emailExists(email) {
   try {
@@ -226,23 +219,11 @@ export async function updateUserProfileService(request, response) {
   if (isNaN(user_id)) {
     return response.status(400).json({ message: "Invalid user ID" });
   }
-
-
   try {
-    //picture ipload to  cloudinary
-    const resultCloud = await cloudinary.uploader.upload(profile_picture,{
-      folder:"bankpictures",
-      width: 120,
-      crop: "scale",
-      height: 120,
-    })
-    const profile_picture = resultCloud.secure_url;
-
     const insertQuery = {
       text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",
       values: [name, surname, email, contact_number, profile_picture, user_id],
     };
-
     const results = await client.query(insertQuery);
      // Check if any rows were affected by the update
      if (results.rowCount === 0) {
@@ -254,7 +235,6 @@ export async function updateUserProfileService(request, response) {
     throw error;
   }
 }
-
 
 export async function updateUserSearchedBooleanService(request, response) {
   const { searchedbefore, email } = request.body;
