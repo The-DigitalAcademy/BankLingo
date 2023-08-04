@@ -1,4 +1,94 @@
-<div class="container"> 
+<!-- <div class="container"> 
+
+
+
     <app-nav-bar></app-nav-bar>
-</div>
+</div> -->
+<!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->
+ <section style="background-color: #ffffff;">
+  <div class="container py-5">
+   
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <div class="align-items-center justify-content-center d-flex">
+                <div *ngIf="user.profile_picture">
+                    <img
+                      src={{user.profile_picture}}
+                      alt="Generic placeholder image"
+                      class="img-fluid profileImage"
+                      style="width: 120px; height: 120px; border-radius: 120px"
+                    />
+                  </div>
+             
+              
+            </div>
+            <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
+            
+            <h5 class="my-3">{{user.email}}</h5>
+              
+              </div>
+            </div>
+            
+            
+            <div class="d-flex justify-content-center mb-2">
+              <a routerLink="/edit_profile">
+             
+              
+            </a>
+            </div>
+          </div>
+         
+        </div>
+        
+      </div>
+
+      <h5> Progress</h5>
+            
+           
+           
+            
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+                <p class="mt-4 mb-1" style="font-size: .77rem;">Cheque Account</p>
+                <div>
+                    <progress [value]="progressValue" [max]="maxValue"></progress>
+                    <span>{{ progressValue }}% Complete</span>
+                  </div>
+
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+               
+                 <p class="mb-4"><span class="text-primary font-italic me-1">Favourites term searched</span>
+                </p>
+                
+               
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Saving</li>
+                  <li class="list-group-item">Cardless</li>
+                  
+                </ul>
+               
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        
+   
+  
+  
+</section>
 <!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->
