@@ -6,6 +6,7 @@ import {
   getPlanByUserController,
   GenerateTopicsFromPlanController,
   getTopicByIDController,
+  askSimpleInsideTopicController
 } from "../../controllers/GptControllers/gpt_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
@@ -218,5 +219,37 @@ gpt_router.post("/generateTopics", authenticateToken, GenerateTopicsFromPlanCont
  */
 
 gpt_router.get("/getTopicsById/:plan_id", authenticateToken, getTopicByIDController);
+
+
+
+
+/**
+ * @openapi
+ * '/api/gpt/insideTopic':
+ *  post:
+ *     tags:
+ *     - GPT Route
+ *     summary: Prompt the AI, inside the Topic
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - message
+ *            properties:
+ *              message:
+ *                type: string
+ *                default: string
+ *     responses:
+ *      201:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ */
+gpt_router.post("/insideTopic", authenticateToken, askSimpleInsideTopicController);
 
 export default gpt_router;
