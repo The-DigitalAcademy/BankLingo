@@ -1,8 +1,29 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
+
+
+
+
+
+
+
+
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
+
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -29,6 +50,13 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { HomeBeforeComponent } from './pages/home-before/home-before.component';
 
+import { TitleBarComponent } from './components/title-bar/title-bar.component';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { PromptComponentComponent } from './components/prompt-component/prompt-component.component';
+import { PwaService } from './services/pwa.service';
+
+const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt();
 
 @NgModule({
   declarations: [
@@ -49,9 +77,12 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
+    
 
     ResetPasswordComponent,
     HomeBeforeComponent,
+    TitleBarComponent,
+    PromptComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,9 +90,22 @@ import { HomeBeforeComponent } from './pages/home-before/home-before.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatBottomSheetModule,
+    FullCalendarModule,
 
+
+    BrowserAnimationsModule,
+         ServiceWorkerModule.register('ngsw-worker.js', {
+           enabled: !isDevMode(),
+           // Register the ServiceWorker as soon as the application is stable
+           // or after 30 seconds (whichever comes first).
+           registrationStrategy: 'registerWhenStable:30000'
+         }) 
   ],
-  providers: [],
+   
+  providers: [{provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true},],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

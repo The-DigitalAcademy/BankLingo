@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
-
 
 
 @Injectable({
@@ -48,13 +48,11 @@ login(credentials: { email: string, password: string }): Observable<any> {
     })
   );
 }
-
-
+isLoggedIn(): boolean {
+  return this.isAuthenticated;
+}
 // Getting user by id
 
-getUser(id: any): Observable<any> {
-  return this.http.get(`${this.apiUrls}/api/user/${id}`);
-}
 
 
   // sendOTP(email: string): Observable<any> {
@@ -93,5 +91,33 @@ getUser(id: any): Observable<any> {
       password: password,
     });
   }
+
+  update2Password(email: string, newPassword: string): Observable<any> {
+    const url = `${this.apiUrls}/api/user/update-password`;
+
+    // Create a request body with the email and new password
+    const body = {
+      email: email,
+      password: newPassword
+    };
+
+    return this.http.put<any>(url, body);
+  }
+
+
+  getUser(users:Users):Observable<any>{
+
+    return this.http.get(`${this.apiUrls}/api/user/get_profile`);
+  }
+
+// updateProfile(id: number, data:Users): Observable<any> {
+//   return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/{id}${id}`, data);
+// }
+
+updateProfile(id: number, data: any): Observable<any> {
+  const headers = this.getHeaders();
+  return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/${id}`, data, {headers});
+
 }
 
+}

@@ -3,3 +3,14 @@ img{     height: 30vh;     width: 70vw; }
   .mybgcolor{    color: #38a3a5; }
 
   .text{color: #38a3a5;}
+
+
+  .password-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  

@@ -1,9 +1,10 @@
 export interface Users {
-    user_id?: number;
+    token: any;
+    user_id: number;
     name?: string;
     surname?: string;
     age?: number;
-    email?: string;
+    email: string;
     password?: string;
     contact_number?: string;
     profile_picture?: string;

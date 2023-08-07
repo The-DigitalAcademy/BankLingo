@@ -5,7 +5,7 @@ import {
   searchHistoryController,
   getSearchHistoryLimitController,
 } from "../../controllers/SearchControllers/search_controller.js";
-
+import authenticateToken from "../../middleware/Authorization.js";
 /**
  * @openapi
  * '/api/search/store_search/{id}':
@@ -33,6 +33,9 @@ import {
  *              response_searched:
  *                type: string
  *                default: string
+ *              ishumour:
+ *                type: Boolean
+ *                default: false
  *     responses:
  *      201:
  *        description: Created
@@ -42,7 +45,7 @@ import {
  *        description: Not Found
  */
 
-search_router.post("/store_search/:user_id", searchHistoryController);
+search_router.post("/store_search/:user_id", authenticateToken, searchHistoryController);
 
 
 /**
@@ -67,6 +70,6 @@ search_router.post("/store_search/:user_id", searchHistoryController);
  */
 
 
-search_router.get("/get_history/:user_id", getSearchHistoryLimitController);
+search_router.get("/get_history/:user_id", authenticateToken, getSearchHistoryLimitController);
 
 export default search_router;

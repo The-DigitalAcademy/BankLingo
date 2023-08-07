@@ -5,8 +5,9 @@ import {
   deleteLessonPlanController,
   getPlanByUserController,
   GenerateTopicsFromPlanController,
-  getTopicByIDController
+  getTopicByIDController,
 } from "../../controllers/GptControllers/gpt_controller.js";
+import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
 const gpt_router = express.Router();
 
@@ -37,7 +38,7 @@ const gpt_router = express.Router();
  *      404:
  *        description: Not Found
  */
-gpt_router.post("/", askSimpleQuestionController);
+gpt_router.post("/", authenticateToken, askSimpleQuestionController);
 
 /**
  * @openapi
@@ -66,7 +67,7 @@ gpt_router.post("/", askSimpleQuestionController);
  *      404:
  *        description: Not Found
  */
-gpt_router.post("/humour", askQuestionHumourController);
+gpt_router.post("/humour",authenticateToken, askQuestionHumourController);
 
 /**
  * @openapi
@@ -103,7 +104,7 @@ gpt_router.post("/humour", askQuestionHumourController);
  *      500:
  *        description: Not Found
  */
-gpt_router.post("/create", createLessonPlanController);
+gpt_router.post("/create", authenticateToken,createLessonPlanController);
 
 /**
  * @openapi
@@ -128,7 +129,7 @@ gpt_router.post("/create", createLessonPlanController);
  *      500:
  *        description: Not Found
  */
-gpt_router.delete("/delete_plan/:plan_id", deleteLessonPlanController);
+gpt_router.delete("/delete_plan/:plan_id", authenticateToken, deleteLessonPlanController);
 
 /**
  * @openapi
@@ -153,7 +154,7 @@ gpt_router.delete("/delete_plan/:plan_id", deleteLessonPlanController);
  *      500:
  *        description: Not Found
  */
-gpt_router.get("/get_user_plans/:user_id", getPlanByUserController);
+gpt_router.get("/get_user_plans/:user_id", authenticateToken, getPlanByUserController);
 
 /**
  * @openapi
@@ -191,8 +192,7 @@ gpt_router.get("/get_user_plans/:user_id", getPlanByUserController);
  *        description: Not Found
  */
 
-
-gpt_router.post("/generateTopics", GenerateTopicsFromPlanController);
+gpt_router.post("/generateTopics", authenticateToken, GenerateTopicsFromPlanController);
 
 /**
  * @openapi
@@ -217,6 +217,6 @@ gpt_router.post("/generateTopics", GenerateTopicsFromPlanController);
  *        description: Not Found
  */
 
-gpt_router.get("/getTopicsById/:plan_id",getTopicByIDController )
+gpt_router.get("/getTopicsById/:plan_id", authenticateToken, getTopicByIDController);
 
 export default gpt_router;

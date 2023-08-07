@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 
@@ -9,8 +9,12 @@ export class PasswordServiceService {
   private apiUrls1 = 'https://banklingoapi.onrender.com';
   private apiUrls = 'http://localhost:3000';
  
+ 
   constructor(private http: HttpClient) {}
 
+
+ 
+  
   // Method to change the user's password
   changePassword(newPassword: string,id:any) {
     const requestBody = { newPassword: newPassword };

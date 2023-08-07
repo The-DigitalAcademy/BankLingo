@@ -5,6 +5,13 @@ import client from "../../configuration/database/database_configuration.js";
 import secret from "../../configuration/secrets/jwt_secret.js";
 import transporter from "../../configuration/communication/email_configurations.js";
 import { request } from "express";
+import cloudinary from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret,
+});
 
 async function emailExists(email) {
   try {
@@ -23,6 +30,17 @@ async function emailExists(email) {
   }
 }
 
+export async function isValidPassword(password) {
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!#$%^&*()\-_=+\\|[\]{};:'",.<>/?])[A-Za-z\d@!#$%^&*()\-_=+\\|[\]{};:'",.<>/?]{8,}$/;
+  return passwordRegex.test(password);
+}
+
+export async function isValidName(name) {
+  const nameAndUsernameRegex = /^.{3,}$/;
+  return nameAndUsernameRegex.test(name);
+}
+
 export async function createUserService(request, response) {
   const {
     name,
@@ -35,6 +53,35 @@ export async function createUserService(request, response) {
     created_date,
     updated_date,
   } = request.body;
+  
+  // Surname validation
+  if (surname === null || surname === undefined) {
+    return response.status(400).json({ message: "Surname is required" });
+  }
+
+  // Backend validation for the Email
+  const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegularExpression.test(email)) {
+    return response
+      .status(404)
+      .json({ message: "Email is not the right format required" });
+  }
+  const isPassValid = await isValidPassword(password);
+  if (!isPassValid) {
+    return response.status(409).json({
+      message:
+        "The password needs to have atleast 8 Characters, One special character, and atleast one number",
+    });
+  }
+
+  const isValidNameCheck = await isValidName(name);
+
+  if (!isValidNameCheck) {
+    return response
+      .status(409)
+      .json({ message: "name must be atleast 3 Characters" });
+  }
+
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
@@ -95,6 +142,8 @@ export async function signInUserService(request, response) {
         userId: results.rows[0].user_id,
         age: results.rows[0].age,
         searchedbefore: results.rows[0].searchedbefore,
+        contact_number: results.rows[0].contact_number,
+        profile_picture: results.rows[0].profile_picture,
         token: token,
       };
       return response.status(200).json(successObject);
@@ -179,23 +228,57 @@ export async function updateUserProfileService(request, response) {
   if (isNaN(user_id)) {
     return response.status(400).json({ message: "Invalid user ID" });
   }
+
+
   try {
+    //picture ipload to  cloudinary
+    const resultCloud = await cloudinary.uploader.upload(profile_picture,{
+      folder:"bankpictures",
+      width: 120,
+      crop: "scale",
+      height: 120,
+    })
+    const profile_picture = resultCloud.secure_url;
+
     const insertQuery = {
       text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",
       values: [name, surname, email, contact_number, profile_picture, user_id],
     };
+
     const results = await client.query(insertQuery);
+     // Check if any rows were affected by the update
+     if (results.rowCount === 0) {
+      return response.status(404).json({ message: "User not found" });
+    }
     return response.status(200).json(`Updated user with Id ${user_id}`);
   } catch (error) {
     console.error("Error checking user existence:", error);
     throw error;
   }
 }
+
+
+export async function updateUserSearchedBooleanService(request, response) {
+  const { searchedbefore, email } = request.body;
+
+  try {
+    const insertQuery = {
+      text: "UPDATE users SET searchedbefore = $1 WHERE email = $2",
+      values: [searchedbefore, email],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json(`Updated searched with email ${email}`);
+  } catch (error) {
+    console.error("Error updating user searchedbefore:", error);
+    throw error;
+  }
+}
+
 export default {
   createUserService,
   signInUserService,
   passwordResetOTPService,
   updateUserPasswordService,
   updateUserProfileService,
-  
+  updateUserSearchedBooleanService,
 };

@@ -1,95 +1,184 @@
-<section class="vh-100 bg-image"
-  style="background-color: white">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-       
-
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-         
-            <div class="card-body p-5">
-              
-                <div class="align-items-center justify-content-center d-flex">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                      alt="Generic placeholder image" class="img-fluid profileImage"
-                      style="width: 120px; height:120px; border-radius: 120px;">
-                  </div>
-    
-
-              <form >
-
-                <div class="form-outline mb-4">
-                    <label for="floatingInput">First name</label>
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                  id="name" 
-                  formControlName="name"/>
-                 
+<div class="container">     
+  <app-nav-bar></app-nav-bar>
 </div>
-                <div class="form-outline mb-4">
-                    <label for="floatingInput">Last name</label>
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                    id="surname"
-                    formControlName="surname"  />
-                   
+<div class="container fullScreen">
 
+  <section class="bg-image" style="background-color: white">
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="container headerTop">
+        <div class="d-flex justify-content-center align-items-center side-margins">
+
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card-body">
+              <div class="align-items-center justify-content-center d-flex">
+                <div *ngIf="imagePreviewUrl">
+                  <img src="{{ imagePreviewUrl }}" alt="" class="img-fluid profileImage"
+                    style="width: 120px; height: 120px; border-radius: 120px" />
+                </div>
+                <!-- If you want to show a default image when `imagePreviewUrl` is not available -->
+                <div *ngIf="!imagePreviewUrl">
+                  <img src="../../../assets/img/profile_placeholder.jpeg" alt="Default Image"
+                    class="img-fluid profileImage" style="width: 120px; height: 120px; border-radius: 120px" />
+                </div>
+              </div>
+
+              <form [formGroup]="profileForm">
+                <div class="form-outline mb-4">
+                  <label for="floatingInput">First name</label>
+                  <input class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
+                    formControlName="name" />
+                </div>
+                <div class="form-outline mb-3">
+                  <label for="floatingInput">Last name</label>
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg"
+                    style="border: 1px solid; border-color:gray" formControlName="surname" />
                 </div>
 
-                
-
-                 
-
-                <div class="form-outline mb-4">
-                    <label for="floatingInput">Email</label>
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                 />
-
-                    
-                  
-                  
+                <div class="form-outline mb-3">
+                  <label for="floatingInput">Age</label>
+                  <input type="text" class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
+                    formControlName="age" />
                 </div>
 
-                <div class="form-outline mb-4">
-                    <label for="floatingInput">Phone number</label>
-                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" style=" border: 1px solid; border-color: black;"
-                    />
+                <div class="form-outline mb-3">
+                  <label for="floatingInput">Email</label>
+                  <input class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
+                    formControlName="email" />
+                </div>
 
-                   
-                    
-                  </div>
-                  <label for="floatingInput">Click to upload image</label>
-                  <div class="input-group mb-4">
-                   
-                    <input type="file" class="form-control" style=" border: 1px solid; border-color: black;" id="inputGroupFile02">
-                  
-                  </div>
+                <!-- <div class="form-outline mb-3">
+                  <label for="floatingInput">Phone number</label>
+                  <input type="text" id="number1" class="form-control form-control-lg"
+                    style="border: 1px solid; border-color: gray" formControlName="contact_number" />
+                </div> -->
+                <label for="floatingInput">Click to upload image</label>
+                <div class="input-group mb-3">
+                  <input type="file" class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
+                    (change)="onFileSelected($event)" #fileInput formControlName="profile_picture" />
+                </div>
+
+
+                <br>
+              
 
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                    <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
+                  <button type="submit" class="btn btn-primary btn-sm" (click)="onUpload()">
+                    Save
+                  </button>
+               
                 </div>
-               
-            
-
               </form>
-
-
             </div>
-          
-     
-    
-    
-               
-              
           </div>
-          <app-bottom-nav-bar></app-bottom-nav-bar>
+
         </div>
-
-        
       </div>
-
-      
     </div>
-    
+  </section>
+  <!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->
+</div>
 
-</section>
+<!-- <div class="container">
 
+
+
+
+  <section class="vh-100 bg-image">
+  
+  
+  
+    <div class="d-flex align-items-center justify-content-center">
+      <div class=" h-100">
+        <div class=" d-flex justify-content-center align-items-center">
+         
+  
+          <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+           
+            
+            <div class="card-body ">
+              <div class="align-items-center justify-content-center d-flex">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                  alt="Generic placeholder image"
+                  class="img-fluid profileImage"
+                  style="width: 120px; height: 120px; border-radius: 120px"
+                />
+              </div>
+  
+              <form [formGroup]="profileForm" (ngSubmit)="updaterUser()">
+                <div class="form-outline mb-4">
+                  <label for="floatingInput">First name</label>
+                  <input
+                    class="form-control form-control-lg"
+                    style="border: 1px solid; border-color: black"
+                    formControlName="name"
+                  />
+                </div>
+                <div class="form-outline mb-4">
+                  <label for="floatingInput">Last name</label>
+                  <input
+                    type="text"
+                    id="form3Example1cg"
+                    class="form-control form-control-lg"
+                    style="border: 1px solid; border-color: black"
+                    formControlName="surname"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label for="floatingInput">Age</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    style="border: 1px solid; border-color: black"
+                    formControlName="age"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label for="floatingInput">Email</label>
+                  <input
+                    class="form-control form-control-lg"
+                    style="border: 1px solid; border-color: black"
+                    formControlName="email"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label for="floatingInput">Phone number</label>
+                  <input
+                    type="text"
+                    id="number1"
+                    class="form-control form-control-lg"
+                    style="border: 1px solid; border-color: black"
+                    formControlName="contact_number"
+                  />
+                </div>
+                <label for="floatingInput">Click to upload image</label>
+                <div class="input-group mb-4">
+                  <input
+                    type="file"
+                    class="form-control"
+                    style="border: 1px solid; border-color: black"
+                    formControlName="profile_picture"
+                  />
+                </div>
+  
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    Save
+                  </button>
+                  <button type="submit" class="btn btn-secondary btn-sm">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  </section>
+  
+  </div> -->
