@@ -197,5 +197,5 @@ export default {
   passwordResetOTPService,
   updateUserPasswordService,
   updateUserProfileService,
-  verifyOTP
+  
 };

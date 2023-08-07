@@ -4,7 +4,6 @@ import {
   passwordResetOTPController,
   updatePasswordController,
   updateUserProfileController,
-  verifyOTPController
 } from "../../controllers/UserControllers/user_controller.js";
 import express from "express";
 const user_router = express.Router();
@@ -114,39 +113,7 @@ user_router.post("/signin", signInUserController);
 
 user_router.post("/sendOTP", passwordResetOTPController);
 
-/**
- * @openapi
- * '/api/user/verifyOTP':
- *  post:
- *     tags:
- *     - User Route
- *     summary: Send OTP For password Reset
- *     requestBody:
- *      required: true
- *      content:
- *        application/json:
- *           schema:
- *            type: object
- *            required:
- *              - email
- *              - otp
- *            properties:
- *              email:
- *                 type: string
- *                 default: string
- *              otp:
- *                 type: string
- *                 default: string
- *     responses:
- *      200:
- *        description: Success
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
- */
 
-user_router.post("/verifyOTP", verifyOTPController);
 
 /**
  * @openapi
