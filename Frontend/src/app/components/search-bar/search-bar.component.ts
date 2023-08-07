@@ -126,6 +126,7 @@ export class SearchBarComponent implements OnInit {
         email: this.session.getLoggedUser().email,
       };
       this.core.updateSearchedBefore(firstSearch).subscribe((response) => {
+        
         this.session.updateUserFirstTimeSearch();
       });
     }

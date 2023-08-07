@@ -58,6 +58,7 @@ searchText: string = '';
       }
     }else{
       this.cardLabel = "Fun facts about ABSA"
+      
     }
 
   }

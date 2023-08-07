@@ -60,7 +60,7 @@ export class CoreService {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
     return this.http
-      .post('https://banklingoapi.onrender.com/api/user/update_boolean', prompt, {
+      .put('https://banklingoapi.onrender.com/api/user/update_boolean', prompt, {
         headers,
       })
       .pipe(
