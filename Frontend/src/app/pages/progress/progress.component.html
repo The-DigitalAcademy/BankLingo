@@ -57,6 +57,7 @@
               <div class="card-body">
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Cheque Account</p>
                 <div>
+                    
                     <progress [value]="progressValue" [max]="maxValue"></progress>
                     <span>{{ progressValue }}% Complete</span>
                   </div>
@@ -66,20 +67,20 @@
             </div>
           </div>
           <div class="col-md-6">
+            
             <div class="card mb-4 mb-md-0">
-              <div class="card-body">
-               
-                 <p class="mb-4"><span class="text-primary font-italic me-1">Favourites term searched</span>
+                <p class="mb-4"><span class="text-primary font-italic me-1">Favourites term searched</span>
                 </p>
+              <div class="card-body">
+                <div *ngFor="let searchObj of favoutitesArray">
                 
-               
+                
+                
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Saving</li>
-                  <li class="list-group-item">Cardless</li>
-                  
-                </ul>
+                  <li class="list-group-item">*{{searchObj.query_searched}}</li>
+                  </ul>
                
-                
+                </div>
               </div>
             </div>
           </div>
