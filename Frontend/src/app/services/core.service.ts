@@ -8,6 +8,8 @@ import { SessionsService } from './sessions.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 import { loggedUser } from '../types/LoggedUser';
+import { environment } from 'src/environments/environment.development';
+import { Message } from '../types/TopicsIE';
 
 @Injectable({
   providedIn: 'root',
@@ -56,13 +58,20 @@ export class CoreService {
       );
   }
 
-  updateSearchedBefore(prompt: { email: string, searchedbefore: boolean }): Observable<any> {
+  updateSearchedBefore(prompt: {
+    email: string;
+    searchedbefore: boolean;
+  }): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
     return this.http
-      .post('https://banklingoapi.onrender.com/api/user/update_boolean', prompt, {
-        headers,
-      })
+      .post(
+        'https://banklingoapi.onrender.com/api/user/update_boolean',
+        prompt,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
@@ -102,5 +111,10 @@ export class CoreService {
           return throwError(error.error.message);
         })
       );
+  }
+
+  askGPTinsideTopic(message: any):Observable<Message> {
+    const headers = this.getHeaders();
+    return this.http.post<Message>(environment.askGPTinsideTopic, message, { headers });
   }
 }
