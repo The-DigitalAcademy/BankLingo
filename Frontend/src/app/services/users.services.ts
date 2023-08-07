@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 
@@ -15,6 +14,7 @@ export class UsersService {
   
   accessToken: any;
   user: any
+  private isAuthenticated = false;
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +31,19 @@ export class UsersService {
     return headers;
   }
   
+  // Simulate a login operation
+  logins() {
+    this.isAuthenticated = true;
+    // You might store the authentication token or user information in the session/local storage
+  }
+
+  // Simulate a logout operation
+  logout() {
+    this.isAuthenticated = false;
+    // Clear the authentication token or user information from the session/local storage
+  }
+
+
 //create user
 
 createUser(users:Users):Observable<any>{

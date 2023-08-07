@@ -132,13 +132,13 @@ public saveOTP(otpObject: { number: any } | null): void {
 
 
 
-public saveOTP(otpObject: { number: any } | null): void {
-  if (otpObject !== null) {
-    window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-  } else {
-    window.sessionStorage.removeItem(OTP);
-  }
-}
+// public saveOTP(otpObject: { number: any } | null): void {
+//   if (otpObject !== null) {
+//     window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
+//   } else {
+//     window.sessionStorage.removeItem(OTP);
+//   }
+// }
 
   
 
