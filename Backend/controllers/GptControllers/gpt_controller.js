@@ -6,7 +6,8 @@ import {
   getPlanByUserService,
   GenerateTopicsFromPlanService,
   getTopicByIDService,
-  askSimpleInsideTopicService
+  askSimpleInsideTopicService,
+  updateCoveredService
 } from "../../services/GptServices/gpt_services.js";
 
 export async function askSimpleQuestionController(request, response) {
@@ -89,6 +90,16 @@ export async function getTopicByIDController(request, response) {
     return response.status(500).json({ message: "Internal server error" });
   }
 }
+
+export async function updateCoveredController(request, response) {
+  try {
+    const result = await updateCoveredService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in updateCoveredService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
 export default {
   askSimpleQuestionController,
   askQuestionHumourController,
@@ -97,5 +108,6 @@ export default {
   getPlanByUserController,
   GenerateTopicsFromPlanController,
   getTopicByIDController,
-  askSimpleInsideTopicController
+  askSimpleInsideTopicController,
+  updateCoveredController
 };

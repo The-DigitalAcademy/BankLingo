@@ -260,6 +260,45 @@ export async function getTopicByIDService(request, response) {
     throw error;
   }
 }
+
+
+
+
+export async function updateCoveredService(request, response) {
+  const plan_id = parseInt(request.params.plan_id);
+  const day = request.body.day;
+  if (isNaN(plan_id)) {
+    return response.status(400).json({ message: "Invalid plan ID provided." });
+  }
+
+  try {
+    const insertQuery = {
+      text:`UPDATE topic
+      SET topic_description = jsonb_set(
+          topic_description,
+          '{course, lessons}',
+          (
+              SELECT jsonb_agg(
+                  CASE
+                      WHEN (lesson->>'day') = $1 THEN
+                          jsonb_set(lesson, '{covered}', 'true')
+                      ELSE
+                          lesson
+                  END
+              )
+              FROM jsonb_array_elements(topic_description->'course'->'lessons') lesson
+          )::jsonb
+      )
+      WHERE plan_id = $2;`,
+      values: [day, plan_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json({message: `Plan for ${day} has been updated`});
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
 export default {
   askSimpleQuestionService,
   askQuestionHumourService,
@@ -269,4 +308,5 @@ export default {
   GenerateTopicsFromPlanService,
   getTopicByIDService,
   askSimpleInsideTopicService,
+  updateCoveredService
 };

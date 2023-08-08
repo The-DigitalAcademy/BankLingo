@@ -6,7 +6,8 @@ import {
   getPlanByUserController,
   GenerateTopicsFromPlanController,
   getTopicByIDController,
-  askSimpleInsideTopicController
+  askSimpleInsideTopicController,
+  updateCoveredController
 } from "../../controllers/GptControllers/gpt_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
@@ -251,5 +252,45 @@ gpt_router.get("/getTopicsById/:plan_id", authenticateToken, getTopicByIDControl
  *        description: Not Found
  */
 gpt_router.post("/insideTopic", authenticateToken, askSimpleInsideTopicController);
+
+
+
+
+/**
+ * @openapi
+ * '/api/gpt/update_covered/{id}':
+ *  put:
+ *     tags:
+ *     - Topics
+ *     summary: Update covered Topic
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: plan_id
+ *        required: true
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - day
+ *            properties:
+ *              day:
+ *                type: string
+ *                default: string
+ *     responses:
+ *      200:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Not Found
+ */
+
+gpt_router.put("/update_covered/:plan_id", authenticateToken, updateCoveredController);
 
 export default gpt_router;
