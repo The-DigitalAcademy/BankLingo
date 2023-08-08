@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SessionsService } from './sessions.service';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap, throwError } from 'rxjs';
 import { Users } from '../types/users';
 import { loggedUser } from '../types/LoggedUser';
 
@@ -15,6 +15,9 @@ import { loggedUser } from '../types/LoggedUser';
 export class CoreService {
   accessToken: any;
   user!: loggedUser;
+  private cachedData: any;
+
+
   constructor(private http: HttpClient, public storage: SessionsService) {}
 
   private getHeaders(): HttpHeaders {
@@ -92,15 +95,22 @@ export class CoreService {
   getLatestFavouriteSearch(user_id: number): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
-    return this.http
+
+
+if(this.cachedData){
+  return of(this.cachedData);
+}else{
+  return this.http
       .get(
         `https://banklingoapi.onrender.com/api/search/get_history/${user_id}`,
         { headers }
-      )
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error.error.message);
-        })
+      ).pipe( tap(data => this.cachedData = data),
+       catchError((error: HttpErrorResponse) => {
+         return throwError(error.error.message);
+       })
       );
   }
+}
+
+  
 }

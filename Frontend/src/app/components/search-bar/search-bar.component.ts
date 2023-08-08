@@ -9,6 +9,8 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+
+
 declare var $: any;
 declare var webkitSpeechRecognition: any;
 

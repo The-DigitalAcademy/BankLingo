@@ -1,26 +1,15 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarOptions, DateClickArg } from 'fullcalendar';
 import { SessionsService } from 'src/app/services/sessions.service';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup,Validators, FormBuilder,} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LessonPlan } from 'src/app/types/lessonPlan';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lesson-plan-calender',
@@ -36,6 +25,8 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
+
+
   private apiUrls = 'https://banklingoapi.onrender.com/api/gpt/create';
   user!: any;
   profileForm!: FormGroup;
@@ -50,7 +41,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   formData: any = {
     duration: 0, // Initialize with a default value, update this based on user input
   };
-
+  isLoading = false
   events: LessonPlan[] = [];
   selectedDates: Date | undefined = new Date();
   duration: Date[] = [];
@@ -61,6 +52,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
       this.selectedDates = info.date;
     },
   };
+
 
   constructor(
     private http: HttpClient,
@@ -89,18 +81,43 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
       plan_name: this.session.getQueryQuestion(),
     };
 
-
+    this.isLoading=true
     this.http.post<any>(this.apiUrls, nDays, this.httpOptions).subscribe(
       (response) => {
+        this.isLoading=false
         console.log('Data saved successfully:', response);
         this.router.navigate(["/lesson-plans"])
 
       },
 
       (error) => {
+        this.isLoading=false
         if (error.status === 401) {
           console.error('Unauthorized. Please provide valid credentials.');
-        } else {
+        } else if(error.status==409){
+
+          Swal.fire({
+            icon: 'error',
+            titleText: "Lesson already exist",
+            text: "Would you like to jump to your lesson plan?",
+            confirmButtonColor: '#38A3A5',
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText:'Yes',
+            // confirmButtonAriaLabel: 'Thumbs up',
+            cancelButtonText: 'No',
+            // cancelButtonAriaLabel: 'Understood!',
+            // footer: '<a href="lesson-plan-calender">Learn more?</a>',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(["/lesson-plans"])
+            } else if (result.isDismissed) {
+              console.log('Modal dismissed');
+            } else {
+              console.log('Modal dismissed');
+            }
+          });
+
           console.error('Error saving number of days:', error);
         }
       }

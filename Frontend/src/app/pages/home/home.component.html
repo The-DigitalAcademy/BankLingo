@@ -46,11 +46,8 @@
   <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
   <div style="height:250px" *ngIf="searchedBefore">
 
-
     <div *ngIf="searchedBefore" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
       <div *ngFor="let searchObj of favoutitesArray">
-
-
         <div *ngIf="searchObj.ishumour" class="card cardStyle card-block mx-2" style="min-width: 250px; background-color: #64d2ff">
           <div class="card-body">
             <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
@@ -98,8 +95,6 @@
 
 <!-- =================recyclerview FOR FUN FACTS================ -->
 <div style="height:250px" *ngIf="!searchedBefore">
-
-
 <div class="d-flex flex-row flex-nowrap overflow-auto" *ngIf="!searchedBefore" style="height: auto">
   <div class="card cardStyle card-block mx-2" style="min-width: 240px">
     <div class="card-body">
