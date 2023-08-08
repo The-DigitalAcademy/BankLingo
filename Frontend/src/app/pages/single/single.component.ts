@@ -61,7 +61,6 @@ export class SingleComponent {
     this.loading = true;
     if (this.currentIndex < this.someTopics.length - 1) {
       this.currentIndex++;
-
       let message = {
         message: this.someTopics[this.currentIndex],
       };
@@ -81,10 +80,15 @@ export class SingleComponent {
     if (this.currentIndex === this.someTopics.length - 1) {
       this.allTopicsCoveredForCard = true;
       this.sharedService.setCardCoveredStatus(true);
-  
+      
       // Update the covered status in the course array
-      this.someTopics[this.currentIndex].covered = true;
+      this.course.forEach((lesson) => {
+        if (lesson.day === this.particularDay[0].day) {
+          lesson.covered = true;
+        }
+      });
     }
+    
   }
 
   async navigateToPreviousTopic(): Promise<void> {

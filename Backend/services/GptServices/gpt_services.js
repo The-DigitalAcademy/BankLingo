@@ -91,7 +91,44 @@ export async function GenerateTopicsFromPlanService(request, response) {
         messages: [
           {
             role: "user",
-            content: `Give me a ${duration} day course  explanation about ${plan_name}  in layman terms, explain the lessonDescription in detail, break the course into ${duration} days, Return as an JSON`,
+            content: ` 
+            Generate a JSON representation for a ${plan_name} course with content for ${duration} days with a structure like the one below:
+            topic_description: {
+              course: {
+                title: 'Credit Card Basics',
+                lessons: [
+                  {
+                    day: 'Day 1',
+                    topics: [
+                      'Introduction to Credit Cards',
+                      'Understanding How Credit Cards Work',
+                    ],
+                    description:
+                      'On the first day of this course, you will be introduced to credit cards and learn how they work. We will cover topics such as the purpose of credit cards, the concept of credit limit, interest rates, and fees. You will gain a basic understanding of the benefits and risks associated with credit cards.',
+                    covered: false,
+                  },
+                  {
+                    day: 'Day 2',
+                    topics: [
+                      'Managing Credit Card Finances',
+                      'Building Credit History',
+                    ],
+                    description:
+                      'Day 2 will focus on managing credit card finances effectively. We will discuss the importance of budgeting and responsible spending. You will learn how to read credit card statements, track expenses, and pay your bills on time to avoid late fees and penalties. Additionally, we will delve into the significance of building a good credit history and tips for maintaining a positive credit score.',
+                    covered: false,
+                  },
+                  {
+                    day: 'Day 3',
+                    topics: ['Credit Card Security', 'Smart Credit Card Usage'],
+                    description:
+                      'On the final day, we will cover credit card security measures to protect against fraud and identity theft. This includes safeguarding personal information, recognizing phishing attempts, and monitoring your transactions. We will also provide insights into making smart credit card choices, such as comparing offers, understanding reward programs, and avoiding excessive debt. By the end of this course, you will have a comprehensive understanding of credit cards, enabling you to use them responsibly and make informed financial decisions.',
+                    covered: false,
+                  },
+                ],
+                duration: '3 Days',
+              },
+            },
+            remove the other topic description`,
           },
         ],
       })
@@ -231,5 +268,5 @@ export default {
   getPlanByUserService,
   GenerateTopicsFromPlanService,
   getTopicByIDService,
-  askSimpleInsideTopicService
+  askSimpleInsideTopicService,
 };
