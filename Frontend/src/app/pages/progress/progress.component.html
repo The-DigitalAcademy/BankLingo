@@ -13,7 +13,7 @@
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <div class="align-items-center justify-content-center d-flex">
+            <div class="align-items-right justify-content-right d-flex">
                 <div *ngIf="user.profile_picture">
                     <img
                       src={{user.profile_picture}}
@@ -23,11 +23,14 @@
                     />
                   </div>
              
+
+                  
               
             </div>
+        
             <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
             
-            <h5 class="my-3">{{user.email}}</h5>
+            
               
               </div>
             </div>
@@ -45,8 +48,11 @@
         
       </div>
 
-      <h5> Progress</h5>
-            
+    
+      <div class="headingFont d-flex justify-content-left my-3">
+        Term learning progress status
+      </div>
+
            
            
             
@@ -55,10 +61,16 @@
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
               <div class="card-body">
-                <p class="mt-4 mb-1" style="font-size: .77rem;">Cheque Account</p>
+                <!-- <p class="mt-4 mb-1" style="font-size: .77rem;">Cheque Account</p> -->
+                <span>Cheque Account</span>
+
                 <div>
                     
-                    <progress [value]="progressValue" [max]="maxValue"></progress>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        
+                    </div>
+                    <!-- <progress [value]="progressValue" [max]="maxValue"></progress> -->
                     <span>{{ progressValue }}% Complete</span>
                   </div>
 
@@ -66,11 +78,14 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
+
+            <div class="headingFont d-flex justify-content-left my-3">
+                Favourites term searched
+              </div>
             
             <div class="card mb-4 mb-md-0">
-                <p class="mb-4"><span class="text-primary font-italic me-1">Favourites term searched</span>
-                </p>
+               
               <div class="card-body">
                 <div *ngFor="let searchObj of favoutitesArray">
                 
@@ -81,10 +96,36 @@
                   </ul>
                
                 </div>
-              </div>
-            </div>
-          </div>
+              </div> -->
+              
+
+              <div class="row row-cols-1 row-cols-md-2 g-4">
+                
+                <div class="col">
+                    <div class="headingFont d-flex justify-content-left my-3">
+                        Favourites term searched
+                      </div>
+                  <div class="card">
+                    
+                    <div class="card-body">
+                        <div *ngFor="let searchObj of favoutitesArray">
+                
+                
+                
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">#{{searchObj.query_searched}}</li>
+                              </ul>
+                           
+                            </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
         </div>
+                
+              
+    
+          
       
 
         
