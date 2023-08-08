@@ -120,9 +120,16 @@ export class CoreService {
       headers,
     });
   }
-  getTopicsById(plan_number: number):Observable<Welcome[]> {
+  getTopicsById(plan_number: number): Observable<Welcome[]> {
     const headers = this.getHeaders();
     return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
+      headers,
+    });
+  }
+
+  updateCovered(plan_id: number, day: any) {
+    const headers = this.getHeaders();
+    return this.http.put(`${environment.updateCovered}/${plan_id}`, day, {
       headers,
     });
   }

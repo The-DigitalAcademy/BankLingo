@@ -19,8 +19,9 @@
   >
     Next Topic
   </button>
-  <button *ngIf="currentIndex === someTopics.length - 1" routerLink="/testing">
+  <button *ngIf="currentIndex === someTopics.length - 1" (click)="onDoneClicked()" >
     Done
   </button>
+
  
 </div>
