@@ -9,7 +9,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 import { loggedUser } from '../types/LoggedUser';
 import { environment } from 'src/environments/environment.development';
-import { Message } from '../types/TopicsIE';
+import { Message, Welcome } from '../types/TopicsIE';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,7 @@ import { Message } from '../types/TopicsIE';
 export class CoreService {
   accessToken: any;
   user!: loggedUser;
+  topics: any[] = [];
   constructor(private http: HttpClient, public storage: SessionsService) {}
 
   private getHeaders(): HttpHeaders {
@@ -113,8 +114,16 @@ export class CoreService {
       );
   }
 
-  askGPTinsideTopic(message: any):Observable<Message> {
+  askGPTinsideTopic(message: any): Observable<Message> {
     const headers = this.getHeaders();
-    return this.http.post<Message>(environment.askGPTinsideTopic, message, { headers });
+    return this.http.post<Message>(environment.askGPTinsideTopic, message, {
+      headers,
+    });
+  }
+  getTopicsById(plan_number: number):Observable<Welcome[]> {
+    const headers = this.getHeaders();
+    return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
+      headers,
+    });
   }
 }

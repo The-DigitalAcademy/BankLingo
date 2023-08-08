@@ -6,6 +6,7 @@ import {
   getSearchHistoryLimitController,
 } from "../../controllers/SearchControllers/search_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
+
 /**
  * @openapi
  * '/api/search/store_search/{id}':
