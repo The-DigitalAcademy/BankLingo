@@ -55,6 +55,8 @@ import { TitleBarComponent } from './components/title-bar/title-bar.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PromptComponentComponent } from './components/prompt-component/prompt-component.component';
 import { PwaService } from './services/pwa.service';
+import { TestingComponent } from './pages/testing/testing.component';
+import { SingleComponent } from './pages/single/single.component';
 
 const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt();
 
@@ -83,6 +85,8 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     HomeBeforeComponent,
     TitleBarComponent,
     PromptComponentComponent,
+    TestingComponent,
+    SingleComponent,
   ],
   imports: [
     BrowserModule,
