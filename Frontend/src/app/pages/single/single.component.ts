@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { da } from 'date-fns/locale';
 import { CoreService } from 'src/app/services/core.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { Topics } from 'src/app/topics-mock-data';
+
 import { Welcome, Lesson } from 'src/app/types/TopicsIE';
 
 @Component({
@@ -12,22 +12,40 @@ import { Welcome, Lesson } from 'src/app/types/TopicsIE';
   styleUrls: ['./single.component.scss'],
 })
 export class SingleComponent {
-  topics: Welcome[] = Topics;
+  topics: Welcome[] = [];
   course: Lesson[] = [];
+  localTopics: any;
+  localParse!: Welcome;
   particularDay: Lesson[] = [];
   someTopics: any;
   currentIndex: number = 0;
   Message: string = ' ';
   loading: boolean = false;
+  doneClicked: boolean = false;
+
   allTopicsCoveredForCard: boolean = false;
-  constructor(private route: ActivatedRoute, private core: CoreService, private sharedService: SharedService) {}
+
+  // ...
+
+  onDoneClicked() {
+    this.doneClicked = true;
+    this.navigateToNextTopic(); // Call the main function to trigger the update
+  }
+  constructor(
+    private route: ActivatedRoute,
+    private core: CoreService,
+    private sharedService: SharedService,
+    private router: Router
+  ) {}
   ngOnInit() {
     //Get the current paramenter
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
+    this.localTopics = localStorage.getItem('topics');
 
+    this.localParse = JSON.parse(this.localTopics) as Welcome;
     // Put the data into a variable.
-    this.course = this.topics[0].topic_description.course.lessons;
+    this.course = this.localParse.topic_description?.course.lessons;
 
     //Loop through the course
     this.course.forEach((item) => {
@@ -80,15 +98,34 @@ export class SingleComponent {
     if (this.currentIndex === this.someTopics.length - 1) {
       this.allTopicsCoveredForCard = true;
       this.sharedService.setCardCoveredStatus(true);
-      
+
       // Update the covered status in the course array
-      this.course.forEach((lesson) => {
+      this.course.forEach(async (lesson) => {
         if (lesson.day === this.particularDay[0].day) {
+          this.localTopics = localStorage.getItem('topics');
+
+          this.localParse = JSON.parse(this.localTopics) as Welcome;
           lesson.covered = true;
+          let day = {
+            day: lesson.day,
+          };
+
+          if (this.doneClicked) {
+            await this.core
+              .updateCovered(this.localParse.plan_id, day)
+              .subscribe({
+                next: (data) => {
+                  console.log(data);
+                  this.router.navigate(['/testing']);
+                },
+                error: (err) => {
+                  console.log(err);
+                },
+              });
+          }
         }
       });
     }
-    
   }
 
   async navigateToPreviousTopic(): Promise<void> {

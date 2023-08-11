@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   isIconFilled = false;
   favoutitesArray: SearchObject[] = [];
   user_id = 0
+  favouritesData: any;
 
 
 
@@ -58,6 +59,7 @@ searchText: string = '';
       }
     }else{
       this.cardLabel = "Fun facts about ABSA"
+      
     }
 
   }
@@ -68,6 +70,7 @@ searchText: string = '';
       this.core.getLatestFavouriteSearch(this.user_id).subscribe(response =>{
         
         this.favoutitesArray = response
+        
         console.log(this.favoutitesArray[0],"fav array"); 
 
       })
