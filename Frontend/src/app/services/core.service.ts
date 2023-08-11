@@ -20,6 +20,8 @@ export class CoreService {
   topics: any[] = [];
   constructor(private http: HttpClient, public storage: SessionsService) {}
   private cachedData: any;
+  private cachedLessonsData: any;
+
   localURL = "http://localhost:4500/api/gpt"
 
 
@@ -150,6 +152,24 @@ export class CoreService {
       );
   }
 
+  getActiveLesson(plan_id: number): Observable<any> {
+    const headers = this.getHeaders();
+
+
+    if (this.cachedLessonsData) {
+      return of(this.cachedLessonsData);
+    } else {
+      return this.http
+        .get(
+          `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${plan_id}`,
+          { headers }
+        ).pipe(tap(data => this.cachedLessonsData = data),
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
+  }
 
 
 
