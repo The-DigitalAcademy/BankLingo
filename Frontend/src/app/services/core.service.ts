@@ -20,6 +20,7 @@ export class CoreService {
   topics: any[] = [];
   constructor(private http: HttpClient, public storage: SessionsService) {}
   private cachedData: any;
+  localURL = "http://localhost:4500/api/gpt"
 
 
 
@@ -31,8 +32,8 @@ export class CoreService {
     }
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.user.token}`,
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'true' // incorrec
+      'Content-Type': 'application/json'
+      // 'Access-Control-Allow-Origin': 'true' // incorrec
       
     });
     return headers;
