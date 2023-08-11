@@ -9,6 +9,8 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+
+
 declare var $: any;
 declare var webkitSpeechRecognition: any;
 
@@ -50,7 +52,7 @@ export class SearchBarComponent implements OnInit {
         this.isRecognizing = false;
       };
 
-      this.recognition.onerror = () => {};
+      this.recognition.onerror = () => { };
 
       this.recognition.onresult = async (event: any) => {
         var current = event.resultIndex;
@@ -109,7 +111,7 @@ export class SearchBarComponent implements OnInit {
       footer: '<a href="lesson-plan-calender">Learn more?</a>',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.saveSearch()
+        this.saveSearch();
       } else if (result.isDismissed) {
         console.log('Modal dismissed');
       } else {
@@ -119,21 +121,18 @@ export class SearchBarComponent implements OnInit {
   }
 
   searchQuery() {
-
-   const searchedB4 = this.session.getLoggedUser().searchedbefore
-   if(searchedB4==false){  
-    const firstSearch = {
-      searchedbefore: true,
-      email: this.session.getLoggedUser().email
+    const searchedB4 = this.session.getLoggedUser().searchedbefore;
+    if (searchedB4 == false) {
+      const firstSearch = {
+        searchedbefore: true,
+        email: this.session.getLoggedUser().email,
+      };
+      this.core.updateSearchedBefore(firstSearch).subscribe((response) => {
+        
+        this.session.updateUserFirstTimeSearch();
+      //  window.location.reload()
+      });
     }
-    this.core.updateSearchedBefore(firstSearch).subscribe(response=>{
-    this.session.updateUserFirstTimeSearch()
-      
-    })
-
-   }
-
-
 
     if (this.humourSwitch) {
       this.humourSwitch = true;
@@ -144,9 +143,7 @@ export class SearchBarComponent implements OnInit {
         });
     } else {
       this.humourSwitch = false;
-      this.core
-        .SearchTerm({ message: this.queryText })
-        .subscribe((response) => {
+      this.core.SearchTerm({ message: this.queryText }).subscribe((response) => {
           this.internalOperations(response);
         });
     }

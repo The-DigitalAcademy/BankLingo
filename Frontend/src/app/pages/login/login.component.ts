@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   users!: Users;
   email!: string;
   invalidCredentials = false;
+  isLoading = false;
 
   constructor( private auth: UsersService,
     private router: Router,
@@ -44,8 +45,9 @@ export class LoginComponent implements OnInit {
   onLogin() {
 
     if (this.loginForm.valid) {       // Form is valid, perform login logic      
-    
+      this.isLoading = true;
     this.auth.login(this.loginForm.value).subscribe(response => {
+      this.isLoading = false;
         // Handle the successful response here.
         console.log(response,"success");
         this.session.saveLoggedUser(response)
@@ -65,6 +67,7 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         // Handle the error here or display it to the user.
+        this.isLoading=false
         console.error(error);
         Swal.fire({
           icon: 'error',
