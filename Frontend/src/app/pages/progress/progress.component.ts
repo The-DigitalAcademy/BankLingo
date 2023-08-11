@@ -47,22 +47,18 @@ export class ProgressComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.name =  this.session.getLoggedUser().name
-    this.surname = this.session.getLoggedUser().surname
-    this.img = this.session.getLoggedUser().profile_picture
-    
+    this.searchedBefore = this.session.getLoggedUser().searchedbefore
     this.user_id = this.session.getLoggedUser().userId
-
   
  
-   /**
-    * TODO: when user search and its a first time, it must change the searched before to true, so they no longer see the fun facts
-    */
+   
    
   
-   if(this.searchedBefore==true){
+   if(this.searchedBefore==true)
+   {
     this.cardLabel = "Favourite searched terms"
     this.initiateUserHistory()
+
     this.responseBody = this.session.getQueryResponse().message
     if(this.responseBody.length!=0){
       this.showSearched = true
@@ -73,14 +69,26 @@ export class ProgressComponent implements OnInit{
     
   }
 
+  this.user = this.session.getLoggedUser();
+
+
+  // Check if the user variable contains valid user data before initializing the form
+  if (this.user && Object.keys(this.user).length > 0) {
+
+    console.log('User data not found in session storage');
+    // You can take appropriate actions, such as redirecting the user to the login page.
+  }
+
 }
 
 initializeForm() {
   this.profileForm = this.formBuilder.group({
     name: [this.user.name, Validators.required],
     surname: [this.user.surname, Validators.required],
-    
-    profile_picture: [this.user.profile_picture],
+    email: [this.user.email, [Validators.required, Validators.email]],
+
+
+
   });
 }
 
