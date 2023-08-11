@@ -101,11 +101,7 @@ const initializer = (pwaService: PwaService) => () =>
       deps: [PwaService],
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptorInterceptor,
-      multi: true,
-    },
+
   ],
   bootstrap: [AppComponent],
 })
