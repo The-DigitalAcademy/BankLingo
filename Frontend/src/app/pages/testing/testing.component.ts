@@ -27,7 +27,7 @@ export class TestingComponent {
   }
   ngOnInit() {
     this.isLoading = true;
-    this.core.getTopicsById(100).subscribe({
+    this.core.getTopicsById(94).subscribe({
       next: (data) => {
         // Instead of storing in localStorage, you can directly process the data here
         const topicsData = data as unknown as Welcome; // Assuming Welcome is the type of your data
