@@ -19,6 +19,8 @@ import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { AuthGuard } from './auth.guard';
+import { TestingComponent } from './pages/testing/testing.component';
+import { SingleComponent } from './pages/single/single.component';
 const routes: Routes = [
   {
     path: 'edit_profile',
@@ -53,6 +55,8 @@ const routes: Routes = [
   { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchBarComponent, canActivate: [AuthGuard] },
   { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'testing', component: TestingComponent },
+  { path: 'singletopic/:day', component: SingleComponent },
 
    { path: '', redirectTo: 'lesson-plans', pathMatch: 'full' },
 ];

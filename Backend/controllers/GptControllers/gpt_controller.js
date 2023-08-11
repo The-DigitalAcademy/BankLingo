@@ -5,7 +5,9 @@ import {
   deleteLessonPlanService,
   getPlanByUserService,
   GenerateTopicsFromPlanService,
-  getTopicByIDService
+  getTopicByIDService,
+  askSimpleInsideTopicService,
+  updateCoveredService
 } from "../../services/GptServices/gpt_services.js";
 
 export async function askSimpleQuestionController(request, response) {
@@ -14,6 +16,16 @@ export async function askSimpleQuestionController(request, response) {
     return result;
   } catch (error) {
     console.error("Error in askSimpleQuestionService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function askSimpleInsideTopicController(request, response) {
+  try {
+    const result = await askSimpleInsideTopicService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in askSimpleInsideTopicService:", error);
     return response.status(500).json({ message: "Internal server error" });
   }
 }
@@ -78,6 +90,16 @@ export async function getTopicByIDController(request, response) {
     return response.status(500).json({ message: "Internal server error" });
   }
 }
+
+export async function updateCoveredController(request, response) {
+  try {
+    const result = await updateCoveredService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in updateCoveredService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
 export default {
   askSimpleQuestionController,
   askQuestionHumourController,
@@ -85,5 +107,7 @@ export default {
   deleteLessonPlanController,
   getPlanByUserController,
   GenerateTopicsFromPlanController,
-  getTopicByIDController
+  getTopicByIDController,
+  askSimpleInsideTopicController,
+  updateCoveredController
 };

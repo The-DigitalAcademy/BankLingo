@@ -1,0 +1,27 @@
+<div *ngFor="let x of particularDay; let i = index">
+  <p>{{ x.day }}</p>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ someTopics[currentIndex] }}</h5>
+      <div class="spinner-border" role="status" *ngIf="loading == true">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p *ngIf="loading == false">{{ Message }}</p>
+    </div>
+  </div>
+
+  <button *ngIf="currentIndex > 0" (click)="navigateToPreviousTopic()">
+    Previous Topic
+  </button>
+  <button
+    *ngIf="currentIndex < someTopics.length - 1"
+    (click)="navigateToNextTopic()"
+  >
+    Next Topic
+  </button>
+  <button *ngIf="currentIndex === someTopics.length - 1" (click)="onDoneClicked()" >
+    Done
+  </button>
+
+ 
+</div>
