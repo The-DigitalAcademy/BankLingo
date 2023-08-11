@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import "dotenv/config";
-
 import swaggerDocs from "./configuration/swagger/swagger.js";
 import user_router from "./routes/UserRoutes/user_routes.js";
 import pool from "./configuration/database/database_configuration.js";

@@ -42,7 +42,8 @@ export class ProfileComponent {
   
 
   progressValue = 35;
-  maxValue = 100;constructor(
+  maxValue = 100;
+  constructor(
     private usersService: UsersService,
     private router: Router, private formBuilder: FormBuilder,
     private session: SessionsService,
