@@ -8,6 +8,8 @@ import { SessionsService } from './sessions.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
 import { loggedUser } from '../types/LoggedUser';
+import { environment } from 'src/environments/environment.development';
+import { Message, Welcome } from '../types/TopicsIE';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +17,7 @@ import { loggedUser } from '../types/LoggedUser';
 export class CoreService {
   accessToken: any;
   user!: loggedUser;
+  topics: any[] = [];
   constructor(private http: HttpClient, public storage: SessionsService) {}
 
   private getHeaders(): HttpHeaders {
@@ -56,13 +59,20 @@ export class CoreService {
       );
   }
 
-  updateSearchedBefore(prompt: { email: string, searchedbefore: boolean }): Observable<any> {
+  updateSearchedBefore(prompt: {
+    email: string;
+    searchedbefore: boolean;
+  }): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
     return this.http
-      .post('https://banklingoapi.onrender.com/api/user/update_boolean', prompt, {
-        headers,
-      })
+      .post(
+        'https://banklingoapi.onrender.com/api/user/update_boolean',
+        prompt,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
@@ -102,5 +112,25 @@ export class CoreService {
           return throwError(error.error.message);
         })
       );
+  }
+
+  askGPTinsideTopic(message: any): Observable<Message> {
+    const headers = this.getHeaders();
+    return this.http.post<Message>(environment.askGPTinsideTopic, message, {
+      headers,
+    });
+  }
+  getTopicsById(plan_number: number): Observable<Welcome[]> {
+    const headers = this.getHeaders();
+    return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
+      headers,
+    });
+  }
+
+  updateCovered(plan_id: number, day: any) {
+    const headers = this.getHeaders();
+    return this.http.put(`${environment.updateCovered}/${plan_id}`, day, {
+      headers,
+    });
   }
 }

@@ -46,7 +46,31 @@ export async function askSimpleQuestionService(request, response) {
         ],
       })
       .then((res) => {
-        
+        let object = {
+          message: res.data.choices[0].message.content,
+        };
+        return response.status(200).send(object);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function askSimpleInsideTopicService(request, response) {
+  try {
+    const { message } = request.body;
+
+    await openai
+      .createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Explain  ${message} like a 5 year old ,explain it in less than 50 words, but in a way i will understand`,
+          },
+        ],
+      })
+      .then((res) => {
         let object = {
           message: res.data.choices[0].message.content,
         };
@@ -67,7 +91,44 @@ export async function GenerateTopicsFromPlanService(request, response) {
         messages: [
           {
             role: "user",
-            content: `Give me a ${duration} day course  explanation about ${plan_name}  in layman terms, explain the lessonDescription in detail, break the course into ${duration} days, Return as an JSON`,
+            content: ` 
+            Generate a JSON representation for a ${plan_name} course with content for ${duration} days with a structure like the one below:
+            topic_description: {
+              course: {
+                title: 'Credit Card Basics',
+                lessons: [
+                  {
+                    day: 'Day 1',
+                    topics: [
+                      'Introduction to Credit Cards',
+                      'Understanding How Credit Cards Work',
+                    ],
+                    description:
+                      'On the first day of this course, you will be introduced to credit cards and learn how they work. We will cover topics such as the purpose of credit cards, the concept of credit limit, interest rates, and fees. You will gain a basic understanding of the benefits and risks associated with credit cards.',
+                    covered: false,
+                  },
+                  {
+                    day: 'Day 2',
+                    topics: [
+                      'Managing Credit Card Finances',
+                      'Building Credit History',
+                    ],
+                    description:
+                      'Day 2 will focus on managing credit card finances effectively. We will discuss the importance of budgeting and responsible spending. You will learn how to read credit card statements, track expenses, and pay your bills on time to avoid late fees and penalties. Additionally, we will delve into the significance of building a good credit history and tips for maintaining a positive credit score.',
+                    covered: false,
+                  },
+                  {
+                    day: 'Day 3',
+                    topics: ['Credit Card Security', 'Smart Credit Card Usage'],
+                    description:
+                      'On the final day, we will cover credit card security measures to protect against fraud and identity theft. This includes safeguarding personal information, recognizing phishing attempts, and monitoring your transactions. We will also provide insights into making smart credit card choices, such as comparing offers, understanding reward programs, and avoiding excessive debt. By the end of this course, you will have a comprehensive understanding of credit cards, enabling you to use them responsibly and make informed financial decisions.',
+                    covered: false,
+                  },
+                ],
+                duration: '3 Days',
+              },
+            },
+            remove the other topic description`,
           },
         ],
       })
@@ -199,6 +260,45 @@ export async function getTopicByIDService(request, response) {
     throw error;
   }
 }
+
+
+
+
+export async function updateCoveredService(request, response) {
+  const plan_id = parseInt(request.params.plan_id);
+  const day = request.body.day;
+  if (isNaN(plan_id)) {
+    return response.status(400).json({ message: "Invalid plan ID provided." });
+  }
+
+  try {
+    const insertQuery = {
+      text:`UPDATE topic
+      SET topic_description = jsonb_set(
+          topic_description,
+          '{course, lessons}',
+          (
+              SELECT jsonb_agg(
+                  CASE
+                      WHEN (lesson->>'day') = $1 THEN
+                          jsonb_set(lesson, '{covered}', 'true')
+                      ELSE
+                          lesson
+                  END
+              )
+              FROM jsonb_array_elements(topic_description->'course'->'lessons') lesson
+          )::jsonb
+      )
+      WHERE plan_id = $2;`,
+      values: [day, plan_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json({message: `Plan for ${day} has been updated`});
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
 export default {
   askSimpleQuestionService,
   askQuestionHumourService,
@@ -207,4 +307,6 @@ export default {
   getPlanByUserService,
   GenerateTopicsFromPlanService,
   getTopicByIDService,
+  askSimpleInsideTopicService,
+  updateCoveredService
 };
