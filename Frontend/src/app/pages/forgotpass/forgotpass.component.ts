@@ -57,7 +57,16 @@ export class ForgotpassComponent implements OnInit{
   //   }
   // }
 
+
+  
+  
+  
+  
+  //function will be initialized when pressing the submit button
+  
+  
   onSubmit(){
+    //function will be initialized when pressing the submit button
     const { email } = this.form.value;
 
    // setTimeout(() =>  this.gotoOtp() , 1000);
@@ -73,12 +82,7 @@ export class ForgotpassComponent implements OnInit{
     })
   }
 
-
-  // gotoOtp(){
-  //   return this.router.navigate(['/otp']);
-  // }
-  
-
+//sending otp function
   sendOtp() {
 
     const email = this.form.get('email')?.value;

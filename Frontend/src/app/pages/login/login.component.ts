@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     password: string = '';
   showPassword: boolean = false;
 
+  //show password after typing it to show the typed password
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }

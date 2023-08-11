@@ -46,6 +46,7 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
         return;
       }
       
+      //when the new password is recieved, it will redirect.
       const newPassword = this.form.get('password')?.value;
       // Call the password service to perform the password change/reset logic
       this.passwordService.changePassword(newPassword,this.user.user_id).subscribe(
@@ -61,6 +62,8 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
     }
   }
 
+
+  //user is changing their password function
   changePassword() {
     const search = {
       password: this.form.get('password')?.value
@@ -78,6 +81,8 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
       }
     );
   }
+
+
   // Custom validator to check password pattern
   private passwordPatternValidator(control: any) {
     const password = control.value;

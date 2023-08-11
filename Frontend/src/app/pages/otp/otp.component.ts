@@ -32,9 +32,6 @@ constructor(
 ) {}
 
 ngOnInit(): void {
-
- 
-
  /* const makeIteration = () => {
     console.clear();
     if (this.seconds > 0) {
@@ -43,8 +40,7 @@ ngOnInit(): void {
         setTimeout(makeIteration, 1000);  // 1 second waiting
     } else {
         console.log('Done!');
-    }*/
-    
+    }*/  
 };
 
 // setTimeout(makeIteration, 1000); 
@@ -62,7 +58,7 @@ onOtpInput() {
 }
 
 verifyOtp() {
-
+//function used to verigy the otp that was sent to the email.
 const emailOTP: number = this.otp
 if(emailOTP==this.sessions.getEmailOTP().number){
   console.log("OTP MATCH");
@@ -79,11 +75,9 @@ if(emailOTP==this.sessions.getEmailOTP().number){
    
   });
 }
-
-
-
 }
 
+// resends the otp to the email provided incease the response was not received previously
 resendOtp() {
   this.password.resendOtp(this.email).subscribe(
     () => {
@@ -95,8 +89,4 @@ resendOtp() {
     }
   );
 }
-
-
-
-
 }

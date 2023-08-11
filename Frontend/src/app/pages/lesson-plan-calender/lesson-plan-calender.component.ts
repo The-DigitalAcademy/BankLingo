@@ -31,6 +31,7 @@ import { LessonPlan } from 'src/app/types/lessonPlan';
   <div *ngIf="!UsersService.isLoggedIn()">
     <!-- Show login page or redirect to login page -->
   </div>`,
+
   templateUrl: './lesson-plan-calender.component.html',
   styleUrls: ['./lesson-plan-calender.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -67,7 +68,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
 
 
-
+//dates selected from the calender
   selectedDates: Date |
     undefined = new Date();
 
