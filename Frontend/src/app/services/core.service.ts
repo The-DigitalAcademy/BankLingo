@@ -18,7 +18,7 @@ export class CoreService {
   private cachedData: any;
 
 
-  constructor(private http: HttpClient, public storage: SessionsService) {}
+  constructor(private http: HttpClient, public storage: SessionsService) { }
 
   private getHeaders(): HttpHeaders {
     this.accessToken = sessionStorage.getItem('loggedUser');
@@ -29,6 +29,8 @@ export class CoreService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.user.token}`,
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'true' // incorrec
+      
     });
     return headers;
   }
@@ -97,20 +99,50 @@ export class CoreService {
     const headers = this.getHeaders();
 
 
-if(this.cachedData){
-  return of(this.cachedData);
-}else{
-  return this.http
-      .get(
-        `https://banklingoapi.onrender.com/api/search/get_history/${user_id}`,
-        { headers }
-      ).pipe( tap(data => this.cachedData = data),
-       catchError((error: HttpErrorResponse) => {
-         return throwError(error.error.message);
-       })
+    if (this.cachedData) {
+      return of(this.cachedData);
+    } else {
+      return this.http
+        .get(
+          `https://banklingoapi.onrender.com/api/search/get_history/${user_id}`,
+          { headers }
+        ).pipe(tap(data => this.cachedData = data),
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
+  }
+
+  generateTopics(prompt: { plan_id: number, plan_name: string, duration: number }): Observable<any> {
+
+    const headers = this.getHeaders();
+    return this.http
+      .post('https://banklingoapi.onrender.com/api/gpt/generateTopics', prompt, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error.error.message);
+        })
       );
   }
-}
 
-  
+  saveLessonPlan(prompt: { duration: number, user_id: number, plan_name: string }): Observable<any> {
+
+    const headers = this.getHeaders();
+    return this.http
+      .post('https://banklingoapi.onrender.com/api/gpt/create', prompt, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error.error.message);
+        })
+      );
+  }
+
+
+
+
 }

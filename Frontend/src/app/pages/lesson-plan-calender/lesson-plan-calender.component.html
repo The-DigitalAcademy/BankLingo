@@ -27,7 +27,7 @@
 
 
     <div class="d-flex justify-content-center py-4">
-      <button type="submit" class="btn btn-primary" (click)="onSaveDate()" [disabled]="isLoading">Generate Lesson Plan
+      <button type="submit" class="btn btn-primary" (click)="onSaveDate()" [disabled]="isLoading">{{updateBtn}}
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       </button>
     </div>

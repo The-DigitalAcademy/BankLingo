@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LessonPlan } from 'src/app/types/lessonPlan';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { CoreService } from 'src/app/services/core.service';
 
 @Component({
   selector: 'app-lesson-plan-calender',
@@ -27,16 +28,10 @@ import Swal from 'sweetalert2';
 export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
 
-  private apiUrls = 'https://banklingoapi.onrender.com/api/gpt/create';
   user!: any;
   profileForm!: FormGroup;
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.apiUrls}`, // Add your authentication header here
-    }),
-  };
+
 
   formData: any = {
     duration: 0, // Initialize with a default value, update this based on user input
@@ -52,6 +47,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
       this.selectedDates = info.date;
     },
   };
+    updateBtn="Generate Lesson Plan";
 
 
   constructor(
@@ -59,7 +55,8 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private session: SessionsService,
     private titlePage: Title,
-    private router: Router
+    private router: Router,
+    private core : CoreService
   ) { }
 
   onDateClick(date: Date) {
@@ -75,18 +72,38 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   onSaveDate() {
     const numberOfDays = this.duration.length;
-    const nDays = {
+    const lessonPlan = {
       duration: numberOfDays,
       user_id: this.session.getLoggedUser().userId,
       plan_name: this.session.getQueryQuestion(),
     };
 
     this.isLoading=true
-    this.http.post<any>(this.apiUrls, nDays, this.httpOptions).subscribe(
-      (response) => {
-        this.isLoading=false
+    this.updateBtn="Saving plan"
+ this.core.saveLessonPlan(lessonPlan).subscribe(response=>{
+
+        this.updateBtn="Generating topics"
         console.log('Data saved successfully:', response);
-        this.router.navigate(["/lesson-plans"])
+
+        const prompt = {
+          plan_id: response.plan_id,
+          plan_name: response.duration,
+          duration: this.session.getQueryQuestion(),
+        };
+
+
+        this.core.generateTopics(prompt).subscribe(data=>{
+          console.log(data, "Topics generated");
+          this.updateBtn = "Generate Lesson Plan"
+          this.isLoading=false
+        })
+        
+
+
+
+
+       
+       // this.router.navigate(["/lesson-plans"])
 
       },
 
@@ -104,10 +121,8 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
             showCloseButton: true,
             showCancelButton: true,
             confirmButtonText:'Yes',
-            // confirmButtonAriaLabel: 'Thumbs up',
             cancelButtonText: 'No',
-            // cancelButtonAriaLabel: 'Understood!',
-            // footer: '<a href="lesson-plan-calender">Learn more?</a>',
+          
           }).then((result) => {
             if (result.isConfirmed) {
               this.router.navigate(["/lesson-plans"])
