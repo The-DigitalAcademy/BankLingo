@@ -2,6 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from 'src/app/services/users.services';
 import { Router } from '@angular/router';
 
+import { CoreService } from 'src/app/services/core.service';
+
+import { SearchObject } from 'src/app/types/searchObject';
+
+
 
 import {
   AbstractControl,

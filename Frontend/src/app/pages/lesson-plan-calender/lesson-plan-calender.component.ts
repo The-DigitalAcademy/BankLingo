@@ -52,16 +52,10 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     updateBtn="Generate Lesson Plan";
 
 
-<<<<<<< HEAD
 
-
-
-  constructor(private http: HttpClient, private formBuilder: FormBuilder,
-
-    private session: SessionsService,) { }
 
    
-=======
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -70,7 +64,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     private router: Router,
     private core : CoreService
   ) { }
->>>>>>> develop
+
 
   onDateClick(date: Date) {
     const index = this.duration.findIndex(
@@ -228,14 +222,5 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   getSelectedDaysCount() {
     return this.duration.length;
   }
-<<<<<<< HEAD
 
-
-
-
-
- 
-
-=======
->>>>>>> develop
 }

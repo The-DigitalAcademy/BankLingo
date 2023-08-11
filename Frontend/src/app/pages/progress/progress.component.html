@@ -15,7 +15,7 @@
           <div class="card-body text-center">
             <div class="align-items-right justify-content-right d-flex">
                 <div *ngIf="user.profile_picture">
-                    <img
+                     <img
                       src={{user.profile_picture}}
                       alt="Generic placeholder image"
                       class="img-fluid profileImage"
@@ -28,7 +28,7 @@
               
             </div>
         
-            <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
+            <h5 class="my-3">{{user.name}} {{user.surname}}</h5> 
             
             
               
@@ -46,7 +46,7 @@
          
         </div>
         
-      </div>
+      
 
     
       <div class="headingFont d-flex justify-content-left my-3">
@@ -66,12 +66,12 @@
 
                 <div>
                     
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        
-                    </div>
+                  <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <span> 35 % Complete</span> 
                     <!-- <progress [value]="progressValue" [max]="maxValue"></progress> -->
-                    <span>{{ progressValue }}% Complete</span>
+                    <!-- //<span>{{ progressValue }}% Complete</span> -->
                   </div>
 
                 
@@ -121,16 +121,10 @@
                   </div>
                 </div>
                 </div>
-        </div>
-                
-              
-    
-          
-      
-
         
-   
-  
+            </div>
+          </div>
+              
   
 </section>
 <!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->
