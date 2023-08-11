@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SessionsService } from './sessions.service';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap, throwError } from 'rxjs';
 import { Users } from '../types/users';
 import { loggedUser } from '../types/LoggedUser';
 import { environment } from 'src/environments/environment.development';
@@ -19,6 +19,9 @@ export class CoreService {
   user!: loggedUser;
   topics: any[] = [];
   constructor(private http: HttpClient, public storage: SessionsService) {}
+  private cachedData: any;
+
+
 
   private getHeaders(): HttpHeaders {
     this.accessToken = sessionStorage.getItem('loggedUser');
@@ -29,6 +32,8 @@ export class CoreService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.user.token}`,
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'true' // incorrec
+      
     });
     return headers;
   }
@@ -66,13 +71,9 @@ export class CoreService {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
     return this.http
-      .post(
-        'https://banklingoapi.onrender.com/api/user/update_boolean',
-        prompt,
-        {
-          headers,
-        }
-      )
+      .put('https://banklingoapi.onrender.com/api/user/update_boolean', prompt, {
+        headers,
+      })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
@@ -102,17 +103,55 @@ export class CoreService {
   getLatestFavouriteSearch(user_id: number): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
+
+
+    if (this.cachedData) {
+      return of(this.cachedData);
+    } else {
+      return this.http
+        .get(
+          `https://banklingoapi.onrender.com/api/search/get_history/${user_id}`,
+          { headers }
+        ).pipe(tap(data => this.cachedData = data),
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
+  }
+
+  generateTopics(prompt: { plan_id: number, plan_name: string, duration: number }): Observable<any> {
+
+    const headers = this.getHeaders();
     return this.http
-      .get(
-        `https://banklingoapi.onrender.com/api/search/get_history/${user_id}`,
-        { headers }
-      )
+      .post('https://banklingoapi.onrender.com/api/gpt/generateTopics', prompt, {
+        headers,
+      })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
         })
       );
   }
+
+
+  saveLessonPlan(prompt: { duration: number, user_id: number, plan_name: string }): Observable<any> {
+
+    const headers = this.getHeaders();
+    return this.http
+      .post('https://banklingoapi.onrender.com/api/gpt/create', prompt, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error.error.message);
+        })
+      );
+  }
+
+
+
+
 
   askGPTinsideTopic(message: any): Observable<Message> {
     const headers = this.getHeaders();
