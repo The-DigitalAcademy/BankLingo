@@ -58,7 +58,7 @@ onOtpInput() {
 }
 
 verifyOtp() {
-//function used to verigy the otp that was sent to the email.
+//function used to verify the otp that was sent to the email.
 const emailOTP: number = this.otp
 if(emailOTP==this.sessions.getEmailOTP().number){
   console.log("OTP MATCH");
