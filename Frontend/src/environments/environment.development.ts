@@ -1,4 +1,4 @@
-const gptUrl: string = 'http://localhost:4500/api/gpt';
+const gptUrl: string = 'https://banklingoapi.onrender.com/api/gpt';
 export const environment = {
   askGPTinsideTopic: `${gptUrl}/insideTopic`,
   getTopics: `${gptUrl}/getTopicsById`,

@@ -50,13 +50,9 @@ export class TestingComponent {
       },
     });
 
-    this.course?.forEach((card) => {
-      this.coveredStatusArray.push(card.covered);
-    });
+  
 
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
-
- 
   }
 }
