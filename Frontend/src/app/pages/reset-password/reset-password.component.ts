@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as e from 'express';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
@@ -22,7 +23,12 @@ export class ResetPasswordComponent implements OnInit {
 
   newPassword!: string;
 
-constructor(private formBuilder: FormBuilder, private passwordService: PasswordServiceService, private userService: UsersService,private router:Router, private sessions: SessionsService
+constructor(private formBuilder: FormBuilder,
+   private passwordService: PasswordServiceService,
+    private userService: UsersService,
+    private router:Router,
+     private sessions: SessionsService,
+     private titlePage : Title
   )  {
     this.form = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(12), this.passwordPatternValidator]],
@@ -34,7 +40,7 @@ constructor(private formBuilder: FormBuilder, private passwordService: PasswordS
   ngOnInit(): void {
     // Implementation of ngOnInit method
     // Add any initialization code here
-
+    this.titlePage.setTitle("Reset Password")
     this.user = this.sessions.getOTP();
   }
 

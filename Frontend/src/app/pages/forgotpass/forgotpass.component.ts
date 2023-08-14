@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { response } from 'express';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
@@ -23,9 +24,13 @@ export class ForgotpassComponent implements OnInit{
   user!:Users;
   emailOTP! : number
 
-  constructor(private router: Router, private userService: UsersService, private sessions : SessionsService, private passwordService: PasswordServiceService) {}
+  constructor(private router: Router, private userService: UsersService,
+     private sessions : SessionsService, 
+     private passwordService: PasswordServiceService,  
+     private titlePage : Title) {}
 
   ngOnInit(): void {
+  this.titlePage.setTitle("Forgot Password")
     
   }
 

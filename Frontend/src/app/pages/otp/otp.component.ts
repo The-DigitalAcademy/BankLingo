@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
 import { SessionsService } from 'src/app/services/sessions.service';
@@ -28,7 +29,7 @@ constructor(
   private userService: UsersService,
   private sessions : SessionsService,
   private password : PasswordServiceService,
-  
+  private titlePage : Title
 ) {}
 
 ngOnInit(): void {
@@ -41,6 +42,8 @@ ngOnInit(): void {
     } else {
         console.log('Done!');
     }*/  
+
+    this.titlePage.setTitle("Enter OTP")
 };
 
 // setTimeout(makeIteration, 1000); 
