@@ -67,7 +67,7 @@ export async function askSimpleInsideTopicService(request, response) {
         messages: [
           {
             role: "user",
-            content: `Explain  ${message} like a 5 year old ,explain it in less than 200 words, but in a way i will understand`,
+            content: `Explain  ${message} like a 5 year old ,explain it in less than 100 words, but in a way i will understand`,
           },
         ],
       })
@@ -253,9 +253,6 @@ export async function getTopicByIDService(request, response) {
   }
 }
 
-
-
-
 export async function updateCoveredService(request, response) {
   const plan_id = parseInt(request.params.plan_id);
   const day = request.body.day;
@@ -265,7 +262,7 @@ export async function updateCoveredService(request, response) {
 
   try {
     const insertQuery = {
-      text:`UPDATE topic
+      text: `UPDATE topic
       SET topic_description = jsonb_set(
           topic_description,
           '{course, lessons}',
@@ -285,7 +282,9 @@ export async function updateCoveredService(request, response) {
       values: [day, plan_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json({message: `Plan for ${day} has been updated`});
+    return response
+      .status(200)
+      .json({ message: `Plan for ${day} has been updated` });
   } catch (error) {
     console.error("Error finding the Plan:", error);
     throw error;
@@ -300,5 +299,5 @@ export default {
   GenerateTopicsFromPlanService,
   getTopicByIDService,
   askSimpleInsideTopicService,
-  updateCoveredService
+  updateCoveredService,
 };

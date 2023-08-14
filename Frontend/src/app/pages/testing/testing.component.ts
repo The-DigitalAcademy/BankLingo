@@ -15,7 +15,7 @@ export class TestingComponent {
   localTopics: any;
   localParse!: Welcome;
   coveredStatus: boolean = false;
-  isLoading:boolean = false;
+  isLoading: boolean = false;
   coveredStatusArray: boolean[] = [true];
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class TestingComponent {
   }
   ngOnInit() {
     this.isLoading = true;
-    this.core.getTopicsById(94).subscribe({
+    this.core.getTopicsById(126).subscribe({
       next: (data) => {
         // Instead of storing in localStorage, you can directly process the data here
         const topicsData = data as unknown as Welcome; // Assuming Welcome is the type of your data
@@ -42,20 +42,13 @@ export class TestingComponent {
       },
     });
 
-    this.course?.forEach(card => {
+    this.course?.forEach((card) => {
       this.coveredStatusArray.push(card.covered);
-    })
-  
+    });
+
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
 
  
-
-    
-    // if (topicsJSON) {
-    //   this.topicsObj = JSON.parse(topicsJSON) as Welcome;
-    // }
-
-
   }
 }

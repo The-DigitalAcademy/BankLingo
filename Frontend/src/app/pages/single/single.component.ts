@@ -127,6 +127,25 @@ export class SingleComponent {
     }
   }
 
+  splitMessage(message: string): string {
+    const words = message.split(' ');
+    const lines = [];
+    let currentLine = '';
+
+    for (const word of words) {
+      if ((currentLine + ' ' + word).length <= 60) {
+        currentLine += ' ' + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+
+    lines.push(currentLine);
+
+    return lines.join('<br>'); // Join lines with line breaks
+  }
+
   async navigateToPreviousTopic(): Promise<void> {
     this.loading = true;
     if (this.currentIndex > 0) {
