@@ -17,6 +17,26 @@
       align-items: center;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+
+      .congratulations,
+      .congratulations-lock {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: center;
+        padding: 10px;
+      }
+      .congratulations {
+        svg {
+          color: green;
+        }
+      }
+      .congratulations-lock {
+        svg {
+          color: red;
+        }
+      }
       .card-link {
         display: flex;
         align-items: center;
@@ -47,15 +67,14 @@
   }
 }
 @media (width <= 900px) {
-  .card_container{
+  .card_container {
     padding: 10px;
     margin: 0 auto;
     width: 60% !important;
     display: grid;
-    grid-template-columns: repeat(1,1fr);
-    grid-template-rows: repeat(1,1fr);
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     justify-content: center;
     align-items: center;
   }
- 
 }
