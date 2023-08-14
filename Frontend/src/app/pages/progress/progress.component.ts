@@ -51,7 +51,7 @@ export class ProgressComponent implements OnInit{
     this.user_id = this.session.getLoggedUser().userId
   
  
-   
+   //Check if the user has searched a term before
    
   
    if(this.searchedBefore==true)
@@ -85,13 +85,14 @@ initializeForm() {
   this.profileForm = this.formBuilder.group({
     name: [this.user.name, Validators.required],
     surname: [this.user.surname, Validators.required],
-    email: [this.user.email, [Validators.required, Validators.email]],
+   
 
 
 
   });
 }
 
+//Getting favourite term searched of the user
 
     initiateUserHistory(){
 
