@@ -1,8 +1,9 @@
 import { OpenAIApi } from "openai";
-const openai = new OpenAIApi(configuration);
-
 import configuration from "../../configuration/gpt/gpt_configuration.js";
 import client from "../../configuration/database/database_configuration.js";
+
+const openai = new OpenAIApi(configuration);
+
 
 async function planExists(plan_name, user_id) {
   try {
