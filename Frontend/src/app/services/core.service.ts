@@ -193,4 +193,13 @@ export class CoreService {
       headers,
     });
   }
+
+  private baseUrls = "https://banklingoapi.onrender.com/api/gpt/get_user_plans/1";
+
+  
+
+  getItems(plan_id: number): Observable<any> {
+    return this.http.get(`${this.baseUrls}/${plan_id}`);
+  }
+
 }

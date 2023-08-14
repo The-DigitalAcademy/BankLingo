@@ -1,19 +1,21 @@
 
  <section style="background-color: #ffffff;">
   <div class="container py-5">
-   
+    <div class="container"> 
+      <app-nav-bar></app-nav-bar>
+    </div>
 
     <div class="row">
-      <div class="col-lg-4">
-        <div class="card mb-4">
+      
+        
           <div class="card-body text-center">
-            <div class="align-items-right justify-content-right d-flex">
+            <div class="image-container">
                 <div *ngIf="user.profile_picture">
                      <img
                       src={{user.profile_picture}}
                       alt="Generic placeholder image"
                       class="img-fluid profileImage"
-                      style="width: 120px; height: 120px; border-radius: 120px"
+                      style="width: 60px; height: 60px; border-radius: 60px; margin-right:20%;" 
                     />
                   </div>
              
@@ -27,7 +29,7 @@
             
               
               </div>
-            </div>
+            
             
             
             <div class="d-flex justify-content-center mb-2">
@@ -38,17 +40,17 @@
             </div>
           </div>
          
-        </div>
+        
         
       
 
     
       <div class="headingFont d-flex justify-content-left my-3">
-        Term learning progress status
+        Task currently busy with progress status
       </div>
 
            
-           
+     
             
         
         <div class="row">
@@ -72,33 +74,60 @@
               </div>
             </div>
           </div>
-  
-              
 
+          <div class="headingFont d-flex justify-content-left my-3">
+            Task completed
+          </div>
+
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+               
+                
+
+                
+              </div>
+            </div>
+          </div>
+          
+          
+            
+            
+
+          <!-- Getting the all the terms searched by the user -->
              
                 
                 <div class="col">
                     <div class="headingFont d-flex justify-content-left my-3">
-                        Favourites term searched
+                      Favourites term searched 
                       </div>
                   <div class="card">
                     
                     <div class="card-body">
+                     
                         <div *ngFor="let searchObj of favoutitesArray">
                 
                 
                 
                             <ul class="list-group list-group-flush">
-                              <li class="list-group-item">#{{searchObj.query_searched}}</li>
+
+                              <!-- Displaying the terms -->
+                              <li class="list-group-item">{{searchObj.query_searched}}</li>
                               </ul>
-                           
-                            </div>
+                             
                     </div>
+                   
+                    <!-- If there are no term searched -->
+                    <div *ngIf="showMessage">{{ messageText }}</div>
+                   
+                             
+                            </div>
+                  </div>
                   </div>
                 </div>
                 </div>
         
-            </div>
+            
         
               
   

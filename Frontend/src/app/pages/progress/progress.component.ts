@@ -3,15 +3,17 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
 import { SearchObject } from 'src/app/types/searchObject';
+
 import { UsersService } from 'src/app/services/users.services';
 import { Router } from '@angular/router';
 import {
-  AbstractControl,
-  FormControl,
+ 
   FormGroup,
   Validators,
   FormBuilder,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { LessonPlan } from 'src/app/types/lessonPlan';
 
 @Component({
   selector: 'app-progress',
@@ -21,11 +23,12 @@ import {
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit{
+
+  messageText = "No favourites search terms yet";
+  showMessage = false;
+
+  progressValue = 0;
   
-  constructor(private session : SessionsService, private core : CoreService,
-    private usersService: UsersService,
-    private router: Router, private formBuilder: FormBuilder,
-    ){}
 
 
   user!: any;
@@ -43,10 +46,22 @@ export class ProgressComponent implements OnInit{
   favoutitesArray: SearchObject[] = [];
   user_id = 0
   favouritesData: any;
+  
+  
 
+  
+
+  constructor(private session : SessionsService, private core : CoreService,
+    private usersService: UsersService,private titlePage: Title,
+    private router: Router, private formBuilder: FormBuilder,
+    
+    ){}
+
+  
 
 
   ngOnInit(): void {
+    this.titlePage.setTitle("Progress")
     this.searchedBefore = this.session.getLoggedUser().searchedbefore
     this.user_id = this.session.getLoggedUser().userId
   
@@ -65,7 +80,7 @@ export class ProgressComponent implements OnInit{
       this.responseQuestion = this.session.getQueryQuestion()
     }
   }else{
-    this.cardLabel = "Fun facts about ABSA"
+    this.messageText;
     
   }
 
@@ -85,6 +100,8 @@ initializeForm() {
   this.profileForm = this.formBuilder.group({
     name: [this.user.name, Validators.required],
     surname: [this.user.surname, Validators.required],
+
+  
    
 
 
@@ -105,6 +122,12 @@ initializeForm() {
       })
 
     }
+
+    
+
+    }
+    
+  
     
  
-}
+
