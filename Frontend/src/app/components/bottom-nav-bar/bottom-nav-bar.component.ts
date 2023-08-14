@@ -16,28 +16,8 @@ export class BottomNavBarComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    const active = document.querySelector('#homeNav');
-
-    switch (this.activeP) {
-      case "home":
-        console.log('Case 1 matched.');
-        break;
-      case "lesson":
-        console.log('Case 2 matched.');
-        break;
-        case "progress":
-          console.log('Case 2 matched.');
-          break;
-          case "profile":
-            console.log('Case 2 matched.');
-            break;
-      default:
-        console.log('No case matched.');
-    }
 
 
   }
-
-  
 
 }

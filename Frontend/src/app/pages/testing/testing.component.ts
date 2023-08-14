@@ -4,6 +4,7 @@ import { W } from '@fullcalendar/core/internal-common';
 import { CoreService } from 'src/app/services/core.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Lesson, Welcome } from 'src/app/types/TopicsIE';
+
 @Component({
   selector: 'app-testing',
   templateUrl: './testing.component.html',
@@ -16,10 +17,12 @@ export class TestingComponent {
   localParse!: Welcome;
   coveredStatus: boolean = false;
   isLoading: boolean = false;
+  coveredStatusArray: boolean[] = [true];
+  activePlanId = 0
   constructor(
     private route: ActivatedRoute,
     private sharedService: SharedService,
-    private core: CoreService
+    private core: CoreService,
   ) {
     this.sharedService.cardCoveredStatus$.subscribe((status) => {
       this.coveredStatus = status;
@@ -27,7 +30,13 @@ export class TestingComponent {
   }
   ngOnInit() {
     this.isLoading = true;
-    this.core.getTopicsById(126).subscribe({
+
+    this.route.params.subscribe(params => {
+      this.activePlanId = params['plan_id'];
+      
+    });
+    
+    this.core.getTopicsById(this.activePlanId).subscribe({
       next: (data) => {
         // Instead of storing in localStorage, you can directly process the data here
         const topicsData = data as unknown as Welcome; // Assuming Welcome is the type of your data

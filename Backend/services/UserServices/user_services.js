@@ -236,7 +236,7 @@ export async function updateUserProfileService(request, response) {
       crop: "scale",
       height: 120,
     })
-    const profile_picture = resultCloud.secure_url;
+    profile_picture = resultCloud.secure_url;
 
     const insertQuery = {
       text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",

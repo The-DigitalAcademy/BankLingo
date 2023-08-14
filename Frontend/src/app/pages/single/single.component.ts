@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { da } from 'date-fns/locale';
 import { CoreService } from 'src/app/services/core.service';
 import { SharedService } from 'src/app/services/shared.service';
-
 import { Welcome, Lesson } from 'src/app/types/TopicsIE';
 
 @Component({
@@ -116,7 +115,7 @@ export class SingleComponent {
               .subscribe({
                 next: (data) => {
                   console.log(data);
-                  this.router.navigate(['/testing']);
+                  this.router.navigate([`/testing/${this.localParse.plan_id}`]);
                 },
                 error: (err) => {
                   console.log(err);
