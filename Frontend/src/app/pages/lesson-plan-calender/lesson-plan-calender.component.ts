@@ -70,13 +70,15 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  
   onSaveDate() {
     const numberOfDays = this.duration.length;
     const lessonPlan = {
       duration: numberOfDays,
       user_id: this.session.getLoggedUser().userId,
       plan_name: this.session.getQueryQuestion(),
-      lesson_description: this.session.getQueryResponse()
+      lesson_description: this.session.getQueryResponse().message
     };
 
     this.isLoading=true
@@ -98,6 +100,8 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
           this.updateBtn = "Generate Lesson Plan"
           this.isLoading=false
           this.router.navigate(["/lesson-plans"])
+
+        
         })
         
 

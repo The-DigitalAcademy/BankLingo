@@ -25,7 +25,6 @@ export class CoreService {
   localURL = "http://localhost:4500/api/gpt"
 
 
-
   private getHeaders(): HttpHeaders {
     this.accessToken = sessionStorage.getItem('loggedUser');
     this.user = JSON.parse(this.accessToken) as loggedUser;
@@ -137,7 +136,6 @@ export class CoreService {
       );
   }
 
-
   saveLessonPlan(prompt: { duration: number, user_id: number, plan_name: string, lesson_description: string }): Observable<any> {
 
     const headers = this.getHeaders();
@@ -171,7 +169,24 @@ export class CoreService {
     }
   }
 
+  getAllUserLessons(user_id: number): Observable<any> {
+    const headers = this.getHeaders();
 
+
+    if (this.cachedLessonsData) {
+      return of(this.cachedLessonsData);
+    } else {
+      return this.http
+        .get(
+          `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${user_id}`,
+          { headers }
+        ).pipe(tap(data => this.cachedLessonsData = data),
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
+  }
 
 
   askGPTinsideTopic(message: any): Observable<Message> {
@@ -180,6 +195,7 @@ export class CoreService {
       headers,
     });
   }
+
   getTopicsById(plan_number: number): Observable<Welcome[]> {
     const headers = this.getHeaders();
     return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
@@ -193,4 +209,5 @@ export class CoreService {
       headers,
     });
   }
+
 }
