@@ -16,6 +16,7 @@ export class TestingComponent {
   localParse!: Welcome;
   coveredStatus: boolean = false;
   isLoading:boolean = false;
+  coveredStatusArray: boolean[] = [true];
   constructor(
     private route: ActivatedRoute,
     private sharedService: SharedService,
@@ -40,6 +41,11 @@ export class TestingComponent {
         console.log(err);
       },
     });
+
+    this.course?.forEach(card => {
+      this.coveredStatusArray.push(card.covered);
+    })
+  
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
 

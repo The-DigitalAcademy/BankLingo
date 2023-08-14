@@ -101,7 +101,7 @@ const initializer = (pwaService: PwaService) => () =>
       deps: [PwaService],
       multi: true,
     },
-  
+
   ],
   bootstrap: [AppComponent],
 })
