@@ -96,6 +96,9 @@ gpt_router.post("/humour",authenticateToken, askQuestionHumourController);
  *              duration:
  *                type: number
  *                default: 0
+ *              lesson_description:
+ *                type: string
+ *                default: string
  *     responses:
  *      201:
  *        description: Created
