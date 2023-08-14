@@ -59,3 +59,15 @@ letter-spacing: -0.4px;
 //     font-style: normal;
 //     font-weight: 590;
 //     letter-spacing: -0.4px; }
+/* styles.css (or your component's CSS file) */
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+
+  }
+  

@@ -33,12 +33,12 @@ export class PwaService {
   }
 
   private openPromptComponent(mobileType: 'ios' | 'android') {
-    timer(3000)
-      .pipe(take(1))
-      .subscribe(() =>
-        this.bottomSheet.open(PromptComponentComponent, {
-          data: { mobileType, promptEvent: this.promptEvent },
-        })
-      );
+    // timer(3000)
+    //   .pipe(take(1))
+    //   .subscribe(() =>
+    //     this.bottomSheet.open(PromptComponentComponent, {
+    //       data: { mobileType, promptEvent: this.promptEvent },
+    //     })
+    //   );
   }
 }

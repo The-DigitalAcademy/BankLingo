@@ -52,7 +52,7 @@
                     style="border: 1px solid; border-color: gray" formControlName="contact_number" />
                 </div> -->
                 <label for="floatingInput">Click to upload image</label>
-                <div class="input-group mb-3">
+                <div class="input-group mb-2">
                   <input type="file" class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
                     (change)="onFileSelected($event)" #fileInput formControlName="profile_picture" />
                 </div>
@@ -62,7 +62,7 @@
               
 
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary btn-sm" (click)="onUpload()">
+                  <button type="submit" class="btn btn-primary btn-sm" (click)="updateUser()">
                     Save
                   </button>
                
