@@ -138,7 +138,7 @@ export class CoreService {
   }
 
 
-  saveLessonPlan(prompt: { duration: number, user_id: number, plan_name: string }): Observable<any> {
+  saveLessonPlan(prompt: { duration: number, user_id: number, plan_name: string, lesson_description: string }): Observable<any> {
 
     const headers = this.getHeaders();
     return this.http
