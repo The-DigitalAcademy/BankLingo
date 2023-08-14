@@ -188,7 +188,6 @@ export class CoreService {
     }
   }
 
-
   askGPTinsideTopic(message: any): Observable<Message> {
     const headers = this.getHeaders();
     return this.http.post<Message>(environment.askGPTinsideTopic, message, {
