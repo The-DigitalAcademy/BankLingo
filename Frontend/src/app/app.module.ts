@@ -4,28 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
-
-
-
-
-
-
-
-
-
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
-
+import { LoaderInterceptorInterceptor } from './loader-interceptor.interceptor';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
-
-import { HttpClientModule } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,8 +41,11 @@ import { TitleBarComponent } from './components/title-bar/title-bar.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PromptComponentComponent } from './components/prompt-component/prompt-component.component';
 import { PwaService } from './services/pwa.service';
+import { TestingComponent } from './pages/testing/testing.component';
+import { SingleComponent } from './pages/single/single.component';
 
-const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt();
+const initializer = (pwaService: PwaService) => () =>
+  pwaService.initPwaPrompt();
 
 @NgModule({
   declarations: [
@@ -77,12 +66,13 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
-    
 
     ResetPasswordComponent,
     HomeBeforeComponent,
     TitleBarComponent,
     PromptComponentComponent,
+    TestingComponent,
+    SingleComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,17 +85,24 @@ const initializer = (pwaService: PwaService) => () => pwaService.initPwaPrompt()
     MatBottomSheetModule,
     FullCalendarModule,
 
-
     BrowserAnimationsModule,
-         ServiceWorkerModule.register('ngsw-worker.js', {
-           enabled: !isDevMode(),
-           // Register the ServiceWorker as soon as the application is stable
-           // or after 30 seconds (whichever comes first).
-           registrationStrategy: 'registerWhenStable:30000'
-         }) 
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
-   
-  providers: [{provide: APP_INITIALIZER, useFactory: initializer, deps: [PwaService], multi: true},],
-  bootstrap: [AppComponent]
+
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      deps: [PwaService],
+      multi: true,
+    },
+
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

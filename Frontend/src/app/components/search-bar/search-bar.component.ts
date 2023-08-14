@@ -9,6 +9,7 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+
 declare var $: any;
 declare var webkitSpeechRecognition: any;
 
@@ -23,7 +24,7 @@ export class SearchBarComponent implements OnInit {
   responseBody = '';
   humourSwitch = false;
   user_id = 0;
-
+  isLoading: boolean = false;
   //Web speech
   recognition: any;
   isRecognizing = false;
@@ -50,7 +51,7 @@ export class SearchBarComponent implements OnInit {
         this.isRecognizing = false;
       };
 
-      this.recognition.onerror = () => { };
+      this.recognition.onerror = () => {};
 
       this.recognition.onresult = async (event: any) => {
         var current = event.resultIndex;
@@ -127,6 +128,7 @@ export class SearchBarComponent implements OnInit {
       };
       this.core.updateSearchedBefore(firstSearch).subscribe((response) => {
         this.session.updateUserFirstTimeSearch();
+        //  window.location.reload()
       });
     }
 
@@ -139,7 +141,9 @@ export class SearchBarComponent implements OnInit {
         });
     } else {
       this.humourSwitch = false;
-      this.core.SearchTerm({ message: this.queryText }).subscribe((response) => {
+      this.core
+        .SearchTerm({ message: this.queryText })
+        .subscribe((response) => {
           this.internalOperations(response);
         });
     }

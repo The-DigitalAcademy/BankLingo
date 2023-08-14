@@ -46,7 +46,31 @@ export async function askSimpleQuestionService(request, response) {
         ],
       })
       .then((res) => {
-        
+        let object = {
+          message: res.data.choices[0].message.content,
+        };
+        return response.status(200).send(object);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function askSimpleInsideTopicService(request, response) {
+  try {
+    const { message } = request.body;
+
+    await openai
+      .createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Explain  ${message} like a 5 year old ,explain it in less than 50 words, but in a way i will understand`,
+          },
+        ],
+      })
+      .then((res) => {
         let object = {
           message: res.data.choices[0].message.content,
         };
@@ -67,7 +91,35 @@ export async function GenerateTopicsFromPlanService(request, response) {
         messages: [
           {
             role: "user",
-            content: `Give me a ${duration} day course  explanation about ${plan_name}  in layman terms, explain the lessonDescription in detail, break the course into ${duration} days, Return as an JSON`,
+            content: ` 
+            Generate a JSON Object with this kind of structure:
+            {
+              "course": {
+                "title": "Cheque Account Basics",
+                "lessons": [
+                  {
+                    "day": "Day 1",
+                    "topics": [
+                      "Introduction to Cheque Accounts",
+                      "Features and Benefits of Cheque Accounts"
+                    ],
+                    "covered": false,
+                    "description": "On the first day of this course, you will be introduced to cheque accounts and learn about their features and benefits. We will cover topics such as the purpose of cheque accounts, how they work, and the various types of cheques. You will gain a basic understanding of how to open and manage a cheque account."
+                  },
+                  {
+                    "day": "Day 2",
+                    "topics": [
+                      "Using Cheque Account Services",
+                      "Cheque Account Fees and Charges"
+                    ],
+                    "covered": false,
+                    "description": "Day 2 will focus on using cheque account services effectively. We will discuss how to write cheques, process deposits and withdrawals, and use online banking features. Additionally, we will delve into the various fees and charges associated with cheque accounts and provide tips on how to minimize them."
+                  }
+                ],
+                "duration": "2 Days"
+              }
+            }
+            , but the object should be on ${plan_name} instead  of credit cards, and it should be ${duration} days duration.`,
           },
         ],
       })
@@ -199,6 +251,45 @@ export async function getTopicByIDService(request, response) {
     throw error;
   }
 }
+
+
+
+
+export async function updateCoveredService(request, response) {
+  const plan_id = parseInt(request.params.plan_id);
+  const day = request.body.day;
+  if (isNaN(plan_id)) {
+    return response.status(400).json({ message: "Invalid plan ID provided." });
+  }
+
+  try {
+    const insertQuery = {
+      text:`UPDATE topic
+      SET topic_description = jsonb_set(
+          topic_description,
+          '{course, lessons}',
+          (
+              SELECT jsonb_agg(
+                  CASE
+                      WHEN (lesson->>'day') = $1 THEN
+                          jsonb_set(lesson, '{covered}', 'true')
+                      ELSE
+                          lesson
+                  END
+              )
+              FROM jsonb_array_elements(topic_description->'course'->'lessons') lesson
+          )::jsonb
+      )
+      WHERE plan_id = $2;`,
+      values: [day, plan_id],
+    };
+    const results = await client.query(insertQuery);
+    return response.status(200).json({message: `Plan for ${day} has been updated`});
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
 export default {
   askSimpleQuestionService,
   askQuestionHumourService,
@@ -207,4 +298,6 @@ export default {
   getPlanByUserService,
   GenerateTopicsFromPlanService,
   getTopicByIDService,
+  askSimpleInsideTopicService,
+  updateCoveredService
 };

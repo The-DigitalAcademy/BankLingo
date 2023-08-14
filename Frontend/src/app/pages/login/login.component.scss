@@ -1,16 +1,41 @@
-img{     height: 30vh;     width: 70vw; } 
-.btn{     width: 80vw;      border-radius: 999em 999em 999em 999em;      background-color: #38a3a5; }
-  .mybgcolor{    color: #38a3a5; }
+img {
+  height: 30vh;
+  width: 70vw;
+}
+.btn {
+  width: 80vw;
+  border-radius: 999em 999em 999em 999em;
+  background-color: #38a3a5;
+}
+.mybgcolor {
+  color: #38a3a5;
+}
 
-  .text{color: #38a3a5;}
+.text {
+  color: #38a3a5;
+}
 
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
-  .password-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
+.eyeBoarder {
+  border-left: 0px solid;
+  border-right: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: black;
+}
 
-  
+.inputBoarder {
+  border-left: 1px solid;
+  border-right: 0px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: black;
+}
+

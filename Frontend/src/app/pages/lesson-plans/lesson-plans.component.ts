@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -6,7 +7,17 @@ import { Component } from '@angular/core';
   templateUrl: './lesson-plans.component.html',
   styleUrls: ['./lesson-plans.component.scss']
 })
-export class LessonPlansComponent {
+export class LessonPlansComponent implements OnInit {
+
+
+
+  constructor(private titlePage : Title){}
+
+  ngOnInit(): void {
+    this.titlePage.setTitle("Lesson plans")
+
+  }
+
 
 }
 
