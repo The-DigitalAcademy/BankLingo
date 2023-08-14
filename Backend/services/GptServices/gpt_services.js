@@ -120,7 +120,7 @@ export async function GenerateTopicsFromPlanService(request, response) {
                 "duration": "2 Days"
               }
             }
-            , but the object should be on ${plan_name} instead  of credit cards, and it should be ${duration} days duration.`,
+            , but the object should be on ${plan_name} instead  of credit cards, and it should be ${duration} days duration, the first lesson plan covered must be true`,
           },
         ],
       })
@@ -253,6 +253,42 @@ export async function getTopicByIDService(request, response) {
   }
 }
 
+export async function getDaysCountService(request, response) {
+  const plan_id = parseInt(request.params.plan_id);
+
+  if (isNaN(plan_id)) {
+    return response.status(400).json({ message: "Invalid plan ID provided." });
+  }
+
+  try {
+    const selectQuery = {
+      text: "SELECT * FROM topic WHERE plan_id = $1",
+      values: [plan_id],
+    };
+    const selectResults = await client.query(selectQuery);
+    const topic = selectResults.rows[0];
+
+    if (!topic) {
+      return response.status(404).json({ message: "Topic not found." });
+    }
+
+    const incrementQuery = {
+      text: "UPDATE topic SET days_count = days_count + 1 WHERE plan_id = $1",
+      values: [plan_id],
+    };
+    await client.query(incrementQuery);
+
+    return response.status(200).json({
+      days_count: topic.days_count + 1, // Include the updated count in the response.
+      topic: topic, // Include the topic data in the response.
+    });
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
+
+
 export async function updateCoveredService(request, response) {
   const plan_id = parseInt(request.params.plan_id);
   const day = request.body.day;
@@ -300,4 +336,5 @@ export default {
   getTopicByIDService,
   askSimpleInsideTopicService,
   updateCoveredService,
+  getDaysCountService
 };
