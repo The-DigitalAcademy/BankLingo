@@ -220,6 +220,15 @@ export async function updateUserProfileService(request, response) {
     return response.status(400).json({ message: "Invalid user ID" });
   }
   try {
+    //picture ipload to  cloudinary
+    const resultCloud = await cloudinary.uploader.upload(profile_picture,{
+      folder:"bankpictures",
+      width: 120,
+      crop: "scale",
+      height: 120,
+    })
+    profile_picture = resultCloud.secure_url;
+
     const insertQuery = {
       text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",
       values: [name, surname, email, contact_number, profile_picture, user_id],

@@ -1,8 +1,9 @@
 import { OpenAIApi } from "openai";
-const openai = new OpenAIApi(configuration);
-
 import configuration from "../../configuration/gpt/gpt_configuration.js";
 import client from "../../configuration/database/database_configuration.js";
+
+const openai = new OpenAIApi(configuration);
+
 
 async function planExists(plan_name, user_id) {
   try {
@@ -92,43 +93,34 @@ export async function GenerateTopicsFromPlanService(request, response) {
           {
             role: "user",
             content: ` 
-            Generate a JSON representation for a ${plan_name} course with content for ${duration} days with a structure like the one below:
-            topic_description: {
-              course: {
-                title: 'Credit Card Basics',
-                lessons: [
+            Generate a JSON Object with this kind of structure:
+            {
+              "course": {
+                "title": "Cheque Account Basics",
+                "lessons": [
                   {
-                    day: 'Day 1',
-                    topics: [
-                      'Introduction to Credit Cards',
-                      'Understanding How Credit Cards Work',
+                    "day": "Day 1",
+                    "topics": [
+                      "Introduction to Cheque Accounts",
+                      "Features and Benefits of Cheque Accounts"
                     ],
-                    description:
-                      'On the first day of this course, you will be introduced to credit cards and learn how they work. We will cover topics such as the purpose of credit cards, the concept of credit limit, interest rates, and fees. You will gain a basic understanding of the benefits and risks associated with credit cards.',
-                    covered: false,
+                    "covered": false,
+                    "description": "On the first day of this course, you will be introduced to cheque accounts and learn about their features and benefits. We will cover topics such as the purpose of cheque accounts, how they work, and the various types of cheques. You will gain a basic understanding of how to open and manage a cheque account."
                   },
                   {
-                    day: 'Day 2',
-                    topics: [
-                      'Managing Credit Card Finances',
-                      'Building Credit History',
+                    "day": "Day 2",
+                    "topics": [
+                      "Using Cheque Account Services",
+                      "Cheque Account Fees and Charges"
                     ],
-                    description:
-                      'Day 2 will focus on managing credit card finances effectively. We will discuss the importance of budgeting and responsible spending. You will learn how to read credit card statements, track expenses, and pay your bills on time to avoid late fees and penalties. Additionally, we will delve into the significance of building a good credit history and tips for maintaining a positive credit score.',
-                    covered: false,
-                  },
-                  {
-                    day: 'Day 3',
-                    topics: ['Credit Card Security', 'Smart Credit Card Usage'],
-                    description:
-                      'On the final day, we will cover credit card security measures to protect against fraud and identity theft. This includes safeguarding personal information, recognizing phishing attempts, and monitoring your transactions. We will also provide insights into making smart credit card choices, such as comparing offers, understanding reward programs, and avoiding excessive debt. By the end of this course, you will have a comprehensive understanding of credit cards, enabling you to use them responsibly and make informed financial decisions.',
-                    covered: false,
-                  },
+                    "covered": false,
+                    "description": "Day 2 will focus on using cheque account services effectively. We will discuss how to write cheques, process deposits and withdrawals, and use online banking features. Additionally, we will delve into the various fees and charges associated with cheque accounts and provide tips on how to minimize them."
+                  }
                 ],
-                duration: '3 Days',
-              },
-            },
-            remove the other topic description`,
+                "duration": "2 Days"
+              }
+            }
+            , but the object should be on ${plan_name} instead  of credit cards, and it should be ${duration} days duration.`,
           },
         ],
       })

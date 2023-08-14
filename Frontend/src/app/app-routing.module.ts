@@ -45,11 +45,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'progress', component: ProgressComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  {
-    path: 'topic_content',
-    component: TopicContentComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: 'topic_content', component: TopicContentComponent, canActivate: [AuthGuard] },
   { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
   { path: 'nav-bar', component: NavBarComponent },
   { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },

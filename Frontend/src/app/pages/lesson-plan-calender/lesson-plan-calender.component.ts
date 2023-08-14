@@ -96,6 +96,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
           console.log(data, "Topics generated");
           this.updateBtn = "Generate Lesson Plan"
           this.isLoading=false
+          this.router.navigate(["/lesson-plans"])
         })
         
 
@@ -144,11 +145,13 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.titlePage.setTitle('Lesson');
 
+
     this.initializeCalendar();
 
     // Retrieve the user data from session storage
     this.user = this.session.getLoggedUser();
-    this.user = this.session.getQueryQuestion();
+     console.log(this.session.getQueryQuestion(),"this is query question");
+     
 
     // Check if the user variable contains valid user data before initializing the form
     if (this.user && Object.keys(this.user).length > 0) {
