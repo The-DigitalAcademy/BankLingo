@@ -196,11 +196,24 @@ export class CoreService {
     });
   }
 
-  getTopicsById(plan_number: number): Observable<Welcome[]> {
-    const headers = this.getHeaders();
-    return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
-      headers,
-    });
+  private cachedTopicsData: Welcome[] | null = null;
+
+  getTopicsByIdAndCache(plan_number: number): Observable<Welcome[]> {
+    if (this.cachedTopicsData) {
+      return of(this.cachedTopicsData);
+    } else {
+      const headers = this.getHeaders();
+      return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
+        headers,
+      }).pipe(
+        tap(data => {
+          this.cachedTopicsData = data; // Cache the fetched data
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error.error.message);
+        })
+      );
+    }
   }
 
   updateCovered(plan_id: number, day: any) {

@@ -36,8 +36,8 @@ export class TestingComponent {
       
     });
     
-    this.core.getTopicsById(this.activePlanId).subscribe({
-      next: (data) => {
+    this.core.getTopicsByIdAndCache(this.activePlanId).subscribe({
+      next: (data: any) => {
         // Instead of storing in localStorage, you can directly process the data here
         const topicsData = data as unknown as Welcome; // Assuming Welcome is the type of your data
         this.course = topicsData.topic_description?.course.lessons;
@@ -45,7 +45,7 @@ export class TestingComponent {
         localStorage.setItem('topics', JSON.stringify(data));
         console.log(this.course);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.log(err);
       },
     });
