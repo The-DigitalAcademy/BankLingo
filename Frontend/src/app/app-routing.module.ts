@@ -51,7 +51,7 @@ const routes: Routes = [
   { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchBarComponent, canActivate: [AuthGuard] },
   { path: 'resetpassword', component: ResetPasswordComponent },
-  { path: 'testing', component: TestingComponent },
+  { path: 'testing/:plan_id', component: TestingComponent },
   { path: 'singletopic/:day', component: SingleComponent },
 
    { path: '', redirectTo: 'lesson-plans', pathMatch: 'full' },

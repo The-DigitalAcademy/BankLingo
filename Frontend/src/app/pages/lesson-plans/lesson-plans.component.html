@@ -17,7 +17,7 @@
         <div class="card-footer">
           <div class="d-flex align-items-center justify-content-between">
             <span>{{allLessonPlans.duration}} days plan</span>
-            <span class="badge bg-dark">Continue</span>
+            <a [routerLink]="['/testing', allLessonPlans.plan_id]" class="badge bg-dark">Continue</a>
           </div>
         </div>
       </div>
