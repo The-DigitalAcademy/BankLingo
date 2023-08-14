@@ -46,8 +46,7 @@ export class ProfileComponent {
   profileForm!: FormGroup;
   
 
-  progressValue = 35;
-  maxValue = 100;
+  
   constructor(
     private usersService: UsersService,
     private router: Router, private formBuilder: FormBuilder,
@@ -83,13 +82,9 @@ export class ProfileComponent {
     });
   }
 
-  // Update the progressValue as needed (e.g., based on an event or timer)
-  updateProgress() {
-    this.progressValue += 10;
-    if (this.progressValue > this.maxValue) {
-      this.progressValue = this.maxValue;
-    }
-  }
+  
+ 
+// logout code
 
   logout() {
     this.usersService.logout();
