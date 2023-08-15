@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { da } from 'date-fns/locale';
 import { CoreService } from 'src/app/services/core.service';
 import { SharedService } from 'src/app/services/shared.service';
-
 import { Welcome, Lesson } from 'src/app/types/TopicsIE';
 
 @Component({
@@ -35,9 +35,11 @@ export class SingleComponent {
     private route: ActivatedRoute,
     private core: CoreService,
     private sharedService: SharedService,
-    private router: Router
+    private router: Router,
+    private titlePage: Title
   ) {}
   ngOnInit() {
+    this.titlePage.setTitle('Chapters');
     //Get the current paramenter
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
@@ -75,6 +77,19 @@ export class SingleComponent {
     });
   }
 
+  async incrementDays() {
+    this.localTopics = localStorage.getItem('topics');
+    this.localParse = JSON.parse(this.localTopics) as Welcome;
+    await this.core.incrementDays(this.localParse.plan_id).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   async navigateToNextTopic(): Promise<void> {
     this.loading = true;
     if (this.currentIndex < this.someTopics.length - 1) {
@@ -105,6 +120,7 @@ export class SingleComponent {
           this.localTopics = localStorage.getItem('topics');
 
           this.localParse = JSON.parse(this.localTopics) as Welcome;
+
           lesson.covered = true;
           let day = {
             day: lesson.day,
@@ -114,9 +130,9 @@ export class SingleComponent {
             await this.core
               .updateCovered(this.localParse.plan_id, day)
               .subscribe({
-                next: (data) => {
-                  console.log(data);
-                  this.router.navigate(['/testing']);
+                next: async (data) => {
+                  await this.incrementDays();
+                  this.router.navigate([`/testing/${this.localParse.plan_id}`]);
                 },
                 error: (err) => {
                   console.log(err);
@@ -126,6 +142,25 @@ export class SingleComponent {
         }
       });
     }
+  }
+
+  splitMessage(message: string): string {
+    const words = message.split(' ');
+    const lines = [];
+    let currentLine = '';
+
+    for (const word of words) {
+      if ((currentLine + ' ' + word).length <= 60) {
+        currentLine += ' ' + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+
+    lines.push(currentLine);
+
+    return lines.join('<br>'); // Join lines with line breaks
   }
 
   async navigateToPreviousTopic(): Promise<void> {

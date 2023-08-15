@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
@@ -21,6 +20,8 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { AuthGuard } from './auth.guard';
 import { TestingComponent } from './pages/testing/testing.component';
 import { SingleComponent } from './pages/single/single.component';
+
+
 const routes: Routes = [
   {
     path: 'edit_profile',
@@ -45,17 +46,13 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'progress', component: ProgressComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  {
-    path: 'topic_content',
-    component: TopicContentComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: 'topic_content', component: TopicContentComponent, canActivate: [AuthGuard] },
   { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
   { path: 'nav-bar', component: NavBarComponent },
   { path: 'topics', component: TopicsComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchBarComponent, canActivate: [AuthGuard] },
   { path: 'resetpassword', component: ResetPasswordComponent },
-  { path: 'testing', component: TestingComponent },
+  { path: 'testing/:plan_id', component: TestingComponent },
   { path: 'singletopic/:day', component: SingleComponent },
 
   { path: '', redirectTo: 'landing', pathMatch: 'full' },

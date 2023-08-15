@@ -11,7 +11,6 @@ import { SearchObject } from 'src/app/types/searchObject';
 })
 export class HomeComponent implements OnInit {
   isLoading: boolean = false;
-
   loggedUser: Users | undefined;
   name: string | undefined;
   surname: string | undefined;

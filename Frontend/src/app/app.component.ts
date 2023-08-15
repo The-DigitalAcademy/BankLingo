@@ -32,6 +32,7 @@ export class AppComponent {
     const isOTPPage = this.router.url === '/otp';
 
     const isResetPassPage = this.router.url === '/resetpassword';
+  
 
     return !(
       isLoginPage ||
@@ -39,7 +40,7 @@ export class AppComponent {
       isLandingPage ||
       isForgotPassPage ||
       isOTPPage ||
-      isResetPassPage
+      isResetPassPage 
     );
   }
   title = 'Frontend';

@@ -14,9 +14,9 @@ import { Users } from 'src/app/types/users';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-
-  seconds = 60;
-  id:any;
+  ngOnInit(): void {
+    this.titlePage.setTitle("Reset password")
+  }
   form!: FormGroup<any>;
   user!:Users;
   
@@ -24,11 +24,14 @@ export class ResetPasswordComponent implements OnInit {
   newPassword!: string;
 
 constructor(private formBuilder: FormBuilder,
-   private passwordService: PasswordServiceService,
-    private userService: UsersService,
+  
+  private passwordService: PasswordServiceService,
+   
+  private userService: UsersService,
     private router:Router,
      private sessions: SessionsService,
-     private titlePage : Title
+     private titlePage : Title,
+  private titlePage :Title
   )  {
     this.form = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(12), this.passwordPatternValidator]],

@@ -70,12 +70,15 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  
   onSaveDate() {
     const numberOfDays = this.duration.length;
     const lessonPlan = {
       duration: numberOfDays,
       user_id: this.session.getLoggedUser().userId,
       plan_name: this.session.getQueryQuestion(),
+      lesson_description: this.session.getQueryResponse().message
     };
 
     this.isLoading=true
@@ -86,9 +89,9 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
         console.log('Data saved successfully:', response);
 
         const prompt = {
-          plan_id: response.plan_id,
-          plan_name: response.duration,
-          duration: this.session.getQueryQuestion(),
+          plan_id: response[0].plan_id,
+          plan_name: this.session.getQueryQuestion(),
+          duration: response[0].duration,
         };
 
 
@@ -96,13 +99,12 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
           console.log(data, "Topics generated");
           this.updateBtn = "Generate Lesson Plan"
           this.isLoading=false
+          this.router.navigate(["/lesson-plans"])
+
+        
         })
         
 
-
-
-
-       
        // this.router.navigate(["/lesson-plans"])
 
       },
@@ -144,11 +146,12 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.titlePage.setTitle('Lesson');
 
+
     this.initializeCalendar();
 
     // Retrieve the user data from session storage
     this.user = this.session.getLoggedUser();
-    this.user = this.session.getQueryQuestion();
+     
 
     // Check if the user variable contains valid user data before initializing the form
     if (this.user && Object.keys(this.user).length > 0) {
@@ -170,7 +173,6 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // Access the FullCalendarComponent after the view has been initialized
-    // console.log(this.fullcalendar);
   }
 
   initializeCalendar() {

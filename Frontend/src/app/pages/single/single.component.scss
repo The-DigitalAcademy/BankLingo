@@ -1,0 +1,77 @@
+.topic_container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  .day {
+    font-weight: 600;
+    font-size: 25px;
+  }
+  .button_container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+    button {
+      width: 150px;
+      height: 40px;
+      border-radius: 10px;
+      border: none;
+      background-color: black;
+      color: white;
+      box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.511);
+    }
+  }
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    width: 50%;
+    padding: 10px;
+    background-color: #38a3a549;
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .card-title {
+        font-weight: 800 !important;
+        font-size: 30px !important;
+      }
+      .message {
+        max-width: 90%;
+        white-space: pre-wrap;
+        margin: 0 auto; /* This centers the container horizontally */
+        padding: 20px; /* Add some space between the text and container edges */
+        text-align: justify;
+      }
+    }
+  }
+}
+
+@media (width <= 900px) {
+  .topic_container {
+    .day {
+      display: none;
+    }
+
+    .card {
+      width: 95%;
+      padding: 0 !important;
+      .card-body {
+        .card-title {
+          font-size: 20px !important;
+          text-align: center;
+        }
+        .message {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

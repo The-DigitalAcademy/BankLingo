@@ -190,6 +190,9 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  *              profile_picture:
  *                 type: string
  *                 default: string
+ *              age:
+ *                 type: number
+ *                 default: 0
  *     responses:
  *      200:
  *        description: Success
