@@ -15,6 +15,7 @@ export class PwaService {
     private platform: Platform
   ) {}
 
+  //This will pop up a screen based on which device it its, it listens onInit to findout if it is and ios or android device
   public initPwaPrompt() {
     if (this.platform.ANDROID) {
       window.addEventListener('beforeinstallprompt', (event: any) => {
@@ -31,7 +32,7 @@ export class PwaService {
       }
     }
   }
-
+  // Commented out this code for now to allow development to go through without showing the popup , will use this later
   private openPromptComponent(mobileType: 'ios' | 'android') {
     // timer(3000)
     //   .pipe(take(1))

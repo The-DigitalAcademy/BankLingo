@@ -219,17 +219,25 @@ export class CoreService {
   }
 
   private cachedTopicsData: Welcome[] | null = null;
-
+  // This method needs a plan number/plan_id and it gets the topics for that plan id
   getTopicsByIdAndCache(plan_number: number): Observable<Welcome[]> {
     const headers = this.getHeaders();
     return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
       headers,
     });
   }
-
+  // this method updates the covered value on the  topic_description column , under topic
+  // This will allow us to see which lesson is completed or not
   updateCovered(plan_id: number, day: any) {
     const headers = this.getHeaders();
     return this.http.put(`${environment.updateCovered}/${plan_id}`, day, {
+      headers,
+    });
+  }
+  // this method increments the number of days the person has covered so far.
+  incrementDays(plan_id: number) {
+    const headers = this.getHeaders();
+    return this.http.get(`${environment.incrementDays}/${plan_id}`, {
       headers,
     });
   }
