@@ -322,6 +322,7 @@ gpt_router.put("/update_covered/:plan_id", authenticateToken, updateCoveredContr
  *      500:
  *        description: Not Found
  */
+
 gpt_router.get("/update_days/:plan_id", authenticateToken, getDaysCountController);
 
 export default gpt_router;

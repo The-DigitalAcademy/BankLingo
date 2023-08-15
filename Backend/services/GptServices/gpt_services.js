@@ -4,7 +4,6 @@ import client from "../../configuration/database/database_configuration.js";
 
 const openai = new OpenAIApi(configuration);
 
-
 async function planExists(plan_name, user_id) {
   try {
     const planQuery = {
@@ -253,40 +252,26 @@ export async function getTopicByIDService(request, response) {
   }
 }
 
-export async function getDaysCountService(request, response) {
+export async function getDaysCountService(request,response) {
   const plan_id = parseInt(request.params.plan_id);
 
   if (isNaN(plan_id)) {
     return response.status(400).json({ message: "Invalid plan ID provided." });
   }
-
-  try {
+  try{
     const selectQuery = {
-      text: "SELECT * FROM topic WHERE plan_id = $1",
+      text: "UPDATE topic SET days_count = days_count + 1 WHERE plan_id = $1 RETURNING days_count;",
       values: [plan_id],
     };
-    const selectResults = await client.query(selectQuery);
-    const topic = selectResults.rows[0];
 
-    if (!topic) {
-      return response.status(404).json({ message: "Topic not found." });
-    }
-
-    const incrementQuery = {
-      text: "UPDATE topic SET days_count = days_count + 1 WHERE plan_id = $1",
-      values: [plan_id],
-    };
-    await client.query(incrementQuery);
-
-    return response.status(200).json({
-      days_count: topic.days_count + 1, // Include the updated count in the response.
-      topic: topic, // Include the topic data in the response.
-    });
-  } catch (error) {
+    const results = await client.query(selectQuery);
+    return response.status(200).json(results.rows[0]);
+  }  catch (error) {
     console.error("Error finding the Plan:", error);
     throw error;
   }
 }
+
 
 
 export async function updateCoveredService(request, response) {
@@ -336,5 +321,5 @@ export default {
   getTopicByIDService,
   askSimpleInsideTopicService,
   updateCoveredService,
-  getDaysCountService
+  getDaysCountService,
 };
