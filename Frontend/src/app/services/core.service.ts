@@ -238,8 +238,26 @@ export class CoreService {
 
   
 
+ 
+   
+
+
   getItems(plan_id: number): Observable<any> {
-    return this.http.get(`${this.baseUrls}/${plan_id}`);
+    const headers = this.getHeaders();
+
+   
+      return this.http
+        .get(
+          `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${plan_id}`,
+          { headers }
+        )
+        .pipe(
+          tap((data) => (this.cachedLessonsData = data)),
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
   }
 
-}
+

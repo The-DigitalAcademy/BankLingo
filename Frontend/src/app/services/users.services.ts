@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Users } from '../types/users';
+import { Router } from '@angular/router';
 import { SearchObject } from '../types/searchObject';
 
 
@@ -16,7 +17,7 @@ export class UsersService {
   user!: any;
   //private apiUrls = 'http://localhost:4500';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   private isAuthenticated = false;
 
@@ -43,14 +44,20 @@ export class UsersService {
   }
 
   // Simulate a logout operation
+ //
+
   logout() {
-    this.isAuthenticated = false;
-    // Clear the authentication token or user information from the session/local storage
-  }
+    // Perform any necessary cleanup or server-side logout
+
+    // Clear user session information (example: localStorage or sessionStorage)
+    sessionStorage.removeItem('authToken');
+
+    // Redirect the user to the login page
+    this.router.navigate(['/login']);
 
   // Check if the user is authenticated (you might have a more sophisticated check in real-world scenarios)
  
-
+  }
 
 //create user
 

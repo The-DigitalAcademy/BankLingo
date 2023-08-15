@@ -86,9 +86,9 @@ export class ProfileComponent {
  
 // logout code
 
+  
+
   logout() {
     this.usersService.logout();
-    this.router.navigate(['/login']); // Redirect the user to the login page
   }
-
 }

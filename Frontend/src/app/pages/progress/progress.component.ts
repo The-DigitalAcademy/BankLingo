@@ -28,7 +28,17 @@ export class ProgressComponent implements OnInit{
   showMessage = false;
 
   progressValue = 0;
+  nDays = 0;
+  duration = 0;
   
+
+//Variables for progress bar
+  progressWidth = 0;
+  ariaValueNow = 0;
+  ariaValueMin = 0;
+  ariaValueMax = 100;
+
+  lessonCount: number = 0;
 
 
   user!: any;
@@ -49,21 +59,32 @@ export class ProgressComponent implements OnInit{
   
   
 
-  
-
-  constructor(private session : SessionsService, private core : CoreService,
+  constructor (private session : SessionsService, private core : CoreService,
     private usersService: UsersService,private titlePage: Title,
-    private router: Router, private formBuilder: FormBuilder,
-    
-    ){}
+    private router: Router, private formBuilder: FormBuilder){}
 
   
-
-
-  ngOnInit(): void {
+ ngOnInit(): void {
     this.titlePage.setTitle("Progress")
     this.searchedBefore = this.session.getLoggedUser().searchedbefore
     this.user_id = this.session.getLoggedUser().userId
+
+    //get items for lessonplan to show the progress
+    this.core.getItems(this.user_id).subscribe(user => {
+      this.progressWidth = user.progress;
+      this.ariaValueNow = this.progressWidth;
+    });
+
+    //function of progress bar
+    this.calculateProgress();
+
+
+
+//Count the number of lesson the user have
+    const user_Id = 0; 
+    this.core.getAllUserLessons(user_Id).subscribe(lessons => {
+      this.lessonCount = lessons.length;
+    });
   
  
    //Check if the user has searched a term before
@@ -123,10 +144,26 @@ initializeForm() {
 
     }
 
-    
+    //
+  
 
+   
+
+   
+     
+//Progress status code
+
+     calculateProgress() {
+      
+  
+      this.core.getItems(this.user_id).subscribe(data => {
+        this.duration = data[0].duration;
+        this.progressValue = (this.nDays / this.duration) * 100;
+        console.log(this.progressValue, "progress value");
+        console.log(data[0], "our data");
+      });
     }
-    
+    }
   
     
  
