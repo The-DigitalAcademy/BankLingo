@@ -7,7 +7,8 @@ import {
   GenerateTopicsFromPlanService,
   getTopicByIDService,
   askSimpleInsideTopicService,
-  updateCoveredService
+  updateCoveredService,
+  getDaysCountService
 } from "../../services/GptServices/gpt_services.js";
 
 export async function askSimpleQuestionController(request, response) {
@@ -100,6 +101,17 @@ export async function updateCoveredController(request, response) {
     return response.status(500).json({ message: "Internal server error" });
   }
 }
+
+
+export async function getDaysCountController(request, response) {
+  try {
+    const result = await getDaysCountService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in getDaysCountService:", error);
+    return response.status(500).json({ message: "Internal server error" });
+  }
+}
 export default {
   askSimpleQuestionController,
   askQuestionHumourController,
@@ -109,5 +121,6 @@ export default {
   GenerateTopicsFromPlanController,
   getTopicByIDController,
   askSimpleInsideTopicController,
-  updateCoveredController
+  updateCoveredController,
+  getDaysCountController
 };

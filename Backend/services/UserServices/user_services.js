@@ -46,7 +46,7 @@ export async function createUserService(request, response) {
     created_date,
     updated_date,
   } = request.body;
-  
+
   // Surname validation
   if (surname === null || surname === undefined) {
     return response.status(400).json({ message: "Surname is required" });
@@ -214,28 +214,31 @@ export async function updateUserPasswordService(request, response) {
 
 export async function updateUserProfileService(request, response) {
   const user_id = parseInt(request.params.user_id);
-  const { name, surname, email, contact_number, profile_picture } =
+  const { name, surname, email, contact_number, profile_picture, age } =
     request.body;
   if (isNaN(user_id)) {
     return response.status(400).json({ message: "Invalid user ID" });
   }
+
   try {
     //picture ipload to  cloudinary
-    const resultCloud = await cloudinary.uploader.upload(profile_picture,{
-      folder:"bankpictures",
-      width: 120,
-      crop: "scale",
-      height: 120,
-    })
-    profile_picture = resultCloud.secure_url;
+  
 
     const insertQuery = {
-      text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 WHERE user_id = $6",
-      values: [name, surname, email, contact_number, profile_picture, user_id],
+      text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 , age = $6 WHERE user_id = $7",
+      values: [
+        name,
+        surname,
+        email,
+        contact_number,
+        profile_picture,
+        age,
+        user_id,
+      ],
     };
     const results = await client.query(insertQuery);
-     // Check if any rows were affected by the update
-     if (results.rowCount === 0) {
+    // Check if any rows were affected by the update
+    if (results.rowCount === 0) {
       return response.status(404).json({ message: "User not found" });
     }
     return response.status(200).json(`Updated user with Id ${user_id}`);

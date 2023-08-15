@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import * as e from 'express';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
 import { UsersService } from 'src/app/services/users.services';
@@ -11,11 +12,14 @@ import { UsersService } from 'src/app/services/users.services';
 })
 export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.titlePage.setTitle("Reset password")
   }
   form!: FormGroup<any>;
 
-constructor(private formBuilder: FormBuilder, private passwordService: PasswordServiceService, private userService: UsersService
+constructor(private formBuilder: FormBuilder,
+  private passwordService: PasswordServiceService,
+  private userService: UsersService,
+  private titlePage :Title
   )  {
     this.form = this.formBuilder.group({
       Password: ['', [Validators.required, Validators.minLength(12), this.passwordPatternValidator]],
