@@ -1,3 +1,4 @@
+/* Styles for the entire tab bar at the bottom of the iPhone-like interface */
 .tab-bar-iphone {
     // background-color: #ffffffbf;
     display: flex;
@@ -6,6 +7,7 @@
     width: 100%;
   }
   
+  /* Styles for the container holding tab buttons */
   .tab-bar-iphone .tab-bar-buttons-wrapper {
     background-color: var(--materialschrome);
     border: 1px none;
@@ -15,6 +17,7 @@
     width: 100%;
   }
   
+  /* Styles for the tab buttons container */
   .tab-bar-iphone .tab-bar-buttons {
     align-items: flex-start;
     display: flex;
@@ -25,6 +28,7 @@
     width: auto;
   }
   
+  /* Styles for each individual tab button */
   .tab-bar-iphone .frame {
     align-items: center;
     display: flex;
@@ -36,7 +40,7 @@
     width: 48px;
   }
 
-
+/* Styles for active tab buttons */
   .tab-bar-iphone .frame.active  {
  color:#004ec2;
  font-weight: bold;
@@ -49,6 +53,7 @@
     width: 24px;
   }
   
+  /* Styles for image icons within tab buttons */
   .tab-bar-iphone .label {
     color: var(--colorsblue);
     font-family: "SF Pro-Medium", Helvetica;
@@ -64,6 +69,7 @@
     width: fit-content;
   }
   
+  /* Styles for label text within tab buttons */
   .tab-bar-iphone .text-wrapper {
     color:black;
     font-family: "SF Pro-Medium", Helvetica;
@@ -78,6 +84,7 @@
     white-space: nowrap;
     width: fit-content;
   }
+  
   
   .tab-bar-iphone .div {
     color: #999999;
