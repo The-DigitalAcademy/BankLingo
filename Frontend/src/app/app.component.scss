@@ -1,0 +1,40 @@
+
+
+
+
+  /* Set the container to occupy the full viewport height */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Make the router-outlet fill the remaining space */
+router-outlet {
+  flex: 1;
+  background-color: red;
+  height:80vh;
+  z-index: 1;
+  overflow-y: auto; /* Enable scrolling for the content area if needed */
+}
+
+/* Define a fixed height for the bottom navigation bar */
+.navbarSize {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  background-color: aqua;
+  height: 11vh; /* Adjust this value as needed */
+}
+
+
+.titleBarSize {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  background-color: aqua;
+  height: 8.5vh; /* Adjust this value as needed */
+}

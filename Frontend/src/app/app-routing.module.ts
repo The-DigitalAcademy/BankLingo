@@ -55,7 +55,7 @@ const routes: Routes = [
   { path: 'testing/:plan_id', component: TestingComponent },
   { path: 'singletopic/:day', component: SingleComponent },
 
-   { path: '', redirectTo: 'lesson-plans', pathMatch: 'full' },
+   { path: '', redirectTo: 'progress', pathMatch: 'full' },
 ];
 
 @NgModule({
