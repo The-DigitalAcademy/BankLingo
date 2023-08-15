@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { da } from 'date-fns/locale';
 import { CoreService } from 'src/app/services/core.service';
@@ -34,9 +35,12 @@ export class SingleComponent {
     private route: ActivatedRoute,
     private core: CoreService,
     private sharedService: SharedService,
-    private router: Router
+    private router: Router,
+    private titlePage : Title
   ) {}
   ngOnInit() {
+
+    this.titlePage.setTitle("Chapters")
     //Get the current paramenter
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));

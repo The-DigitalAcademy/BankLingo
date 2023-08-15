@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
@@ -21,6 +20,8 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { AuthGuard } from './auth.guard';
 import { TestingComponent } from './pages/testing/testing.component';
 import { SingleComponent } from './pages/single/single.component';
+
+
 const routes: Routes = [
   {
     path: 'edit_profile',

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { W } from '@fullcalendar/core/internal-common';
 import { CoreService } from 'src/app/services/core.service';
@@ -19,21 +20,22 @@ export class TestingComponent {
   isLoading: boolean = false;
   coveredStatusArray: boolean[] = [true];
   activePlanId = 0
+
   constructor(
     private route: ActivatedRoute,
     private sharedService: SharedService,
     private core: CoreService,
+    private titlePage : Title
   ) {
     this.sharedService.cardCoveredStatus$.subscribe((status) => {
       this.coveredStatus = status;
     });
   }
   ngOnInit() {
+    this.titlePage.setTitle("Topics")
     this.isLoading = true;
-
     this.route.params.subscribe(params => {
       this.activePlanId = params['plan_id'];
-      
     });
     
     this.core.getTopicsByIdAndCache(this.activePlanId).subscribe({
