@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { da } from 'date-fns/locale';
 import { CoreService } from 'src/app/services/core.service';
@@ -34,9 +35,12 @@ export class SingleComponent {
     private route: ActivatedRoute,
     private core: CoreService,
     private sharedService: SharedService,
-    private router: Router
+    private router: Router,
+    private titlePage : Title
   ) {}
   ngOnInit() {
+
+    this.titlePage.setTitle("Chapters")
     //Get the current paramenter
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
@@ -115,7 +119,7 @@ export class SingleComponent {
               .subscribe({
                 next: (data) => {
                   console.log(data);
-                  this.router.navigate(['/testing']);
+                  this.router.navigate([`/testing/${this.localParse.plan_id}`]);
                 },
                 error: (err) => {
                   console.log(err);
@@ -125,6 +129,25 @@ export class SingleComponent {
         }
       });
     }
+  }
+
+  splitMessage(message: string): string {
+    const words = message.split(' ');
+    const lines = [];
+    let currentLine = '';
+
+    for (const word of words) {
+      if ((currentLine + ' ' + word).length <= 60) {
+        currentLine += ' ' + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+
+    lines.push(currentLine);
+
+    return lines.join('<br>'); // Join lines with line breaks
   }
 
   async navigateToPreviousTopic(): Promise<void> {

@@ -1,8 +1,9 @@
 import { OpenAIApi } from "openai";
-const openai = new OpenAIApi(configuration);
-
 import configuration from "../../configuration/gpt/gpt_configuration.js";
 import client from "../../configuration/database/database_configuration.js";
+
+const openai = new OpenAIApi(configuration);
+
 
 async function planExists(plan_name, user_id) {
   try {
@@ -66,7 +67,7 @@ export async function askSimpleInsideTopicService(request, response) {
         messages: [
           {
             role: "user",
-            content: `Explain  ${message} like a 5 year old ,explain it in less than 50 words, but in a way i will understand`,
+            content: `Explain  ${message} like a 5 year old ,explain it in less than 100 words, but in a way i will understand`,
           },
         ],
       })
@@ -119,7 +120,7 @@ export async function GenerateTopicsFromPlanService(request, response) {
                 "duration": "2 Days"
               }
             }
-            , but the object should be on ${plan_name} instead  of credit cards, and it should be ${duration} days duration.`,
+            , but the object should be on ${plan_name} instead  of credit cards, and it should be ${duration} days duration, the first lesson plan covered must be true`,
           },
         ],
       })
@@ -170,7 +171,7 @@ export async function askQuestionHumourService(request, response) {
   }
 }
 export async function createLessonPlanService(request, response) {
-  const { user_id, plan_name, duration } = request.body;
+  const { user_id, plan_name, duration, lesson_description } = request.body;
 
   try {
     const planExistsForUser = await planExists(plan_name, user_id);
@@ -180,8 +181,8 @@ export async function createLessonPlanService(request, response) {
       });
     }
     const insertQuery = {
-      text: "INSERT INTO lesson_plan (user_id, plan_name, duration) VALUES ($1, $2, $3) RETURNING *",
-      values: [user_id, plan_name, duration],
+      text: "INSERT INTO lesson_plan (user_id, plan_name, duration, lesson_description) VALUES ($1, $2, $3, $4) RETURNING *",
+      values: [user_id, plan_name, duration, lesson_description],
     };
 
     const results = await client.query(insertQuery);
@@ -226,7 +227,7 @@ export async function getPlanByUserService(request, response) {
       values: [user_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json(results.rows[0]);
+    return response.status(200).json(results.rows);
   } catch (error) {
     console.error("Error finding the Plan:", error);
     throw error;
@@ -252,7 +253,40 @@ export async function getTopicByIDService(request, response) {
   }
 }
 
+export async function getDaysCountService(request, response) {
+  const plan_id = parseInt(request.params.plan_id);
 
+  if (isNaN(plan_id)) {
+    return response.status(400).json({ message: "Invalid plan ID provided." });
+  }
+
+  try {
+    const selectQuery = {
+      text: "SELECT * FROM topic WHERE plan_id = $1",
+      values: [plan_id],
+    };
+    const selectResults = await client.query(selectQuery);
+    const topic = selectResults.rows[0];
+
+    if (!topic) {
+      return response.status(404).json({ message: "Topic not found." });
+    }
+
+    const incrementQuery = {
+      text: "UPDATE topic SET days_count = days_count + 1 WHERE plan_id = $1",
+      values: [plan_id],
+    };
+    await client.query(incrementQuery);
+
+    return response.status(200).json({
+      days_count: topic.days_count + 1, // Include the updated count in the response.
+      topic: topic, // Include the topic data in the response.
+    });
+  } catch (error) {
+    console.error("Error finding the Plan:", error);
+    throw error;
+  }
+}
 
 
 export async function updateCoveredService(request, response) {
@@ -264,7 +298,7 @@ export async function updateCoveredService(request, response) {
 
   try {
     const insertQuery = {
-      text:`UPDATE topic
+      text: `UPDATE topic
       SET topic_description = jsonb_set(
           topic_description,
           '{course, lessons}',
@@ -284,7 +318,9 @@ export async function updateCoveredService(request, response) {
       values: [day, plan_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json({message: `Plan for ${day} has been updated`});
+    return response
+      .status(200)
+      .json({ message: `Plan for ${day} has been updated` });
   } catch (error) {
     console.error("Error finding the Plan:", error);
     throw error;
@@ -299,5 +335,6 @@ export default {
   GenerateTopicsFromPlanService,
   getTopicByIDService,
   askSimpleInsideTopicService,
-  updateCoveredService
+  updateCoveredService,
+  getDaysCountService
 };

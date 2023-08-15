@@ -7,7 +7,8 @@ import {
   GenerateTopicsFromPlanController,
   getTopicByIDController,
   askSimpleInsideTopicController,
-  updateCoveredController
+  updateCoveredController,
+  getDaysCountController
 } from "../../controllers/GptControllers/gpt_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
@@ -96,6 +97,9 @@ gpt_router.post("/humour",authenticateToken, askQuestionHumourController);
  *              duration:
  *                type: number
  *                default: 0
+ *              lesson_description:
+ *                type: string
+ *                default: string
  *     responses:
  *      201:
  *        description: Created
@@ -292,5 +296,32 @@ gpt_router.post("/insideTopic", authenticateToken, askSimpleInsideTopicControlle
  */
 
 gpt_router.put("/update_covered/:plan_id", authenticateToken, updateCoveredController);
+
+
+
+/**
+ * @openapi
+ * '/api/gpt/update_days/{id}':
+ *  get:
+ *     tags:
+ *     - Lesson Plan
+ *     summary: Update Days count
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: plan_id
+ *        required: true
+ *     content:
+ *     responses:
+ *      200:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ *      500:
+ *        description: Not Found
+ */
+gpt_router.get("/update_days/:plan_id", authenticateToken, getDaysCountController);
 
 export default gpt_router;
