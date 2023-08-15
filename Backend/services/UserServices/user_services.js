@@ -240,9 +240,9 @@ export async function updateUserProfileService(request, response) {
         contact_number,
         profile_picture,
         age,
-        user_id,
       ],
-    };
+      user_id,    
+     };
 
     const results = await client.query(insertQuery);
     // Check if any rows were affected by the update
