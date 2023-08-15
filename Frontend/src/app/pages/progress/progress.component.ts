@@ -42,6 +42,7 @@ export class ProgressComponent implements OnInit{
 
 
   user!: any;
+  lessonss!:any;
   profileForm!: FormGroup;
   loggedUser : Users | undefined
   name : string | undefined
@@ -121,7 +122,8 @@ initializeForm() {
   this.profileForm = this.formBuilder.group({
     name: [this.user.name, Validators.required],
     surname: [this.user.surname, Validators.required],
-
+    duration:[this.lessonss.duration,Validators.required],
+    nDays:[this.lessonss.nDays,Validators.required],
   
    
 
@@ -142,6 +144,8 @@ initializeForm() {
 
       })
 
+      
+
     }
 
     //
@@ -154,6 +158,8 @@ initializeForm() {
 //Progress status code
 
      calculateProgress() {
+
+     
       
   
       this.core.getItems(this.user_id).subscribe(data => {
