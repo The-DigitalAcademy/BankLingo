@@ -13,3 +13,11 @@
   .small-height {
     background-color: lightgreen;
   }
+.image-container {
+    display: flex;
+    justify-content: left; /* Center content horizontally */
+    align-items: left; /* Center content vertically */
+    margin-left: 10%;
+    
+  }
+  
