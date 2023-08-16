@@ -28,10 +28,10 @@ export class ProgressComponent implements OnInit{
   showMessage = false;
 
   progressValue = 0;
-  nDays = 0;
+  days_count = 0;
   duration = 0;
   
-
+  processedData: any[] = [];
 //Variables for progress bar
   progressWidth = 0;
   ariaValueNow = 0;
@@ -42,6 +42,7 @@ export class ProgressComponent implements OnInit{
 
 
   user!: any;
+  plan!:any;
   lessonss!:any;
   profileForm!: FormGroup;
   loggedUser : Users | undefined
@@ -56,6 +57,7 @@ export class ProgressComponent implements OnInit{
   isIconFilled = false;
   favoutitesArray: SearchObject[] = [];
   user_id = 0
+  plan_id=0
   favouritesData: any;
   
   
@@ -123,7 +125,8 @@ initializeForm() {
     name: [this.user.name, Validators.required],
     surname: [this.user.surname, Validators.required],
     duration:[this.lessonss.duration,Validators.required],
-    nDays:[this.lessonss.nDays,Validators.required],
+    days_count:[this.lessonss.nDays,Validators.required],
+    plan_name:[this.lessonss.plan_name,Validators.required]
   
    
 
@@ -158,19 +161,43 @@ initializeForm() {
 //Progress status code
 
      calculateProgress() {
+    
+      const plan_name=this.core.getItems;
 
+      this.core.getItems(this.user_id).subscribe((dataArray: LessonPlan[]) => {
+        dataArray.forEach((data: LessonPlan) => {
+          const duration = data.duration;
+          
+          const progressValue = (data.days_count / duration) * 100;
+          
+          console.log(progressValue, "progress value");
+          console.log(data, "our data");
+          console.log(duration, "dura");
+          console.log(plan_name,"name")
+          
+          
+          this.processedData.push({ progressValue, data, duration,plan_name});
+        });
+      });
      
       
+      
+      
+      
+      
+ 
+      
   
-      this.core.getItems(this.user_id).subscribe(data => {
-        this.duration = data[0].duration;
-        this.progressValue = (this.nDays / this.duration) * 100;
-        console.log(this.progressValue, "progress value");
-        console.log(data[0], "our data");
-      });
+    //   this.core.getItems(this.user_id).subscribe(data => {
+    //     this.duration = data[2].duration;
+    //     this.progressValue = (data[2].days_count / this.duration) * 100;
+    //     console.log(this.progressValue, "progress value");
+    //     console.log(data[2], "our data");
+    //     console.log(data[2].duration, "dura");
+    //   });
+    // }
     }
-    }
   
-  
+}
  
 

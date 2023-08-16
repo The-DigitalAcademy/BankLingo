@@ -251,13 +251,13 @@ export class CoreService {
    
 
 
-  getItems(plan_id: number): Observable<any> {
+  getItems(user_id: number): Observable<any> {
     const headers = this.getHeaders();
 
    
       return this.http
         .get(
-          `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${plan_id}`,
+          `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${user_id}`,
           { headers }
         )
         .pipe(

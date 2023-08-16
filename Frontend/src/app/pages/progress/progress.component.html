@@ -7,7 +7,7 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="card mb-4 mb-md-0">
+        <div class="card mb-4 mb-md-0" style="border: 0;">
         
           <div class="card-body text-center">
             <div class="image-container">
@@ -49,46 +49,37 @@
       
 
     
-      <div class="headingFont d-flex justify-content-left my-3">
-        Task currently busy with progress status
-      </div>
-
-           
-     
-            
-        
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
-              <div class="card-body">
-               
-                <span>Cheque Account</span>
-                <!-- progress-bar.component.html -->
-
-
-
-                <div>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar"
-                         [style.width.%]="progressValue"
-                         [attr.aria-valuenow]="progressValue"
-                         [attr.aria-valuemin]="0"
-                         [attr.aria-valuemax]="100">
-                     
-                    </div>
-                    
-                  </div>
-                  <span> {{progressValue}} % Complete</span>
-                 
-
-                  
-                  </div>
-
-                
-              </div>
+          
+         
+            <div class="headingFont d-flex justify-content-left my-3">
+              Task currently busy with progress status
             </div>
-          </div>
+      
+ 
+          
 
+              <!-- Displaying the terms -->   
+           <div *ngFor="let processed of processedData" style="padding:10px">
+            <div>{{ processed.data.plan_name }}</div>
+            <div class="progress" >
+             
+            <div class="progress-bar bg-success" role="progressbar"
+                 [style.width.%]="processed.progressValue"
+                 [attr.aria-valuenow]="processed.progressValue"
+                 [attr.aria-valuemin]="0"
+                 [attr.aria-valuemax]="100">
+              {{ processed.progressValue.toFixed(0) }}%
+            </div>
+           
+            
+           </div>
+             
+              </div>
+                
+              
+              
+          
+ 
           <div class="headingFont d-flex justify-content-left my-3">
             No of tasks you have.
           </div>
@@ -107,13 +98,44 @@
           </div>
           
           
-            
+          <div class="headingFont d-flex justify-content-left my-3">
+            No of task completed.
+          </div>
+
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+               
+                <!-- Display the number of task the user have -->
+
+                <h5> {{ lessonCount }}</h5>
+
+                
+              </div>
+            </div>
+          </div>
+          <div class="headingFont d-flex justify-content-left my-3">
+            No of tasks in progress.
+          </div>
+
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+               
+                <!-- Display the number of task the user have -->
+
+                <h5> {{ lessonCount }}</h5>
+
+                
+              </div>
+            </div>
+          </div>
             
 
           <!-- Getting the all the terms searched by the user -->
              
                 
-                <div class="col">
+                <!-- <div class="col">
                     <div class="headingFont d-flex justify-content-left my-3">
                       Favourites term searched 
                       </div>
@@ -125,25 +147,25 @@
                 
                 
                 
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush"> -->
 
                               <!-- Displaying the terms -->
-                              <li class="list-group-item">{{searchObj.query_searched}}</li>
+                              <!-- <li class="list-group-item">{{searchObj.query_searched}}</li>
                               </ul>
                              
-                    </div>
+                    </div> -->
                    
                     <!-- If there are no term searched -->
-                    <div *ngIf="showMessage">{{ messageText }}</div>
+                    <!-- <div *ngIf="showMessage">{{ messageText }}</div>
                    
                              
                             </div>
                   </div>
                   </div>
-                </div>
-                </div>
+                </div> -->
+                
         
-            
+  </div>
         
               
   
