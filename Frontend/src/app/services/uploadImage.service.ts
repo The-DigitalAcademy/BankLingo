@@ -3,32 +3,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UploadImageService {
-
-  private cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dbdhrolar/image/upload';
+  private cloudinaryUrl =
+    'https://api.cloudinary.com/v1_1/dbdhrolar/image/upload';
   private cloudinaryUploadPreset = 'u7pphfwg';
 
-constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-uploadImage(imageData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.cloudinaryUploadPreset}`
-    });
-
-    // const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Use the cors-anywhere proxy service
-
-    return this.http.post( this.cloudinaryUrl, imageData, {headers});
-  }
-
-  uploadSignature(file: File): Observable<any> {
+  //Uploads an image file to Cloudinary using the provided file and Cloudinary upload preset.
+  uploadImage(file: File): Observable<any> {
+    // Create a new FormData object to prepare the data for the HTTP request.
     const formData = new FormData();
+    // Append the image file to the FormData.
     formData.append('file', file);
+    // Append the Cloudinary upload preset.
     formData.append('upload_preset', this.cloudinaryUploadPreset);
 
+    // Make an HTTP POST request to the Cloudinary URL with the FormData containing the image and upload preset.
     return this.http.post(this.cloudinaryUrl, formData);
   }
 }
-
-

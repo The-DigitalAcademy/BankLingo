@@ -5,13 +5,6 @@ import client from "../../configuration/database/database_configuration.js";
 import secret from "../../configuration/secrets/jwt_secret.js";
 import transporter from "../../configuration/communication/email_configurations.js";
 import { request } from "express";
-import cloudinary from "cloudinary";
-
-cloudinary.config({
-  cloud_name: process.env.cloud_name,
-  api_key: process.env.api_key,
-  api_secret: process.env.api_secret,
-});
 
 async function emailExists(email) {
   try {
@@ -242,7 +235,6 @@ export async function updateUserProfileService(request, response) {
         user_id
       ],
     };
-
     const results = await client.query(insertQuery);
     // Check if any rows were affected by the update
     if (results.rowCount === 0) {
