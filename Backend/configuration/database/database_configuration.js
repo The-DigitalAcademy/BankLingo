@@ -1,6 +1,6 @@
 import "dotenv/config";
 import Pool from "pg";
-
+//Configuration for database using the external link i got from render
 const PoolConstructor = Pool.Pool;
 const pool = new PoolConstructor({
   user: process.env.POSTGRES_USER,
