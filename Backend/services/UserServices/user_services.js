@@ -222,7 +222,6 @@ export async function updateUserProfileService(request, response) {
 
   try {
     //picture ipload to  cloudinary
-  
 
     const insertQuery = {
       text: "UPDATE users SET  name = $1, surname = $2, email = $3, contact_number = $4 , profile_picture = $5 , age = $6 WHERE user_id = $7",
@@ -233,7 +232,7 @@ export async function updateUserProfileService(request, response) {
         contact_number,
         profile_picture,
         age,
-        user_id,
+        user_id
       ],
     };
     const results = await client.query(insertQuery);

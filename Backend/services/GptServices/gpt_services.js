@@ -260,7 +260,7 @@ export async function getDaysCountService(request,response) {
   }
   try{
     const selectQuery = {
-      text: "UPDATE topic SET days_count = days_count + 1 WHERE plan_id = $1 RETURNING days_count;",
+      text: "UPDATE lesson_plan SET days_count = days_count + 1 WHERE plan_id = $1 RETURNING days_count;",
       values: [plan_id],
     };
 
