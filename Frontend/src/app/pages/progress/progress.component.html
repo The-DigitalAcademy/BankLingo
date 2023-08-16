@@ -2,11 +2,7 @@
 
  <section style="background-color: #ffffff;">
   <div class="container py-5">
-    <div class="container"> 
-      <app-nav-bar></app-nav-bar>
-    </div>
-
-    <div class="row">
+     <div class="row">
       <div class="col-md-6">
         <div class="card mb-4 mb-md-0" style="border: 0;">
         
@@ -44,20 +40,32 @@
             </div>
           </div>
          </div>
-    </div>
-        
-        
-      
 
-    
-          
-         
+         <div class="col-md-6">
+          <div class="card mb-4 mb-md-0" >
+            <div class="headingFont d-flex justify-content-left my-3">
+              No of tasks you have.
+            </div>
+            <div class="card-body">
+             
+              <!-- Display the number of task the user have -->
+
+              <h5> {{ lessonCount }}</h5>
+
+              
+            </div>
+          </div>
+        </div>
+        
+        
+
+         <div class="col-md-6">
+          <div class="card mb-4 mb-md-0" >
+        
             <div class="headingFont d-flex justify-content-left my-3">
               Task currently busy with progress status
             </div>
       
- 
-          
 
               <!-- Displaying the terms -->   
            <div *ngFor="let processed of processedData" style="padding:10px">
@@ -79,58 +87,13 @@
                 
               
               
-          
+          </div>
+          </div>
  
-          <div class="headingFont d-flex justify-content-left my-3">
-            No of tasks you have.
-          </div>
-
-          <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
-              <div class="card-body">
-               
-                <!-- Display the number of task the user have -->
-
-                <h5> {{ lessonCount }}</h5>
-
-                
-              </div>
-            </div>
-          </div>
           
+
+         
           
-          <div class="headingFont d-flex justify-content-left my-3">
-            No of task completed.
-          </div>
-
-          <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
-              <div class="card-body">
-               
-                <!-- Display the number of task the user have -->
-
-                <h5> {{ lessonCount }}</h5>
-
-                
-              </div>
-            </div>
-          </div>
-          <div class="headingFont d-flex justify-content-left my-3">
-            No of tasks in progress.
-          </div>
-
-          <div class="col-md-6">
-            <div class="card mb-4 mb-md-0">
-              <div class="card-body">
-               
-                <!-- Display the number of task the user have -->
-
-                <h5> {{ lessonCount }}</h5>
-
-                
-              </div>
-            </div>
-          </div>
             
 
           <!-- Getting the all the terms searched by the user -->
@@ -165,24 +128,10 @@
                   </div>
                 </div> -->
                 
-        
+     </div>
   </div>
         
               
   
 </section>
-<!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->
-<div class="container">
-    <div class="full-height">
 
-<div style="background-color: black;">
-fxvjsnvi
-</div>
-
-<div style="background-color: red;">
-sdcnwdicjnadijn
-</div>
-
-    </div>
-    <div class="small-height"></div>
-  </div>
