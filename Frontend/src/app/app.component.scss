@@ -3,11 +3,13 @@
 
 
   /* Set the container to occupy the full viewport height */
-.container {
+.container1 {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  padding-top:4px;
+  // align-items: center;
 }
 
 /* Make the router-outlet fill the remaining space */
@@ -26,15 +28,16 @@ router-outlet {
   width: 100%;
   z-index: 2;
   background-color: aqua;
-  height: 11vh; /* Adjust this value as needed */
+  height: 58px; /* Adjust this value as needed */
 }
 
 
 .titleBarSize {
   position: absolute;
   top: 0;
+  height:fit-content;
   width: 100%;
   z-index: 2;
   background-color: aqua;
-  height: 8.5vh; /* Adjust this value as needed */
+  
 }

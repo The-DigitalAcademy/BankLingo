@@ -1,13 +1,12 @@
-<div class="scrollable">
-  <!-- <app-nav-bar></app-nav-bar> -->
+<div class="container scrollable  side-margins">
 
-  <div >
-    <div class="centerCards side-margins">
+  
+    <div class="centerCards">
 
       <div class="card text-white bg-primary mb-3"  *ngFor="let allLessonPlans of allPlans">
         <div class="card-header d-flex align-items-center justify-content-between">
           <span>In progress</span>
-          <!-- <span><b>25%</b></span>  -->
+          <span><b>25%</b></span> 
 
         </div>
         <div class="card-body">
@@ -16,12 +15,12 @@
         </div>
         <div class="card-footer">
           <div class="d-flex align-items-center justify-content-between">
-            <span>{{allLessonPlans.duration}} days plan</span>
+            <span>{{allLessonPlans.days_count}}/{{allLessonPlans.duration}} days complete</span>
             <a [routerLink]="['/testing', allLessonPlans.plan_id]" class="badge bg-dark">Continue</a>
           </div>
         </div>
       </div>
 
     </div>
-  </div>
+ 
 </div>
