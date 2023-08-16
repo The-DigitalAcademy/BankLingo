@@ -9,6 +9,7 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+import { ImagesService} from 'src/app/services/images.service';
 
 declare var $: any;
 declare var webkitSpeechRecognition: any;
@@ -30,12 +31,14 @@ export class SearchBarComponent implements OnInit {
   isRecognizing = false;
   content?: any;
   browserSupport: boolean = false;
+  images: any[] = [];
 
   constructor(
     private core: CoreService,
     private session: SessionsService,
     private location: Location,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private imageService: ImagesService
   ) {
     const microContainer = document.querySelector('.microphonebox');
     if ('webkitSpeechRecognition' in window) {
@@ -66,6 +69,7 @@ export class SearchBarComponent implements OnInit {
   ngOnInit(): void {
     this.user_id = this.session.getLoggedUser().userId;
     this.queryText;
+    this.fetchImagesInFolder('terms');
   }
 
   saveSearch() {
@@ -165,5 +169,18 @@ export class SearchBarComponent implements OnInit {
 
   onTextboxInput(event: Event) {
     this.queryText = (event.target as HTMLTextAreaElement).value;
+  }
+
+  fetchImagesInFolder(folderName: string): void {
+    this.imageService.getImagesInFolder(folderName).subscribe(
+      (data: any) => {
+        this.images = data.resources;
+        console.log(this.images);
+        
+      },
+      (error) => {
+        console.error('Error fetching images:', error);
+      }
+    );
   }
 }
