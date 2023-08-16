@@ -1,6 +1,6 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-
+//Swagger options including bearer token configuration
 const options = {
   definition: {
     openapi: "3.0.0",
