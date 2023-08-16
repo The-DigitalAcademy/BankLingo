@@ -78,6 +78,9 @@ export class ProfileComponent {
     });
   }
 
+
+  
+
   // Update the progressValue as needed (e.g., based on an event or timer)
   updateProgress() {
     this.progressValue += 10;
@@ -86,9 +89,6 @@ export class ProfileComponent {
     }
   }
 
-  logout() {
-    this.usersService.logout();
-    this.router.navigate(['/login']); // Redirect the user to the login page
-  }
+  
 
 }

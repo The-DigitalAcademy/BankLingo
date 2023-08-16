@@ -16,9 +16,9 @@
     </nav>
     <div *ngIf="isProfilePage()" class="collapse position-fixed end-0 px-3" id="collapseExample" style="width:auto; position:sticky; right:10px;">
       <div class="list-group" style="width:fit-content">
-        <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-down" ></i>  Install as app</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-down"></i>  Install as app</a>
         <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-gear"></i>  Settings</a>
-        <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-left"></i>  Logout</a>
+        <a (click)="logout()" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-left"></i> Logout</a>
       </div>
     </div>
   </div>
