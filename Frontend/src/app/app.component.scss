@@ -8,14 +8,12 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
-  padding-top:4px;
   // align-items: center;
 }
 
 /* Make the router-outlet fill the remaining space */
 router-outlet {
   flex: 1;
-  background-color: red;
   height:80vh;
   z-index: 1;
   overflow-y: auto; /* Enable scrolling for the content area if needed */
@@ -27,8 +25,8 @@ router-outlet {
   bottom: 0;
   width: 100%;
   z-index: 2;
-  background-color: aqua;
-  height: 58px; /* Adjust this value as needed */
+  background-color: white;
+  height: auto; /* Adjust this value as needed */
 }
 
 
@@ -38,6 +36,5 @@ router-outlet {
   height:fit-content;
   width: 100%;
   z-index: 2;
-  background-color: aqua;
   
 }
