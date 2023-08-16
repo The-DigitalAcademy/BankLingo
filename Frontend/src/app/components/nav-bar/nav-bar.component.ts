@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { SessionsService } from 'src/app/services/sessions.service';
 
 
 
@@ -14,11 +13,10 @@ import { SessionsService } from 'src/app/services/sessions.service';
 export class NavBarComponent implements OnInit {
 
   onProfile=false
-  constructor(private router: Router, private location : Location, private titlePage : Title, private session : SessionsService) { }
+  constructor(private router: Router, private location : Location, private titlePage : Title) { }
   ngOnInit(): void {
 
     }
-
 
     showTitle() : string{
       return this.titlePage.getTitle()
@@ -31,13 +29,10 @@ export class NavBarComponent implements OnInit {
       );
     }
 
-    logout() {
-      this.session.clean()
-      this.router.navigate(['/login']); 
-    }
 
   navigateBack(): void {
     this.location.back()
+    // this.router.navigate(['/']); // Navigate back to the previous page
   }
 
 }
