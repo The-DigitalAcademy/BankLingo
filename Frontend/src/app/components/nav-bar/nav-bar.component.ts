@@ -12,12 +12,21 @@ import { Title } from '@angular/platform-browser';
 })
 export class NavBarComponent implements OnInit {
 
+  onProfile=false
   constructor(private router: Router, private location : Location, private titlePage : Title) { }
   ngOnInit(): void {
+
     }
 
     showTitle() : string{
       return this.titlePage.getTitle()
+    }
+
+    isProfilePage(): boolean{
+      const isProfilePage = this.router.url === '/profile';
+      return (
+        isProfilePage 
+      );
     }
 
 
