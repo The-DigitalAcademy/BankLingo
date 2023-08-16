@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import { UploadImageService } from 'src/app/services/uploadImage.service';
 import { Observable, Observer } from 'rxjs';
 import { Title } from '@angular/platform-browser';
-import { LoginComponent } from '../login/login.component';
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -68,14 +68,6 @@ export class EditProfileComponent implements OnInit {
     this.selectedImage = event.target.files[0];
   }
 
-  onUpload(): void {
-    if (!this.selectedImage) {
-      alert('Please select an image to upload.');
-      return;
-    }
-  
-  }
-
   onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
@@ -88,18 +80,18 @@ export class EditProfileComponent implements OnInit {
         this.imagePreviewUrl = reader.result as string;
   
         // Automatically trigger the upload process here
-        this.uploadImageAndSubmitForm();
+        this.uploadImage();
       };
     }
   }
   
-  uploadImageAndSubmitForm(): void {
+  uploadImage(): void {
     if (!this.selectedImage) {
       alert('Please select an image to upload.');
       return;
     }
   
-    this.uploadService.uploadSignature(this.selectedImage).subscribe(
+    this.uploadService.uploadImage(this.selectedImage).subscribe(
       (response: any) => {
         // The response should contain the Cloudinary URL
         const profilePictureUrl = response.secure_url;
@@ -114,9 +106,6 @@ export class EditProfileComponent implements OnInit {
   
         // Update the form value for profile_picture
         this.profileForm.patchValue({ profile_picture: profilePictureUrl });
-  
-        // Now, submit the form with the updated profile_picture value
-        //this.updateUser();
       },
       (error: any) => {
         console.error('Error uploading profile picture:', error);
@@ -124,86 +113,6 @@ export class EditProfileComponent implements OnInit {
     );
   }
   
-
-  // onFileSelected(event: Event): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     this.selectedImage = inputElement.files[0];
-  
-  //     // Create a FileReader to read the image and set its preview URL
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(this.selectedImage);
-  //     reader.onload = () => {
-  //       this.imagePreviewUrl = reader.result as string;
-  
-  //       if (!this.selectedImage) {
-  //         alert('Please select an image to upload.');
-  //         return;
-  //       }
-  
-  //       this.uploadService.uploadSignature(this.selectedImage).subscribe(
-  //         (response: any) => {
-  //           // The response should contain the Cloudinary URL
-  //           const profilePictureUrl = response.secure_url;
-  //           console.log(response, 'successfully uploaded on cloudinary');
-        
-  //           // Create a new FormControl instance for profile_picture and update it with the Cloudinary URL
-  //           const profilePictureControl = new FormControl(profilePictureUrl);
-        
-  //           // Update the profileForm with the new FormControl instance
-  //           this.profileForm.setControl('profile_picture', profilePictureControl);
-        
-  //           // Now, submit the form with the updated profile_picture value
-  //           // this.updateUser();
-  //         },
-  //         (error: any) => {
-  //           console.error('Error uploading profile picture:', error);
-  //         }
-  //       );
-  //     };
-  //   }
-  // }
-  
-
-//   onFileSelected(event: Event): void {
-//     const inputElement = event.target as HTMLInputElement;
-//     if (inputElement.files && inputElement.files.length > 0) {
-//       this.selectedImage = inputElement.files[0];
-
-//       // Create a FileReader to read the image and set its preview URL
-//       const reader = new FileReader();
-//       reader.readAsDataURL(this.selectedImage);
-//       reader.onload = () => {
-//         this.imagePreviewUrl = reader.result as string;
-        
-//  if (!this.selectedImage) {
-//       alert('Please select an image to upload.');
-//       return;
-//     }
-
-//         this.uploadService.uploadSignature(this.selectedImage).subscribe(
-//           (response: any) => {
-//             // The response should contain the Cloudinary URL
-//             const profilePictureUrl = response.secure_url;
-//             console.log(response,"successfully uploaded on cloudinary");
-            
-    
-//             // Set the profile_picture value in the form with the Cloudinary URL
-//             this.profileForm.get('profile_picture')?.setValue(profilePictureUrl);
-//             console.log(profilePictureUrl);
-            
-//             // Now, submit the form with the updated profile_picture value
-//             //this.updateUser();
-//           },
-//           (error: any) => {
-//             console.error('Error uploading profile picture:', error);
-//           }
-//         );
-
-//       };
-
-//     }
-//   }
 
   updateUser() {
     if (this.profileForm.valid) {

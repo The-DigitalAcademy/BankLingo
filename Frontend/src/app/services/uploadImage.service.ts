@@ -12,17 +12,7 @@ export class UploadImageService {
 
 constructor(private http:HttpClient) { }
 
-uploadImage(imageData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.cloudinaryUploadPreset}`
-    });
-
-    // const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Use the cors-anywhere proxy service
-
-    return this.http.post( this.cloudinaryUrl, imageData, {headers});
-  }
-
-  uploadSignature(file: File): Observable<any> {
+  uploadImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', this.cloudinaryUploadPreset);
