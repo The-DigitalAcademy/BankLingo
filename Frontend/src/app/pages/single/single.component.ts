@@ -36,11 +36,10 @@ export class SingleComponent {
     private core: CoreService,
     private sharedService: SharedService,
     private router: Router,
-    private titlePage : Title
+    private titlePage: Title
   ) {}
   ngOnInit() {
-
-    this.titlePage.setTitle("Chapters")
+    this.titlePage.setTitle('Chapters');
     //Get the current paramenter
     const routeParam = this.route.snapshot.paramMap;
     const routeId = String(routeParam.get('day'));
@@ -78,6 +77,19 @@ export class SingleComponent {
     });
   }
 
+  async incrementDays() {
+    this.localTopics = localStorage.getItem('topics');
+    this.localParse = JSON.parse(this.localTopics) as Welcome;
+    await this.core.incrementDays(this.localParse.plan_id).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   async navigateToNextTopic(): Promise<void> {
     this.loading = true;
     if (this.currentIndex < this.someTopics.length - 1) {
@@ -108,6 +120,7 @@ export class SingleComponent {
           this.localTopics = localStorage.getItem('topics');
 
           this.localParse = JSON.parse(this.localTopics) as Welcome;
+
           lesson.covered = true;
           let day = {
             day: lesson.day,
@@ -117,8 +130,8 @@ export class SingleComponent {
             await this.core
               .updateCovered(this.localParse.plan_id, day)
               .subscribe({
-                next: (data) => {
-                  console.log(data);
+                next: async (data) => {
+                  await this.incrementDays();
                   this.router.navigate([`/testing/${this.localParse.plan_id}`]);
                 },
                 error: (err) => {

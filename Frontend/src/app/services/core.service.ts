@@ -5,7 +5,14 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SessionsService } from './sessions.service';
-import { BehaviorSubject, Observable, catchError, of, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Users } from '../types/users';
 import { loggedUser } from '../types/LoggedUser';
 import { environment } from 'src/environments/environment.development';
@@ -22,8 +29,7 @@ export class CoreService {
   private cachedData: any;
   private cachedLessonsData: any;
 
-  localURL = "http://localhost:4500/api/gpt"
-
+  localURL = 'http://localhost:4500/api/gpt';
 
   private getHeaders(): HttpHeaders {
     this.accessToken = sessionStorage.getItem('loggedUser');
@@ -33,9 +39,8 @@ export class CoreService {
     }
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.user.token}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
       // 'Access-Control-Allow-Origin': 'true' // incorrec
-      
     });
     return headers;
   }
@@ -73,9 +78,13 @@ export class CoreService {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
     return this.http
-      .put('https://banklingoapi.onrender.com/api/user/update_boolean', prompt, {
-        headers,
-      })
+      .put(
+        'https://banklingoapi.onrender.com/api/user/update_boolean',
+        prompt,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
@@ -106,7 +115,6 @@ export class CoreService {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
 
-
     if (this.cachedData) {
       return of(this.cachedData);
     } else {
@@ -114,7 +122,9 @@ export class CoreService {
         .get(
           `https://banklingoapi.onrender.com/api/search/get_history/${user_id}`,
           { headers }
-        ).pipe(tap(data => this.cachedData = data),
+        )
+        .pipe(
+          tap((data) => (this.cachedData = data)),
           catchError((error: HttpErrorResponse) => {
             return throwError(error.error.message);
           })
@@ -122,13 +132,20 @@ export class CoreService {
     }
   }
 
-  generateTopics(prompt: { plan_id: number, plan_name: string, duration: number }): Observable<any> {
-
+  generateTopics(prompt: {
+    plan_id: number;
+    plan_name: string;
+    duration: number;
+  }): Observable<any> {
     const headers = this.getHeaders();
     return this.http
-      .post('https://banklingoapi.onrender.com/api/gpt/generateTopics', prompt, {
-        headers,
-      })
+      .post(
+        'https://banklingoapi.onrender.com/api/gpt/generateTopics',
+        prompt,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);
@@ -136,8 +153,12 @@ export class CoreService {
       );
   }
 
-  saveLessonPlan(prompt: { duration: number, user_id: number, plan_name: string, lesson_description: string }): Observable<any> {
-
+  saveLessonPlan(prompt: {
+    duration: number;
+    user_id: number;
+    plan_name: string;
+    lesson_description: string;
+  }): Observable<any> {
     const headers = this.getHeaders();
     return this.http
       .post('https://banklingoapi.onrender.com/api/gpt/create', prompt, {
@@ -153,7 +174,6 @@ export class CoreService {
   getActiveLesson(plan_id: number): Observable<any> {
     const headers = this.getHeaders();
 
-
     if (this.cachedLessonsData) {
       return of(this.cachedLessonsData);
     } else {
@@ -161,7 +181,9 @@ export class CoreService {
         .get(
           `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${plan_id}`,
           { headers }
-        ).pipe(tap(data => this.cachedLessonsData = data),
+        )
+        .pipe(
+          tap((data) => (this.cachedLessonsData = data)),
           catchError((error: HttpErrorResponse) => {
             return throwError(error.error.message);
           })
@@ -172,7 +194,6 @@ export class CoreService {
   getAllUserLessons(user_id: number): Observable<any> {
     const headers = this.getHeaders();
 
-
     if (this.cachedLessonsData) {
       return of(this.cachedLessonsData);
     } else {
@@ -180,7 +201,9 @@ export class CoreService {
         .get(
           `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${user_id}`,
           { headers }
-        ).pipe(tap(data => this.cachedLessonsData = data),
+        )
+        .pipe(
+          tap((data) => (this.cachedLessonsData = data)),
           catchError((error: HttpErrorResponse) => {
             return throwError(error.error.message);
           })
@@ -195,18 +218,27 @@ export class CoreService {
     });
   }
 
-  getTopicsById(plan_number: number): Observable<Welcome[]> {
+  private cachedTopicsData: Welcome[] | null = null;
+  // This method needs a plan number/plan_id and it gets the topics for that plan id
+  getTopicsByIdAndCache(plan_number: number): Observable<Welcome[]> {
     const headers = this.getHeaders();
     return this.http.get<Welcome[]>(`${environment.getTopics}/${plan_number}`, {
       headers,
     });
   }
-
+  // this method updates the covered value on the  topic_description column , under topic
+  // This will allow us to see which lesson is completed or not
   updateCovered(plan_id: number, day: any) {
     const headers = this.getHeaders();
     return this.http.put(`${environment.updateCovered}/${plan_id}`, day, {
       headers,
     });
   }
-
+  // this method increments the number of days the person has covered so far.
+  incrementDays(plan_id: number) {
+    const headers = this.getHeaders();
+    return this.http.get(`${environment.incrementDays}/${plan_id}`, {
+      headers,
+    });
+  }
 }

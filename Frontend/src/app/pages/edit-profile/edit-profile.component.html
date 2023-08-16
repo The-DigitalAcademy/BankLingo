@@ -5,18 +5,17 @@
           <div class="col-12 col-md-9 col-lg-7 col-xl-6">
             <div class="card-body">
               <div class="align-items-center justify-content-center d-flex">
-                <div *ngIf="imagePreviewUrl">
-                  <img src="{{ imagePreviewUrl }}" alt="" class="img-fluid profileImage"
-                    style="width: 120px; height: 120px; border-radius: 120px" />
-                </div>
-                <!-- If you want to show a default image when `imagePreviewUrl` is not available -->
-                <div *ngIf="!imagePreviewUrl">
-                  <img src="../../../assets/img/profile_placeholder.jpeg" alt="Default Image"
-                    class="img-fluid profileImage" style="width: 120px; height: 120px; border-radius: 120px" />
-                </div>
-              </div>
+                <!-- If imagePreviewUrl is available, display the image -->
+                <img *ngIf="imagePreviewUrl" [src]="imagePreviewUrl" alt=""
+                     class="img-fluid profileImage" style="width: 120px; height: 120px; border-radius: 120px" />
+              
+                <!-- If imagePreviewUrl is not available, display the default image -->
+                <img *ngIf="!imagePreviewUrl" src="../../../assets/img/profile_placeholder.jpeg"
+                     alt="Default Image" class="img-fluid profileImage"
+                     style="width: 120px; height: 120px; border-radius: 120px" />
+              </div>              
 
-              <form [formGroup]="profileForm">
+              <form [formGroup]="profileForm" (ngSubmit)="updateUser()">
                 <div class="form-outline mb-4">
                   <label for="floatingInput">First name</label>
                   <input class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
@@ -40,24 +39,21 @@
                     formControlName="email" />
                 </div>
 
-                <!-- <div class="form-outline mb-3">
-                  <label for="floatingInput">Phone number</label>
-                  <input type="text" id="number1" class="form-control form-control-lg"
-                    style="border: 1px solid; border-color: gray" formControlName="contact_number" />
-                </div> -->
                 <label for="floatingInput">Click to upload image</label>
                 <div class="input-group mb-2">
                   <input type="file" class="form-control form-control-lg" style="border: 1px solid; border-color: gray"
                     (change)="onFileSelected($event)" #fileInput formControlName="profile_picture" />
                 </div>
 
-
+                <div *ngIf="imageUploaded" class="text-success">
+                  <i class="fas fa-check"></i> Picture uploaded!
+                </div>
                 <br>
               
-
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary btn-sm" (click)="updateUser()">
+                  <button type="submit" class="btn btn-primary btn-sm" [disabled]="isLoading">
                     Save
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   </button>
                
                 </div>
@@ -69,5 +65,6 @@
       </div>
 
 </div>
+
 
 

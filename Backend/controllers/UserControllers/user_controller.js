@@ -22,7 +22,10 @@ export async function createUserController(request, response) {
 
 export async function signInUserController(request, response) {
   try {
+    // Call the signInUserService function from the service and pass the request and response objects
     const result = await signInUserService(request, response);
+
+    // If the signInUserService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in signUserController:", error);
@@ -32,7 +35,9 @@ export async function signInUserController(request, response) {
 
 export async function passwordResetOTPController(request, response) {
   try {
+    // Call the passwordResetOTPService function from the service and pass the request and response objects
     const result = await passwordResetOTPService(request, response);
+    // If the passwordResetOTPService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in passwordResetOTPService:", error);
@@ -42,7 +47,9 @@ export async function passwordResetOTPController(request, response) {
 
 export async function updatePasswordController(request, response) {
   try {
+    // Call the updateUserPasswordService function from the service and pass the request and response objects
     const result = await updateUserPasswordService(request, response);
+    // If the updateUserPasswordService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in passwordResetService:", error);
@@ -52,7 +59,9 @@ export async function updatePasswordController(request, response) {
 
 export async function updateUserProfileController(request, response) {
   try {
+    // Call the updateUserProfileService function from the service and pass the request and response objects
     const result = await updateUserProfileService(request, response);
+     // If the updateUserProfileService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in passwordResetService:", error);
@@ -62,7 +71,9 @@ export async function updateUserProfileController(request, response) {
 
 export async function updateUserSearchedBooleanController(request, response) {
   try {
+     // Call the updateUserSearchedBooleanService function from the service and pass the request and response objects
     const result = await updateUserSearchedBooleanService(request, response);
+     // If the updateUserSearchedBooleanService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in updateUserSearchedBooleanService:", error);
@@ -76,5 +87,5 @@ export default {
   passwordResetOTPController,
   updatePasswordController,
   updateUserProfileController,
-  updateUserSearchedBooleanController
+  updateUserSearchedBooleanController,
 };
