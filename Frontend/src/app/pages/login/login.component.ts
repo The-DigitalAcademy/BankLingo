@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm!:FormGroup;
   users!: Users;
   email!: string;
-  invalidCredentials = false;
+  invalidForm = false;
   isLoading = false;
 
   constructor( private auth: UsersService,
@@ -39,12 +39,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-    this.invalidCredentials = false;
+    this.invalidForm = false;
   }
 
   onLogin() {
 
-    if (this.loginForm.valid) {       // Form is valid, perform login logic      
+    if (this.loginForm.valid) {       // Form is valid, perform login      
       this.isLoading = true;
     this.auth.login(this.loginForm.value).subscribe(response => {
       this.isLoading = false;
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
     );
      
    } else {
-    this.invalidCredentials = true;
+    this.invalidForm = true;
     window.location.reload
     
    }

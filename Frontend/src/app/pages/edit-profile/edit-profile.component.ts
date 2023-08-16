@@ -1,15 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators, FormBuilder,} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
+import { NavigationExtras, Router } from '@angular/router';
 import { Users } from 'src/app/types/users';
 import { UsersService } from 'src/app/services/users.services';
-import { HttpClient } from '@angular/common/http';
 import { SessionsService } from 'src/app/services/sessions.service';
 import Swal from 'sweetalert2';
 import { UploadImageService } from 'src/app/services/uploadImage.service';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, catchError, of, tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
-
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,14 +21,14 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
-  
   selectedFile: File | null = null;
   imagePreviewUrl: string | null = null;
   files: File[] = [];
   user!: any;
   profileForm!: FormGroup;
   selectedImage!: File;
-
+  isLoading = false;
+  imageUploaded: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,15 +36,18 @@ export class EditProfileComponent implements OnInit {
     private session: SessionsService,
     private router: Router,
     private uploadService: UploadImageService,
-    private titlePage : Title
+    private titlePage: Title,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.titlePage.setTitle("Edit profile")
+    this.titlePage.setTitle('Edit profile');
     // Retrieve the user data from session storage
     this.user = this.session.getLoggedUser();
 
     this.imagePreviewUrl = this.user.profile_picture;
+    // Reset the flag
+    this.imageUploaded = false;
 
     // Check if the user variable contains valid user data before initializing the form
     if (this.user && Object.keys(this.user).length > 0) {
@@ -72,38 +79,42 @@ export class EditProfileComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedImage = inputElement.files[0];
-  
+
       // Create a FileReader to read the image and set its preview URL
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedImage);
       reader.onload = () => {
         this.imagePreviewUrl = reader.result as string;
-  
+
         // Automatically trigger the upload process here
         this.uploadImage();
       };
     }
   }
-  
+
   uploadImage(): void {
     if (!this.selectedImage) {
       alert('Please select an image to upload.');
       return;
     }
-  
+    //loading state for uploading a picture
+    this.isLoading = true;
+
     this.uploadService.uploadImage(this.selectedImage).subscribe(
       (response: any) => {
+        this.isLoading = false;
+
         // The response should contain the Cloudinary URL
         const profilePictureUrl = response.secure_url;
         console.log(response, 'successfully uploaded on cloudinary');
         console.log(profilePictureUrl);
-        
-            //Create a new FormControl instance for profile_picture and update it with the Cloudinary URL
-            const profilePictureControl = new FormControl(profilePictureUrl);
-        
-            // Update the profileForm with the new FormControl instance
-            this.profileForm.setControl('profile_picture', profilePictureControl);
-  
+        this.imageUploaded = true;
+        //Create a new FormControl instance for profile_picture and update it with the Cloudinary URL
+        const profilePictureControl = new FormControl(profilePictureUrl);
+
+        // Update the profileForm with the new FormControl instance
+        this.profileForm.setControl('profile_picture', profilePictureControl);
+
         // Update the form value for profile_picture
         this.profileForm.patchValue({ profile_picture: profilePictureUrl });
       },
@@ -112,29 +123,93 @@ export class EditProfileComponent implements OnInit {
       }
     );
   }
-  
+
+  // updateUser() {
+  //   if (this.profileForm.valid) {
+  //     const updatedData = this.profileForm.value;
+  //     console.log(updatedData);
+
+  //     if (!this.user.userId) {
+  //       console.error('User ID is not defined.' + this.user.userId);
+  //       return;
+  //     }
+
+  //     console.log('Updating profile with ID:', this.user.userId);
+  //     console.log('Updated data:', updatedData);
+
+  //     this.usersService
+  //       .updateProfile(this.user.userId, updatedData)
+  //       .subscribe((res) => {
+  //         // Merge the updatedData with the existing user object
+  //         this.user = { ...this.user, ...res };
+
+  //         // Save the updated user data to session storage
+  //         this.session.saveLoggedUser(this.user); // Ensure this is working correctly
+  //         console.log('User data saved to session:', this.user);
+
+  //         const storedUserData = this.session.getLoggedUser();
+  //         console.log('User data retrieved from session:', storedUserData);
+  //         this.changeDetectorRef.detectChanges(); // Manually trigger change detection
+
+  //          Swal.fire({
+  //           icon: 'success',
+  //           title: 'Profile Updated Successfully!',
+  //           confirmButtonColor: '#38A3A5',
+  //           showConfirmButton: false,
+  //           timer: 1400,
+  //         }).then((result) => {
+  //           // Define navigation extras if needed
+  //           const navigationExtras: NavigationExtras = {
+  //             queryParamsHandling: 'preserve', // Preserve query params
+  //             preserveFragment: true, // Preserve fragments (if any)
+  //           };
+
+  //           // Navigate to the profile page
+  //           //this.router.navigate(['/profile'], navigationExtras);
+  //         });
+  //         //window.location.reload();
+  //       });
+  //   }
+  // }
 
   updateUser() {
     if (this.profileForm.valid) {
       const updatedData = this.profileForm.value;
       console.log(updatedData);
-      
+  
       if (!this.user.userId) {
         console.error('User ID is not defined.' + this.user.userId);
         return;
       }
-
+  
       console.log('Updating profile with ID:', this.user.userId);
       console.log('Updated data:', updatedData);
-
+  
       this.usersService
         .updateProfile(this.user.userId, updatedData)
-        .subscribe((res) => {
-          // Merge the updatedData with the existing user object
-          this.user = { ...this.user, ...res };
-
-          // Save the updated user data to session storage
-          this.session.saveLoggedUser(this.user);
+        .pipe(
+          tap((res) => {
+            // Merge the updatedData with the existing user object
+            this.user = { ...this.user, ...res };
+  
+            // Save the updated user data to session storage
+            this.session.saveLoggedUser(this.user);
+  
+            // Log the updated user data for verification
+            console.log('User data saved to session:', this.user);
+  
+            // Print the user data directly from session storage
+            const storedUserData = this.session.getLoggedUser();
+            console.log('User data retrieved from session:', storedUserData);
+  
+            this.changeDetectorRef.detectChanges(); // Manually trigger change detection
+          }),
+          catchError((error) => {
+            console.error('Error updating profile:', error);
+            return of(null); // Emit an empty observable to continue the observable chain
+          })
+        )
+        .subscribe(() => {
           Swal.fire({
             icon: 'success',
             title: 'Profile Updated Successfully!',
@@ -142,12 +217,21 @@ export class EditProfileComponent implements OnInit {
             showConfirmButton: false,
             timer: 1400,
           }).then((result) => {
-            if (result.value) {
-              this.router.navigate(['/profile']);
-            }
+            // Define navigation extras if needed
+            const navigationExtras: NavigationExtras = {
+              queryParamsHandling: 'preserve', // Preserve query params
+              preserveFragment: true, // Preserve fragments (if any)
+            };
+  
+            // Navigate to the profile page
+            //this.router.navigate(['/profile'], navigationExtras);
+  
+            // Reload the page
+            window.location.reload();
           });
         });
-     
     }
   }
+  
+
 }
