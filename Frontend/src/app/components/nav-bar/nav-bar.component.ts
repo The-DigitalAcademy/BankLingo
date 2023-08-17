@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 
@@ -12,22 +12,16 @@ import { Title } from '@angular/platform-browser';
 })
 export class NavBarComponent implements OnInit {
 
-
-  onProfile=false
-  constructor(private router: Router, private location : Location, private titlePage : Title) { }
+  constructor( private location: Location, private titlePage: Title) { }
   ngOnInit(): void {
-    }
+  }
 
-    showTitle() : string{
-      return this.titlePage.getTitle()
-    }
+  // A method that retrieves the title from another service using "getTitle()"
+  // Returns the title as a string
+  showTitle(): string {
+    return this.titlePage.getTitle()
+  }
 
-    isProfilePage(): boolean{
-      const isProfilePage = this.router.url === '/profile';
-      return (
-        isProfilePage 
-      );
-    }
 
 
   navigateBack(): void {
