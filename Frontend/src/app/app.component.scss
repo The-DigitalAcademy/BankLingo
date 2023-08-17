@@ -8,13 +8,14 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
-  // align-items: center;
+  top:0;
+  align-items:center;
 }
 
 /* Make the router-outlet fill the remaining space */
 router-outlet {
   flex: 1;
-  height:80vh;
+  height:100%;
   z-index: 1;
   overflow-y: auto; /* Enable scrolling for the content area if needed */
 }

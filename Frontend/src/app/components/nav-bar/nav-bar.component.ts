@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { SessionsService } from 'src/app/services/sessions.service';
 
 
 
@@ -30,6 +31,10 @@ export class NavBarComponent implements OnInit {
       );
     }
 
+  
+  logout() {
+    
+  }
 
   navigateBack(): void {
     // Utilize the "location" service to navigate back
