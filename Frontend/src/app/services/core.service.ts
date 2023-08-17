@@ -241,4 +241,31 @@ export class CoreService {
       headers,
     });
   }
-}
+
+
+  private baseUrls = "https://banklingoapi.onrender.com/api/gpt/get_user_plans/1";
+
+  
+
+ 
+   
+
+
+  getItems(user_id: number): Observable<any> {
+    const headers = this.getHeaders();
+
+   
+      return this.http
+        .get(
+          `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${user_id}`,
+          { headers }
+        )
+        .pipe(
+          tap((data) => (this.cachedLessonsData = data)),
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
+  }
+
