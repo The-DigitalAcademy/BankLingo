@@ -84,10 +84,10 @@ export class ProfileComponent {
 
   // Update the progressValue as needed (e.g., based on an event or timer)
   updateProgress() {
-    this.progressValue += 10;
-    if (this.progressValue > this.maxValue) {
-      this.progressValue = this.maxValue;
-    }
+    // this.progressValue += 10;
+    // if (this.progressValue > this.maxValue) {
+    //   this.progressValue = this.maxValue;
+    // }
   }
 
   logout() {
