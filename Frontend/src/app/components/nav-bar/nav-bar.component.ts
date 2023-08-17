@@ -12,22 +12,28 @@ import { Title } from '@angular/platform-browser';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private router: Router, private location : Location, private titlePage : Title) { }
+
+  onProfile=false
+  constructor(private router: Router, private location : Location, private titlePage : Title, private session : SessionsService) { }
   ngOnInit(): void {
     }
 
-    // A method that retrieves the title from another service using "getTitle()"
-// Returns the title as a string
+
     showTitle() : string{
       return this.titlePage.getTitle()
     }
 
+    isProfilePage(): boolean{
+      const isProfilePage = this.router.url === '/profile';
+      return (
+        isProfilePage 
+      );
+    }
 
 
   navigateBack(): void {
     // Utilize the "location" service to navigate back
     this.location.back()
-    // this.router.navigate(['/']); // Navigate back to the previous page
   }
 
 }
