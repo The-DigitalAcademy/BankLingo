@@ -1,4 +1,5 @@
 export interface LessonPlan {
+
     plan_id: number;
     user_id: number;
     plan_name: string;
@@ -7,6 +8,6 @@ export interface LessonPlan {
     created_date: Date;
     updated_date: Date;
 
+    image:string;
 
-   
 }

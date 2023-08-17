@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
   searchText: string = '';
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.name = this.session.getLoggedUser().name;
     this.surname = this.session.getLoggedUser().surname;
     this.img = this.session.getLoggedUser().profile_picture;
@@ -43,6 +42,7 @@ export class HomeComponent implements OnInit {
      */
 
     if (this.searchedBefore == true) {
+      // this.isLoading = true;
       this.cardLabel = 'Favourite searched terms';
       this.initiateUserHistory();
       this.responseBody = this.session.getQueryResponse().message;

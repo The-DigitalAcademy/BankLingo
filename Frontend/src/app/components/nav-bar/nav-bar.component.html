@@ -1,27 +1,24 @@
-<!-- <div class="container">
-    <div class="row align-items-center">
-      <div class="col-auto">
-        <a href="#" class="back-arrow push-left"><i class="bi bi-chevron-left"></i></a>
+
+<div class="margins">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          <i (click)="navigateBack()" class="bi bi-chevron-left"></i></a>    
+        <div class="navbar-title">
+          {{showTitle()}}
+        </div>
       </div>
-      <div class="col text-center">
-     
+    </nav>
+    <div *ngIf="isProfilePage()" class="collapse position-fixed end-0 px-3" id="collapseExample" style="width:auto; position:sticky; right:10px;">
+      <div class="list-group" style="width:fit-content">
+        <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-down"></i>  Install as app</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-gear"></i>  Settings</a>
+        <a (click)="logout()" class="list-group-item list-group-item-action"><i class="bi bi-box-arrow-left"></i> Logout</a>
+
       </div>
     </div>
   </div>
 
- -->
 
 
- <div class="container">
-    <div class="row margins" >
-      <div class="col">
-        <i (click)="navigateBack()" class="bi bi-chevron-left"></i>
-      </div>
-      <div class="col-6 justify-content-center align-items-center d-flex">
-        <h4>{{showTitle()}}</h4>
-      </div>
-      <div class="col">
-        <!-- Column -->
-      </div>
-    </div>
-  </div>
+

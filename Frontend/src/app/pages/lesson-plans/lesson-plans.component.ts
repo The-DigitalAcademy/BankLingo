@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 
+
 @Component({
   selector: 'app-lesson-plans',
   templateUrl: './lesson-plans.component.html',
@@ -38,3 +39,4 @@ export class LessonPlansComponent implements OnInit {
 
 
 }
+
