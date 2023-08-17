@@ -29,10 +29,6 @@ export class NavBarComponent implements OnInit {
       );
     }
 
-  
-  logout() {
-    
-  }
 
   navigateBack(): void {
     // Utilize the "location" service to navigate back
