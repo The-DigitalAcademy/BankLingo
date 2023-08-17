@@ -34,6 +34,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { HomeBeforeComponent } from './pages/home-before/home-before.component';
 
 import { TitleBarComponent } from './components/title-bar/title-bar.component';
 
@@ -67,6 +68,7 @@ const initializer = (pwaService: PwaService) => () =>
     SearchBarComponent,
 
     ResetPasswordComponent,
+    HomeBeforeComponent,
     TitleBarComponent,
     PromptComponentComponent,
     TestingComponent,
