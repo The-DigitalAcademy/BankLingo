@@ -243,8 +243,7 @@ export class CoreService {
   }
 
 
-  private baseUrls = "https://banklingoapi.onrender.com/api/gpt/get_user_plans/1";
-
+  
   
 
  
