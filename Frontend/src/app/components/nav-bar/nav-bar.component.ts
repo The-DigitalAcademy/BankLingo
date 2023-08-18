@@ -22,8 +22,7 @@ export class NavBarComponent implements OnInit {
     return this.titlePage.getTitle()
   }
 
-
-
+// Function to navigate back to the previous page
   navigateBack(): void {
     // Utilize the "location" service to navigate back
     this.location.back()
