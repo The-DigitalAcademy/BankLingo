@@ -3,31 +3,87 @@
  <section style="background-color: #ffffff;">
   <div class="container scrollable  side-margins fullScreenWithTitle">
      <div class="row">
-  
+      <div class="col-md-6">
+        <div class="card mb-4 mb-md-0" style="border: 0;">
+        
+          <div class="card-body text-center">
+            <div class="image-container">
 
-         <div class="col-md-6">
-          <div class="card mb-4 mb-md-0" >
-            <div class="headingFont d-flex justify-content-left my-3">
-              No of tasks you have.
-            </div>
-            <div class="card-body">
+              <!-- Display the profile image -->
+                <div *ngIf="user.profile_picture">
+                     <img
+                      src={{user.profile_picture}}
+                      alt="Generic placeholder image"
+                      class="img-fluid profileImage"
+                      style="width: 60px; height: 60px; border-radius: 60px; margin-right:10%;" 
+                    />
+                  </div>
              
-              <!-- Display the number of task the user have -->
 
-              <h5> {{ lessonCount }}</h5>
-
+                  
               
             </div>
+         <!-- Display the user name and surname -->
+            <h5 class="my-3">{{user.name}} {{user.surname}}</h5> 
+            
+            
+              
+              </div>
+            
+            
+            
+            <div class="d-flex justify-content-center mb-2">
+              <a routerLink="/edit_profile">
+             
+              
+            </a>
+            </div>
           </div>
-        </div>
+         </div>
+
+         <div class="col-md-6">
+          <div class="card mb-4 mb-md-0" >
+       
+
+            <table class="table" style="border-color: #ffffff;">
+              <thead  class="headingFont  my-3" >
+                
+                <tr>
+                
+                  <th scope="col"  style="color:cadetblue;">No of tasks you have:</th>
+                  <th scope="col" style="color:cadetblue;">No of tasks not yet started with:</th>
+                  <th scope="col" style="color:cadetblue;">No of tasks busy with:</th>
+                  <th scope="col" style="color:cadetblue;">No of tasks you completed:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><h5>{{ lessonCount }}</h5></th>
+                 
+                  <td><h5> {{ zeroProgressCount }}</h5></td>
+                  <td><h5> {{startedProgressCount}}</h5></td>
+                  <td><h5>  {{countTaskCompleted}} </h5></td>
+                 
+                </tr>
+                
+                
+              </tbody>
+            </table>
+            
+            
+              </div>
+              </div>
+             
+         
         
-        
+             
+            
 
          <div class="col-md-6">
           <div class="card mb-4 mb-md-0" >
         
             <div class="headingFont d-flex justify-content-left my-3">
-              Task currently busy with progress status
+              Progress status of the task that you have:  
             </div>
       
 
