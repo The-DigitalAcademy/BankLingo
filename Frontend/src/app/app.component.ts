@@ -17,8 +17,36 @@ export class AppComponent {
     private swUpdate: SwUpdate,
     private loaderService: LoaderService
   ) {
-   
+
   }
+
+  showtitleBar(): boolean {
+    const isLoginPage = this.router.url === '/login';
+
+    const isRegisterPage = this.router.url === '/register';
+
+    const isForgotPassPage = this.router.url === '/forgotpass';
+
+    const isLandingPage = this.router.url === '/landing';
+
+    const isOTPPage = this.router.url === '/otp';
+
+    const isResetPassPage = this.router.url === '/resetpassword';
+
+    const isHomePage = this.router.url === '/home';
+
+
+    return !(
+      isLoginPage ||
+      isRegisterPage ||
+      isLandingPage ||
+      isForgotPassPage ||
+      isOTPPage ||
+      isResetPassPage ||
+      isHomePage
+    );
+  }
+
 
   showNavBar(): boolean {
     const isLoginPage = this.router.url === '/login';
@@ -32,7 +60,7 @@ export class AppComponent {
     const isOTPPage = this.router.url === '/otp';
 
     const isResetPassPage = this.router.url === '/resetpassword';
-  
+
 
     return !(
       isLoginPage ||
@@ -40,7 +68,7 @@ export class AppComponent {
       isLandingPage ||
       isForgotPassPage ||
       isOTPPage ||
-      isResetPassPage 
+      isResetPassPage
     );
   }
   title = 'Frontend';

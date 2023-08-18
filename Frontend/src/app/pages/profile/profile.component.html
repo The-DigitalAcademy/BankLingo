@@ -1,17 +1,13 @@
 
- <section class="fullScreen" style="background-color: #ffffff;">
-  <div class="container"> 
-    <app-nav-bar></app-nav-bar>
-  </div>
-  <div class="container">
-   
+ 
+  <div class="container scrollable  side-margins fullScreenWithTitle"> 
+    
+ 
     <div class="row py-2">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
             <div class="align-items-center justify-content-center d-flex">
-
-<!-- Displaying the profile picture of the user -->
 
               <div *ngIf="user.profile_picture">
               <img
@@ -21,9 +17,6 @@
                 style="width: 120px; height: 120px; border-radius: 120px"
               />
             </div>
-
-            <!-- If the user have not uploaded the profile picture yet -->
-
               <div *ngIf="!user.profile_picture">
                 <img
                 src="../../../assets/img/profile_placeholder.jpeg"
@@ -33,30 +26,23 @@
               />
               </div>
             </div>
-
-            <!-- Displaying the name and surname of the user -->
             <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
             
             <div class="d-flex justify-content-center mb-2">
               <a routerLink="/edit_profile">
-
-                <!-- Edit button -->
-
               <button type="button" class="btn btn-primary">Edit Profile</button>
               
             </a>
             </div>
           </div>
         </div>
-       </div> 
+        
       </div>
       <div class="col-lg-8">
         <div class="card mb-4">
           <div class="card-body">
             <div class="row" >
               <div class="col-sm-3">
-
-                <!-- Displaying the user details -->
                 <p class="mb-0">First Name</p>
               </div>
               <div class="col-sm-9">
@@ -84,6 +70,15 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
+                <p class="mb-0">Contact number</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.contact_number}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
                 <p class="mb-0">Email Address</p>
               </div>
               <div class="col-sm-9">
@@ -92,10 +87,6 @@
             </div>
           </div>
         </div>
-
-       <!-- Logout button -->
-        
-        <i class="bi bi-box-arrow-right" style="font-size: 25px;" (click)="logout()"></i> Logout
         <div class="row">
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
@@ -105,10 +96,10 @@
               
                 <p class="mt-4 mb-1" style="font-size: .77rem;">Cheque Account</p>
 
-                <!-- <div>
+                <div>
                   <progress [value]="progressValue" [max]="maxValue"></progress>
                   <span>{{ progressValue }}% Complete</span>
-                </div> -->
+                </div>
 
                 
               </div>
@@ -135,6 +126,6 @@
         
       </div>
     </div>
+  </div>
   
-</section>
 <!-- <app-bottom-nav-bar></app-bottom-nav-bar> -->

@@ -27,6 +27,10 @@ export class ProgressComponent implements OnInit{
   messageText = "No favourites search terms yet";
   showMessage = false;
 
+  lessonsWithZeroProgress: any[] = []; // Adjust the type if needed
+  zeroProgressCount: number = 0;
+
+
   progressValue = 0;
   days_count = 0;
   duration = 0;
@@ -39,6 +43,7 @@ export class ProgressComponent implements OnInit{
   ariaValueMax = 100;
 
   lessonCount: number = 0;
+
 
 
   user!: any;
@@ -80,7 +85,7 @@ export class ProgressComponent implements OnInit{
 
     //function of progress bar
     this.calculateProgress();
-
+    this.countProgress();
 
 
 //Count the number of lesson the user have
@@ -89,7 +94,8 @@ export class ProgressComponent implements OnInit{
       this.lessonCount = lessons.length;
     });
   
- 
+    
+  
    //Check if the user has searched a term before
    
   
@@ -153,7 +159,24 @@ initializeForm() {
 
     //
   
+    countProgress() {
+      
+      const plan_name=this.core.getItems;
 
+      this.core.getItems(this.user_id).subscribe((dataArray: LessonPlan[]) => {
+        dataArray.forEach((data: LessonPlan) => {
+          const duration = data.duration;
+
+      
+          const progressValue = (data.days_count / duration) * 100;
+  
+          if (progressValue === 0) {
+            this.lessonsWithZeroProgress.push(data);
+            this.zeroProgressCount++;
+          }
+        });
+      });
+    }
    
 
    

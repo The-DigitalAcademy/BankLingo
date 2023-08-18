@@ -1,5 +1,6 @@
-<div class="container">
-  <app-nav-bar></app-nav-bar>
+
+<div class="container scrollable  side-margins fullScreenWithTitle">
+
 
   <div class="card_container">
     <!-- The div to show the topics for that particular day-->
@@ -24,7 +25,7 @@
           </div>
         </div>
 
-        <a class="card-link" [routerLink]="['/singletopic', x.day]">
+        <a class="card-link"  routerLink="['/singletopic', x.day]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
