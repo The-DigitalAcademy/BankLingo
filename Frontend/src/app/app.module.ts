@@ -40,8 +40,9 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { PwaService } from './services/pwa.service';
 
 
-const initializer = (pwaService: PwaService) => () =>
-  pwaService.initPwaPrompt();
+//  const initializer = (pwaService: PwaService) => () =>
+// pwaService.initPwaPrompt();
+
 
 @NgModule({
   declarations: [
@@ -79,23 +80,22 @@ const initializer = (pwaService: PwaService) => () =>
     MatToolbarModule,
     MatBottomSheetModule,
     FullCalendarModule,
-
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
+     // registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
 
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializer,
-      deps: [PwaService],
-      multi: true,
-    },
+  // {
+  //    provide: APP_INITIALIZER,
+  //    useFactory: initializer,
+  //    deps: [PwaService],
+  //   multi: true,
+  // },
 
  ],
   bootstrap: [AppComponent],
