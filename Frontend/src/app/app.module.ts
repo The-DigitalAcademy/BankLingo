@@ -97,7 +97,7 @@ const initializer = (pwaService: PwaService) => () =>
       multi: true,
     },
 
-  ],
+ ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
