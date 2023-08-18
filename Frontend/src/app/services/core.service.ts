@@ -28,6 +28,7 @@ export class CoreService {
   constructor(private http: HttpClient, public storage: SessionsService) {}
   private cachedData: any;
   private cachedLessonsData: any;
+  private cachedLessonsPlanSummary : any
 
   localURL = 'http://localhost:4500/api/gpt';
 
@@ -241,14 +242,6 @@ export class CoreService {
       headers,
     });
   }
-
-
-  
-  
-
- 
-   
-
 
   getItems(user_id: number): Observable<any> {
     const headers = this.getHeaders();
