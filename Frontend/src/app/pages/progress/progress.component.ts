@@ -2,33 +2,25 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
-import { SearchObject } from 'src/app/types/searchObject';
-
 import { UsersService } from 'src/app/services/users.services';
 import { Router } from '@angular/router';
-import {
- 
-  FormGroup,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { FormGroup,Validators,FormBuilder} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { LessonPlan } from 'src/app/types/lessonPlan';
 
+
 @Component({
   selector: 'app-progress',
- 
-
-  templateUrl: './progress.component.html',
+ templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.scss']
 })
+
 export class ProgressComponent implements OnInit{
 
-  messageText = "No favourites search terms yet";
-  showMessage = false;
-
-  lessonsWithZeroProgress: any[] = []; // Adjust the type if needed
+   lessonsWithZeroProgress: any[] = []; 
   zeroProgressCount: number = 0;
+  startedProgressCount:number=0;
+  countTaskCompleted:number=0;
 
 
   progressValue = 0;
@@ -54,16 +46,11 @@ export class ProgressComponent implements OnInit{
   name : string | undefined
   surname : string | undefined
   img : string | undefined
-  searchedBefore = false
-  showSearched = false
-  cardLabel = ""
-  responseBody = ""
-  responseQuestion : any
-  isIconFilled = false;
-  favoutitesArray: SearchObject[] = [];
+  
+  
   user_id = 0
   plan_id=0
-  favouritesData: any;
+ 
   
   
 
@@ -74,9 +61,9 @@ export class ProgressComponent implements OnInit{
   
  ngOnInit(): void {
     this.titlePage.setTitle("Progress")
-    this.searchedBefore = this.session.getLoggedUser().searchedbefore
-    this.user_id = this.session.getLoggedUser().userId
+   this.user_id = this.session.getLoggedUser().userId
     this.user = this.session.getLoggedUser();
+
     //get items for lessonplan to show the progress
     this.core.getItems(this.user_id).subscribe(user => {
       this.progressWidth = user.progress;
@@ -86,6 +73,8 @@ export class ProgressComponent implements OnInit{
     //function of progress bar
     this.calculateProgress();
     this.countProgress();
+    this.countProgressStarted();
+   this.countTaskCompletedd();
 
 
 //Count the number of lesson the user have
@@ -93,36 +82,7 @@ export class ProgressComponent implements OnInit{
     this.core.getAllUserLessons(user_Id).subscribe(lessons => {
       this.lessonCount = lessons.length;
     });
-  
-    
-  
-   //Check if the user has searched a term before
-   
-  
-   if(this.searchedBefore==true)
-   {
-    this.cardLabel = "Favourite searched terms"
-    this.initiateUserHistory()
-
-    this.responseBody = this.session.getQueryResponse().message
-    if(this.responseBody.length!=0){
-      this.showSearched = true
-      this.responseQuestion = this.session.getQueryQuestion()
-    }
-  }else{
-    this.messageText;
-    
-  }
-
-
-
-
-  // Check if the user variable contains valid user data before initializing the form
-  if (this.user && Object.keys(this.user).length > 0) {
-
-    console.log('User data not found in session storage');
-    // You can take appropriate actions, such as redirecting the user to the login page.
-  }
+ 
 
 }
 
@@ -134,31 +94,11 @@ initializeForm() {
     days_count:[this.lessonss.nDays,Validators.required],
     plan_name:[this.lessonss.plan_name,Validators.required]
   
-   
-
-
-
   });
 }
 
-//Getting favourite term searched of the user
 
-    initiateUserHistory(){
-
-      this.core.getLatestFavouriteSearch(this.user_id).subscribe(response =>{
-        
-        this.favoutitesArray = response
-        
-        console.log(this.favoutitesArray[0],"fav array"); 
-
-      })
-
-      
-
-    }
-
-    //
-  
+  //Count task with 0% progress
     countProgress() {
       
       const plan_name=this.core.getItems;
@@ -178,10 +118,41 @@ initializeForm() {
       });
     }
    
+//Count task that the user started but not finished
+countProgressStarted() {
+  const plan_name = this.core.getItems;
 
+  this.core.getItems(this.user_id).subscribe((dataArray: LessonPlan[]) => {
+    dataArray.forEach((data: LessonPlan) => {
+      const duration = data.duration;
+      const progressValue = (data.days_count / duration) * 100;
+
+      if (progressValue > 0 && progressValue < 100) {
+        this.lessonsWithZeroProgress.push(data);
+        this.startedProgressCount++;
+      }
+    });
+  });
+}
+
+countTaskCompletedd() {
+  const plan_name = this.core.getItems;
+
+  this.core.getItems(this.user_id).subscribe((dataArray: LessonPlan[]) => {
+    dataArray.forEach((data: LessonPlan) => {
+      const duration = data.duration;
+      const progressValue = (data.days_count / duration) * 100;
+
+      if (progressValue=== 100) {
+        this.lessonsWithZeroProgress.push(data);
+        this.countTaskCompleted++;
+      }
+    });
+  });
+}
    
      
-//Progress status code
+//Progress bar status code
 
      calculateProgress() {
     
@@ -203,22 +174,6 @@ initializeForm() {
         });
       });
      
-      
-      
-      
-      
-      
- 
-      
-  
-    //   this.core.getItems(this.user_id).subscribe(data => {
-    //     this.duration = data[2].duration;
-    //     this.progressValue = (data[2].days_count / this.duration) * 100;
-    //     console.log(this.progressValue, "progress value");
-    //     console.log(data[2], "our data");
-    //     console.log(data[2].duration, "dura");
-    //   });
-    // }
     }
   
 }
