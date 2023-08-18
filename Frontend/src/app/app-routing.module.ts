@@ -55,6 +55,7 @@ const routes: Routes = [
   { path: 'testing/:plan_id', component: TestingComponent },
   { path: 'singletopic/:day', component: SingleComponent },
 
+
    { path: '', redirectTo: 'landing', pathMatch: 'full' },
 ];
 

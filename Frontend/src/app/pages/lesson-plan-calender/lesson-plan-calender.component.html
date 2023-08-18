@@ -1,6 +1,6 @@
-<div class="container">
 
-</div>
+
+
 
 <!-- <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
 <div class="d-flex justify-content-center">
@@ -8,8 +8,12 @@
       >Generate</button>
 
   </div> -->
+
 <div class="container fullScreen">
   <app-nav-bar></app-nav-bar>
+
+<div class="container scrollable  side-margins fullScreenWithTitle">
+
   <form (ngSubmit)="onSaveDate()"  style="margin-bottom: 1%; height:auto">
     <h5 class="text-center mb-2 headerTop">Select duration of your lesson plan</h5><br>
     <br>
@@ -17,6 +21,7 @@
       <full-calendar style="height:max-content" [options]="calendarOptions"></full-calendar>
     </div>
     <div class="d-flex justify-content-center pt-2">
+
       <div *ngIf="duration.length > 0">
         <h5> {{ getSelectedDaysCount() }} Days selected</h5>
       </div>

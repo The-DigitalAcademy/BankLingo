@@ -1,14 +1,8 @@
-<!-- <app-nav-bar></app-nav-bar> -->
-
-<!-- app.component.html -->
-<div>
-  <router-outlet></router-outlet>
-  <app-bottom-nav-bar *ngIf="showNavBar()" class="navbar"></app-bottom-nav-bar>
+<div class="container1">
+  <app-nav-bar *ngIf="showtitleBar()" class="titleBarSize"></app-nav-bar>
+  <router-outlet class="router-outleting"></router-outlet>
+  <app-bottom-nav-bar *ngIf="showNavBar()" class="navbarSize"></app-bottom-nav-bar>
 </div>
 
 
-<!-- <div *ngIf="isLoading" class="loader">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div> -->
+

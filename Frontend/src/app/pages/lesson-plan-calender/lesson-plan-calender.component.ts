@@ -28,6 +28,8 @@ import { CoreService } from 'src/app/services/core.service';
 export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
 
+ 
+
   user!: any;
   profileForm!: FormGroup;
 
@@ -50,6 +52,10 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     updateBtn="Generate Lesson Plan";
 
 
+
+
+   
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -58,6 +64,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     private router: Router,
     private core : CoreService
   ) { }
+
 
   onDateClick(date: Date) {
     const index = this.duration.findIndex(
@@ -193,6 +200,15 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     // Toggle the class on the clicked day element
     arg.dayEl.classList.toggle('clicked-day');
 
+
+    const selectedDate = new Date(arg.dateStr);
+  
+      // Check if the selected date is in the past
+      if (selectedDate < new Date()) {
+        alert('Cannot create lesson plan with the past date, choose the current date or future date.');
+        return;
+      }
+
     // Update the selectedDates array
     const clickedDate = arg.date;
     const index = this.duration.findIndex(
@@ -208,4 +224,5 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   getSelectedDaysCount() {
     return this.duration.length;
   }
+
 }
