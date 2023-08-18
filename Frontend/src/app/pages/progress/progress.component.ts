@@ -76,6 +76,7 @@ export class ProgressComponent implements OnInit{
     this.titlePage.setTitle("Progress")
     this.searchedBefore = this.session.getLoggedUser().searchedbefore
     this.user_id = this.session.getLoggedUser().userId
+    this.user = this.session.getLoggedUser();
 
     //get items for lessonplan to show the progress
     this.core.getItems(this.user_id).subscribe(user => {
@@ -114,7 +115,7 @@ export class ProgressComponent implements OnInit{
     
   }
 
-  this.user = this.session.getLoggedUser();
+  
 
 
   // Check if the user variable contains valid user data before initializing the form
