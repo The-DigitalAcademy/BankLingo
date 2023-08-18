@@ -1,6 +1,7 @@
 import {
   SearchHistoryService,
   getSearchHistoryLimitService,
+  deleteSearchHistoryByIdService,
 } from "../../services/SearchServices/search_service.js";
 //This controller stores a searched term on the db , if the user added it onto their favorites
 export async function searchHistoryController(request, response) {
@@ -27,4 +28,14 @@ export async function getSearchHistoryLimitController(request, response) {
   }
 }
 
-export default { searchHistoryController, searchHistoryController };
+export async function deleteSearchHistoryByIdController(request, response) {
+  try {
+    const result = await deleteSearchHistoryByIdService(request, response);
+    return result;
+  } catch (error) {
+    console.error("Error in getSearchHistoryLimitService:", error);
+    return response.status(409).json({ message: "Internal server error" });
+  }
+}
+
+export default { searchHistoryController, searchHistoryController, deleteSearchHistoryByIdController };
