@@ -193,10 +193,7 @@ initializeForm() {
           
           const progressValue = (data.days_count / duration) * 100;
           
-          console.log(progressValue, "progress value");
-          console.log(data, "our data");
-          console.log(duration, "dura");
-          console.log(plan_name,"name")
+         
           
           
           this.processedData.push({ progressValue, data, duration,plan_name});
@@ -211,14 +208,7 @@ initializeForm() {
  
       
   
-    //   this.core.getItems(this.user_id).subscribe(data => {
-    //     this.duration = data[2].duration;
-    //     this.progressValue = (data[2].days_count / this.duration) * 100;
-    //     console.log(this.progressValue, "progress value");
-    //     console.log(data[2], "our data");
-    //     console.log(data[2].duration, "dura");
-    //   });
-    // }
+  
     }
   
 }
