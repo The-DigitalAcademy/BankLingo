@@ -14,34 +14,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { HomeComponent } from './pages/home/home.component';
-import { TopicsComponent } from './pages/topics/topics.component';
-import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
-import { OtpComponent } from './pages/otp/otp.component';
-import { LessonPlansComponent } from './pages/lesson-plans/lesson-plans.component';
-import { TopicContentComponent } from './pages/topic-content/topic-content.component';
-import { ProgressComponent } from './pages/progress/progress.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { PromptComponentComponent } from './components/prompt-component/prompt-component.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { TitleBarComponent } from './components/title-bar/title-bar.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
+import { HomeComponent } from './pages/home/home.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { LessonPlanCalenderComponent } from './pages/lesson-plan-calender/lesson-plan-calender.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
-
-import { NgOtpInputModule } from 'ng-otp-input';
+import { LessonPlansComponent } from './pages/lesson-plans/lesson-plans.component';
+import { LoginComponent } from './pages/login/login.component';
+import { OtpComponent } from './pages/otp/otp.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProgressComponent } from './pages/progress/progress.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-
-import { TitleBarComponent } from './components/title-bar/title-bar.component';
-
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { PromptComponentComponent } from './components/prompt-component/prompt-component.component';
-import { PwaService } from './services/pwa.service';
-import { TestingComponent } from './pages/testing/testing.component';
 import { SingleComponent } from './pages/single/single.component';
+import { TestingComponent } from './pages/testing/testing.component';
+import { TopicContentComponent } from './pages/topic-content/topic-content.component';
+import { TopicsComponent } from './pages/topics/topics.component';
+import { PwaService } from './services/pwa.service';
+
 
 const initializer = (pwaService: PwaService) => () =>
   pwaService.initPwaPrompt();
@@ -65,8 +62,8 @@ const initializer = (pwaService: PwaService) => () =>
     LandingComponent,
     LessonPlanCalenderComponent,
     SearchBarComponent,
-
     ResetPasswordComponent,
+    HomeComponent,
     TitleBarComponent,
     PromptComponentComponent,
     TestingComponent,
@@ -100,7 +97,7 @@ const initializer = (pwaService: PwaService) => () =>
       multi: true,
     },
 
-  ],
+ ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

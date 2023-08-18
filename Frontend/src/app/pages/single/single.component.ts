@@ -37,7 +37,7 @@ export class SingleComponent {
     private sharedService: SharedService,
     private router: Router,
     private titlePage: Title
-  ) {}
+  ) { }
   ngOnInit() {
     this.titlePage.setTitle('Chapters');
     //Get the current paramenter

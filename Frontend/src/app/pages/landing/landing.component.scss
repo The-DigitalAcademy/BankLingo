@@ -93,3 +93,39 @@ img {
     }
   }
 }
+
+@media (min-width: 992px) { 
+    /* Add your desktop responsive styles here */
+
+    /* Example: Increase font size for desktop */
+    body {
+        font-size: 16px;
+    }
+
+    /* Example: Adjust layout for desktop */
+    .container {
+        width: 960px;
+        margin: 0 auto;
+    }
+
+    /* Example: Show/hide elements for desktop */
+    .mobile-only {
+        display: none;
+    }
+
+    .desktop-only {
+        display: block;
+
+    }
+
+    img{
+        height: 30vh;
+        width: 70vw;
+    }
+}
+
+
+
+
+
+

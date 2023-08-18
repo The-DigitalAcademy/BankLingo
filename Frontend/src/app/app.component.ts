@@ -17,10 +17,10 @@ export class AppComponent {
     private swUpdate: SwUpdate,
     private loaderService: LoaderService
   ) {
-   
+
   }
 
-  showtitleBar(): boolean{
+  showtitleBar(): boolean {
     const isLoginPage = this.router.url === '/login';
 
     const isRegisterPage = this.router.url === '/register';
@@ -34,7 +34,7 @@ export class AppComponent {
     const isResetPassPage = this.router.url === '/resetpassword';
 
     const isHomePage = this.router.url === '/home';
-  
+
 
     return !(
       isLoginPage ||
@@ -60,7 +60,7 @@ export class AppComponent {
     const isOTPPage = this.router.url === '/otp';
 
     const isResetPassPage = this.router.url === '/resetpassword';
-  
+
 
     return !(
       isLoginPage ||
@@ -68,7 +68,7 @@ export class AppComponent {
       isLandingPage ||
       isForgotPassPage ||
       isOTPPage ||
-      isResetPassPage 
+      isResetPassPage
     );
   }
   title = 'Frontend';

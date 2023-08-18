@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
     this.regInvalid = false;
   }
 
+  //code used to validate where what was entered is a password or not, and whether it has all the required characters
   passwordValidator(control: FormControl): { [key: string]: boolean } | null {
     const value: string = control.value;
     const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(value);
@@ -55,6 +56,7 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
+  //code used to validate where what was entered is a age or not, and whether it has all the required characters
   ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const value: string = control.value;
     // Check if the value is numeric and has exactly 3 digits
@@ -74,6 +76,8 @@ export class RegisterComponent implements OnInit {
         this.users = res;
         console.log(res);
       });
+
+      //pop-up to notify the user on whether they are registered or not. or there was an error.
       Swal.fire({
         icon: 'success',
         title: 'Registration Successful!',

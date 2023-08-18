@@ -34,6 +34,9 @@ export class PwaService {
   }
   // Commented out this code for now to allow development to go through without showing the popup , will use this later
   private openPromptComponent(mobileType: 'ios' | 'android') {
+    this.bottomSheet.open(PromptComponentComponent, {
+             data: { mobileType, promptEvent: this.promptEvent }
+    })
     // timer(3000)
     //   .pipe(take(1))
     //   .subscribe(() =>
