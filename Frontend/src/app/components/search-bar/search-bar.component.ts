@@ -40,7 +40,7 @@ export class SearchBarComponent implements OnInit {
       this.recognition.continuous = true;
 
       // Event handlers for speech recognition
-      this.recognition.onstart = () => {
+      this.recognition.onstart = () => {  
         this.isRecognizing = true; // Speech recognition started
       };
 
