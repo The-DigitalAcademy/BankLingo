@@ -6,8 +6,8 @@ const options = {
     openapi: "3.0.0",
     info: {
       title: "BankLingo API",
-      description: "API For BankLingo Application ",
-      version: "0.0.1",
+      description: "Rest API For The BankLingo Application, Comprising of all the CRUD Operations.",
+      version: "1.0.1",
     },
     components: {
       securitySchemes: {
