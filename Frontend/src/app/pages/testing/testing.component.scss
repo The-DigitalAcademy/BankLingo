@@ -8,6 +8,7 @@
   gap: 10px;
   .card {
     // width: 320px;
+    background-color: whitesmoke;
     .card-title {
       font-weight: 900;
       font-size: 25px;
@@ -66,6 +67,12 @@
     }
   }
 }
+
+hr{
+  
+  width:100%;
+}
+
 @media (width <= 900px) {
   .card_container {
     // padding: 10px;

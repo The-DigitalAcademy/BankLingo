@@ -35,7 +35,7 @@ export class LessonPlansComponent implements OnInit {
         const percent = (element.days_count / element.duration) * 100
         switch (percent) {
           case 0:
-            this.progressStatus.push("Not yet started")
+            this.progressStatus.push("Not started")
             break;
           case 100:
             this.progressStatus.push("Completed")

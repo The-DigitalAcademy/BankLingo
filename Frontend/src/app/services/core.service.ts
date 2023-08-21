@@ -195,9 +195,9 @@ export class CoreService {
   getAllUserLessons(user_id: number): Observable<any> {
     const headers = this.getHeaders();
 
-    if (this.cachedLessonsData) {
-      return of(this.cachedLessonsData);
-    } else {
+    // if (this.cachedLessonsData) {
+    //   return of(this.cachedLessonsData);
+    // } else {
       return this.http
         .get(
           `https://banklingoapi.onrender.com/api/gpt/get_user_plans/${user_id}`,
@@ -209,7 +209,7 @@ export class CoreService {
             return throwError(error.error.message);
           })
         );
-    }
+    // }
   }
 
   askGPTinsideTopic(message: any): Observable<Message> {
