@@ -1,26 +1,22 @@
 <div class="container scrollable centerCards side-margins fullScreenWithTitle">
-
-  
-    <div class="">
-
-      <div class="card text-white  mb-3"  style="background-color:#00C7BE;"  *ngFor="let allLessonPlans of allPlans; let i = index">
-        <div class="card-header d-flex align-items-center justify-content-between">
-          <span>{{progressStatus[i]}}</span>
-          <span><b>{{percentComplete[i].toFixed(0)}}%</b></span> 
-
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{allLessonPlans.plan_name}}</h5>
-          <p class="card-text"> {{allLessonPlans.lesson_description}}</p>
-        </div>
-        <div class="card-footer">
-          <div class="d-flex align-items-center justify-content-between">
-            <span>{{allLessonPlans.days_count}}/{{allLessonPlans.duration}} days complete</span>
-            <a [routerLink]="['/testing', allLessonPlans.plan_id]" class="badge bg-dark">Continue</a>
-          </div>
+  <div class="">
+    <div class="card text-white mb-3" style="background-color: #00c7be"
+      *ngFor="let allLessonPlans of allPlans; let i = index">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <span>{{ progressStatus[i] }}</span>
+        <span><b>{{ percentComplete[i].toFixed(0) }}%</b></span>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ allLessonPlans.plan_name }}</h5>
+        <p class="card-text">{{ allLessonPlans.lesson_description }}</p>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex align-items-center justify-content-between">
+          <span>{{ allLessonPlans.days_count }}/{{ allLessonPlans.duration }} days
+            complete</span>
+          <a [routerLink]="['/testing', allLessonPlans.plan_id]" class="badge bg-dark">Continue</a>
         </div>
       </div>
-
     </div>
- 
+  </div>
 </div>
