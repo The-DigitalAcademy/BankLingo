@@ -294,6 +294,18 @@ export async function getDaysCountService(request, response) {
     return response.status(400).json({ message: "Invalid plan ID provided." });
   }
   try {
+    const getPlan = {
+      text: "SELECT * FROM lesson_plan WHERE plan_id = $1;",
+      values: [plan_id],
+    };
+    const resultsForPlan = await client.query(getPlan);
+    if (resultsForPlan.rows[0].duration === resultsForPlan.rows[0].days_count) {
+      return response
+        .status(409)
+        .send({
+          message: `You have covered all the days for  ${resultsForPlan.rows[0].plan_name}`,
+        });
+    }
     const selectQuery = {
       text: "UPDATE lesson_plan SET days_count = days_count + 1 WHERE plan_id = $1 RETURNING days_count;",
       values: [plan_id],
