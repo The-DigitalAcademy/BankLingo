@@ -65,6 +65,26 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     private core : CoreService
   ) { }
 
+  ngOnInit() {
+    this.titlePage.setTitle('Lesson');
+
+
+    this.initializeCalendar();
+
+    // Retrieve the user data from session storage
+    this.user = this.session.getLoggedUser();
+     
+
+    // Check if the user variable contains valid user data before initializing the form
+    if (this.user && Object.keys(this.user).length > 0) {
+      this.initializeForm();
+    } else {
+      // Handle the case when the user data is not available
+      console.log('User data not found in session storage');
+      // You can take appropriate actions, such as redirecting the user to the login page.
+    }
+  }
+
 
   onDateClick(date: Date) {
     const index = this.duration.findIndex(
@@ -150,26 +170,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   // calendarOptions!: CalendarOptions;
 
-  ngOnInit() {
-    this.titlePage.setTitle('Lesson');
-
-
-    this.initializeCalendar();
-
-    // Retrieve the user data from session storage
-    this.user = this.session.getLoggedUser();
-     
-
-    // Check if the user variable contains valid user data before initializing the form
-    if (this.user && Object.keys(this.user).length > 0) {
-      this.initializeForm();
-    } else {
-      // Handle the case when the user data is not available
-      console.log('User data not found in session storage');
-      // You can take appropriate actions, such as redirecting the user to the login page.
-    }
-  }
-
+ 
   initializeForm() {
     this.profileForm = this.formBuilder.group({
       user_id: [this.user.name, Validators.required],
