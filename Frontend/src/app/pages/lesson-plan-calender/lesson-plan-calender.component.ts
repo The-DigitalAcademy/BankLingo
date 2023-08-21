@@ -127,8 +127,6 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
           this.updateBtn = "Generate Lesson Plan"
           this.isLoading=false
           this.router.navigate(["/lesson-plans"])
-
-        
         })
         
 
