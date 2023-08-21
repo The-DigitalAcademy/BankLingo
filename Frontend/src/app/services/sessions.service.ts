@@ -237,6 +237,18 @@ public saveOTP(otpObject: { number: any } | null): void {
    // window.location.reload()
    
   }
+
+  public updateUserProfile(updatedData: any) {
+    const existingUserData = this.getLoggedUser();
+  
+    // Merge the existing user data with the updatedData
+    const updatedUserData = { ...existingUserData, ...updatedData };
+  
+    const updatedUserDataString = JSON.stringify(updatedUserData);
+    sessionStorage.setItem(LOGGED_USER, updatedUserDataString);
+    console.log(updatedUserDataString);
+  }
+  
  
  
 
