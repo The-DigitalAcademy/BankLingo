@@ -19,7 +19,7 @@ import { jsDocComment } from '@angular/compiler';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss'],
+  styleUrls: ['./edit-profile.component.scss'], 
 })
 export class EditProfileComponent implements OnInit {
   selectedFile: File | null = null;
@@ -40,7 +40,7 @@ export class EditProfileComponent implements OnInit {
     private uploadService: UploadImageService,
     private titlePage: Title,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.titlePage.setTitle('Edit profile');
@@ -131,35 +131,33 @@ export class EditProfileComponent implements OnInit {
     if (this.profileForm.valid) {
       const updatedData = this.profileForm.value;
       console.log(updatedData);
-  
+
       if (!this.user.userId) {
         console.error('User ID is not defined.' + this.user.userId);
         return;
       }
-  
+
       console.log('Updating profile with ID:', this.user.userId);
       console.log('Updated data:', updatedData);
-  
+
       this.usersService
         .updateProfile(this.user.userId, updatedData)
         .pipe(
           tap((res) => {
             // Merge the updatedData with the existing user object
             this.user = { ...this.user, ...res };
-  
+
             // Save the updated user data to session storage
             this.session.updateUserProfile(updatedData)
             
             // Log the updated user data for verification
             console.log('User data saved to session:', this.user);
-  
+
             // Print the user data directly from session storage
             const storedUserData = this.session.getLoggedUser();
             console.log('User data retrieved from session:', storedUserData);
-  
-            //this.changeDetectorRef.detectChanges(); // Manually trigger change detection
-            
 
+            this.changeDetectorRef.detectChanges(); // Manually trigger change detection
           }),
           catchError((error) => {
             console.error('Error updating profile:', error);
@@ -190,6 +188,6 @@ export class EditProfileComponent implements OnInit {
         });
     }
   }
-  
+
 
 }

@@ -4,6 +4,7 @@ const search_router = express.Router();
 import {
   searchHistoryController,
   getSearchHistoryLimitController,
+  deleteSearchHistoryByIdController,
 } from "../../controllers/SearchControllers/search_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
 
@@ -46,8 +47,11 @@ import authenticateToken from "../../middleware/Authorization.js";
  *        description: Not Found
  */
 
-search_router.post("/store_search/:user_id", authenticateToken, searchHistoryController);
-
+search_router.post(
+  "/store_search/:user_id",
+  authenticateToken,
+  searchHistoryController
+);
 
 /**
  * @openapi
@@ -70,7 +74,37 @@ search_router.post("/store_search/:user_id", authenticateToken, searchHistoryCon
  *        description: Not Found
  */
 
+search_router.get(
+  "/get_history/:user_id",
+  authenticateToken,
+  getSearchHistoryLimitController
+);
 
-search_router.get("/get_history/:user_id", authenticateToken, getSearchHistoryLimitController);
+/**
+ * @openapi
+ * '/api/search/delete_favorite/{id}':
+ *  delete:
+ *     tags:
+ *     - Search Storing
+ *     summary: Delete a favorite searched
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: id
+ *        required: true
+ *     responses:
+ *      200:
+ *        description: Created
+ *      409:
+ *        description: Conflict
+ *      404:
+ *        description: Not Found
+ */
+
+search_router.delete(
+  "/delete_favorite/:id",
+  authenticateToken,
+  deleteSearchHistoryByIdController
+);
 
 export default search_router;

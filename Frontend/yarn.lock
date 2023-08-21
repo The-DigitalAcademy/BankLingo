@@ -283,7 +283,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/service-worker@^15.2.9":
+"@angular/service-worker@^15.2.0":
   version "15.2.9"
   resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-15.2.9.tgz#84ab4e78596df2838f30ba2708fc9b8e7a7a41a0"
   integrity sha512-qM/lcrjaxIfpKj174mMWedtGfLNgLl5m7p9mPNODFjqp5lQj3fTTS643ix5Pr0onwbvbNbXu4g67/WXJqap0eA==
@@ -6680,11 +6680,6 @@ test-exclude@^6.0.0:
     "@istanbuljs/schema" "^0.1.2"
     glob "^7.1.4"
     minimatch "^3.0.4"
-
-test2@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/test2/-/test2-1.0.5.tgz#968e1b27de953998db7d13fcf6edf4bd767830d5"
-  integrity sha512-E5sjdI0fJRIHz0iHLN6uZi08S1zsRImfZV4GuXGwK4xclz2tj9E/Wcro/eeAsMJG92NGZUCLpTAdTjGZoft3hw==
 
 text-table@0.2.0:
   version "0.2.0"

@@ -13,13 +13,12 @@ import { SearchObject } from '../types/searchObject';
 export class UsersService {
 
   private apiUrls = 'https://banklingoapi.onrender.com';
-  accessToken!: any;
-  user!: any;
-  //private apiUrls = 'http://localhost:4500';
+  
+  accessToken: any;
+  user: any
+  private isAuthenticated = false;
 
   constructor(private http: HttpClient, private router: Router) { }
-
-  private isAuthenticated = false;
 
   private getHeaders(): HttpHeaders {
     this.accessToken = sessionStorage.getItem('loggedUser');
@@ -33,10 +32,7 @@ export class UsersService {
     });
     return headers;
   }
-
-
   
-
   // Simulate a login operation
   logins() {
     this.isAuthenticated = true;
@@ -55,9 +51,11 @@ export class UsersService {
     // Redirect the user to the login page
     this.router.navigate(['/login']);
 
+
   // Check if the user is authenticated (you might have a more sophisticated check in real-world scenarios)
  
   }
+
 
 //create user
 
@@ -100,11 +98,17 @@ isLoggedIn(): boolean {
     });
   }
 
-  verifyOTP(email: string, otp: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
-      email: email,
-      otp: otp,
-    });
+  // verifyOTP(email: string, otp: number): Observable<any> {
+  //   return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
+  //     email: email,
+  //     otp: otp,
+  //   });
+  // }
+  
+// Method to verify OTP
+  public verifyOTP(otp: string, email: string) {
+    
+    return this.http.post(`${this.apiUrls}/api/user/sendOTP`, {  email, otp });
   }
 
   resetPassword(email: string, password: string): Observable<any> {

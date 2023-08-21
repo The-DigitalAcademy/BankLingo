@@ -1,107 +1,132 @@
+<div class="container scrollable  side-margins fullScreenWithTitle">
 
+  <div class="">
 
- <section style="background-color: #ffffff;">
-  <div class="container py-5">
-     <div class="row">
-      <div class="col-md-6">
-        <div class="card mb-4 mb-md-0" style="border: 0;">
-        
-          <div class="card-body text-center">
-            <div class="image-container">
-
-              <!-- Display the profile image -->
-                <div *ngIf="user.profile_picture">
-                     <img
-                      src={{user.profile_picture}}
-                      alt="Generic placeholder image"
-                      class="img-fluid profileImage"
-                      style="width: 60px; height: 60px; border-radius: 60px; margin-right:10%;" 
-                    />
-                  </div>
-             
-
-                  
-              
-            </div>
-         <!-- Display the user name and surname -->
-            <h5 class="my-3">{{user.name}} {{user.surname}}</h5> 
-            
-            
-              
-              </div>
-            
-            
-            
-            <div class="d-flex justify-content-center mb-2">
-              <a routerLink="/edit_profile">
-             
-              
-            </a>
-            </div>
-          </div>
-         </div>
-
-         <div class="col-md-6">
-          <div class="card mb-4 mb-md-0" >
-            <div class="headingFont d-flex justify-content-left my-3">
-              No of tasks you have.
-            </div>
-            <div class="card-body">
-             
-              <!-- Display the number of task the user have -->
-
-              <h5> {{ lessonCount }}</h5>
-              <p> {{ zeroProgressCount }}</p>
-              
-            </div>
-          </div>
-        </div>
-        
-        
-
-         <div class="col-md-6">
-          <div class="card mb-4 mb-md-0" >
-        
-            <div class="headingFont d-flex justify-content-left my-3">
-              Task currently busy with progress status
-            </div>
-      
-
-              <!-- Displaying the terms -->   
-           <div *ngFor="let processed of processedData" style="padding:10px">
-            <div>{{ processed.data.plan_name }}</div>
-            <div class="progress" >
-             
-            <div class="progress-bar bg-success" role="progressbar"
-                 [style.width.%]="processed.progressValue"
-                 [attr.aria-valuenow]="processed.progressValue"
-                 [attr.aria-valuemin]="0"
-                 [attr.aria-valuemax]="100">
-              {{ processed.progressValue.toFixed(0) }}%
-            </div>
-           
-            
-           </div>
-             
-              </div>
-                
-              
-              
-          </div>
-          </div>
- 
-          
-
-         
-          
-            
-
-          
-                
-     </div>
-  </div>
-        
-              
   
-</section>
+<div class="headingFont headerTop mb-3">
+<span >Lesson plans summary</span>
+</div>
 
+  <div class="staggeredCustom" >
+    <div class="customCard  card justify-content-center align-items-center bigCard " style="background-color: #C7F9CC;" >
+        <h1><b>{{ lessonCount }}</b></h1>
+          <b>Total</b>
+
+    </div>
+
+    <div class="customCard card justify-content-center align-items-center smallCard" >
+      <h1><b>{{startedProgressCount}}</b> </h1>
+      <b>In progress</b>
+    </div>
+
+    <div class="customCard card justify-content-center align-items-center smallCard" style="background-color: #80ED99;" >
+      <h1><b>{{ zeroProgressCount }}</b></h1>
+      <b>Not started</b>
+    </div>
+
+    <div class="customCard card justify-content-center align-items-center bigCard" style="background-color: #38A3A5;">
+      <h1><b>{{countTaskCompleted}}</b></h1>
+      <b>Completed</b>
+    </div>
+
+
+  </div>
+</div>
+
+
+  <div class="headingFont d-flex justify-content-left my-3">
+    Progress status of my lessons
+  </div>
+  <div class="card p-2  mb-md-0">
+  
+  
+  
+  
+    <!-- Displaying the terms -->
+    <div *ngFor="let processed of processedData" style="padding:10px">
+      <div>{{ processed.data.plan_name }}</div>
+      <div class="progress">
+  
+        <div class="progress-bar bg-success" role="progressbar" [style.width.%]="processed.progressValue"
+          [attr.aria-valuenow]="processed.progressValue" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+          {{ processed.progressValue.toFixed(0) }}%
+        </div>
+  
+  
+      </div>
+  
+    </div>
+  
+  
+  </div>
+
+
+  <div class="row">
+    <!-- <div class="col-md-6">
+      <div class="card mb-4 mb-md-0">
+
+
+        <table class="table" style="border-color: #ffffff;">
+          <thead class="headingFont  my-3">
+
+            <tr>
+
+              <th scope="col" style="color:cadetblue;">All tasks</th>
+              <th scope="col" style="color:cadetblue;">Not started</th>
+              <th scope="col" style="color:cadetblue;">Started</th>
+              <th scope="col" style="color:cadetblue;">Completed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <h5>{{ lessonCount }}</h5>
+              </th>
+
+              <td>
+                <h5> {{ zeroProgressCount }}</h5>
+              </td>
+              <td>
+                <h5> {{startedProgressCount}}</h5>
+              </td>
+              <td>
+                <h5> {{countTaskCompleted}} </h5>
+              </td>
+
+            </tr>
+
+
+          </tbody>
+        </table>
+
+
+      </div>
+    </div> -->
+
+
+
+
+
+
+    <div class="col-md-6">
+      
+    </div>
+
+
+  </div>
+
+
+
+
+  <!-- 
+   <a href="#" class="card align-items-center text-decoration-none border-0 hover-lift-light py-4">
+            <span class="icon-circle icon-circle-lg bg-pastel-primary text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>ionicons-v5-e</title><rect x="48" y="80" width="416" height="384" rx="48" ry="48" style="fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px"></rect><path d="M397.82,80H114.18C77.69,80,48,110.15,48,147.2V208H64c0-16,16-32,32-32H416c16,0,32,16,32,32h16V147.2C464,110.15,434.31,80,397.82,80Z"></path><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><line x1="128" y1="48" x2="128" y2="80" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></line><line x1="384" y1="48" x2="384" y2="80" style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></line></svg>
+            </span>
+            <span class="text-dark mt-3">
+              Calendar
+            </span>
+          </a>
+      -->
+
+</div>

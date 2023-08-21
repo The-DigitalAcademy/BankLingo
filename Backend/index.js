@@ -7,9 +7,11 @@ import user_router from "./routes/UserRoutes/user_routes.js";
 import pool from "./configuration/database/database_configuration.js";
 import gpt_router from "./routes/GptRoutes/gpt_routes.js";
 import search_router from "./routes/SearchRoutes/search_routes.js";
+import morgan from "morgan";
 
 const app = express();
 const PORT = process.env.PORT;
+app.use(morgan(':method  :status :res[content-length] - :response-time ms'))
 
 app.get("/", (request, response) => {
   response.send({ message: "Welcome to BankLingo!" });
@@ -20,13 +22,11 @@ app.listen(PORT, () => {
   swaggerDocs(app, PORT);
 });
 
-
-  const corsOptions = {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-  };
-  
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());

@@ -344,6 +344,7 @@ export async function updateCoveredService(request, response) {
     throw error;
   }
 }
+//Exported all the services
 export default {
   askSimpleQuestionService,
   askQuestionHumourService,

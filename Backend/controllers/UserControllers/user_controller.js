@@ -45,6 +45,7 @@ export async function passwordResetOTPController(request, response) {
   }
 }
 
+
 export async function updatePasswordController(request, response) {
   try {
     // Call the updateUserPasswordService function from the service and pass the request and response objects
