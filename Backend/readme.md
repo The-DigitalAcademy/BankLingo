@@ -1,7 +1,7 @@
 # Documentation For BankLingo REST API.
 
 Link to the Swagger Documentation : 
-![BankLingo Online Documentation](https://banklingoapi.onrender.com/banklingodocs/)
+[BankLingo Online Documentation](https://banklingoapi.onrender.com/banklingodocs/)
 # ENDPOINTS
 
 ## USER
