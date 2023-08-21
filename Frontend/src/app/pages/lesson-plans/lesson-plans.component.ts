@@ -17,6 +17,8 @@ export class LessonPlansComponent implements OnInit {
   allPlans: any[] = []
   percentComplete: number[] = []
   progressStatus: string[] = []
+  buttonProgress: string[] = []
+
 
 
   constructor(private titlePage: Title,
@@ -42,8 +44,7 @@ export class LessonPlansComponent implements OnInit {
             break;
           default:
             this.progressStatus.push("In progress")
-
-
+            break;
         }
 
         this.percentComplete.push((element.days_count / element.duration) * 100)
@@ -52,7 +53,6 @@ export class LessonPlansComponent implements OnInit {
 
       });
 
-      console.log(this.allPlans, "the data inside");
 
     })
 
