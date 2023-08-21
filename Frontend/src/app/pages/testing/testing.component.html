@@ -10,13 +10,16 @@
             Description
           </button>
         </p>
+      
         <div [id]="'collapse' + i" class="collapse collapse-horizontal">
+          <hr>
           <div class=" card-body" style="width: 300px">
             {{ x.description }}
           </div>
+          <hr>
         </div>
 
-        <a class="card-link"  routerLink="['/singletopic', x.day]">
+        <a class="card-link"  [routerLink]="['/singletopic', x.day]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

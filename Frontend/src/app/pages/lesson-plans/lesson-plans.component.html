@@ -6,7 +6,7 @@
       <div class="card text-white  mb-3"  style="background-color:#00C7BE;"  *ngFor="let allLessonPlans of allPlans; let i = index">
         <div class="card-header d-flex align-items-center justify-content-between">
           <span>{{progressStatus[i]}}</span>
-          <span><b>{{percentComplete[i]}}%</b></span> 
+          <span><b>{{percentComplete[i].toFixed(0)}}%</b></span> 
 
         </div>
         <div class="card-body">

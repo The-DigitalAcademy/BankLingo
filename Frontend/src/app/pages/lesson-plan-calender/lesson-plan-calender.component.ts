@@ -33,8 +33,6 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   user!: any;
   profileForm!: FormGroup;
 
-
-
   formData: any = {
     duration: 0, // Initialize with a default value, update this based on user input
   };
