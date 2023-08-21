@@ -257,7 +257,7 @@ export async function getPlanByUserService(request, response) {
 
   try {
     const insertQuery = {
-      text: "SELECT * FROM lesson_plan WHERE user_id = $1",
+      text: "SELECT * FROM lesson_plan WHERE user_id = $1 ORDER BY created_date DESC",
       values: [user_id],
     };
     const results = await client.query(insertQuery);
