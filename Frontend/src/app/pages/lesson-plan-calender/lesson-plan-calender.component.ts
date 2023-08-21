@@ -29,6 +29,9 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
 
  
+  selectedDate: Date | null = null; // Track the selected date
+
+  
 
   user!: any;
   profileForm!: FormGroup;
@@ -62,6 +65,26 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     private router: Router,
     private core : CoreService
   ) { }
+
+  ngOnInit() {
+    this.titlePage.setTitle('Lesson');
+
+
+    this.initializeCalendar();
+
+    // Retrieve the user data from session storage
+    this.user = this.session.getLoggedUser();
+     
+
+    // Check if the user variable contains valid user data before initializing the form
+    if (this.user && Object.keys(this.user).length > 0) {
+      this.initializeForm();
+    } else {
+      // Handle the case when the user data is not available
+      console.log('User data not found in session storage');
+      // You can take appropriate actions, such as redirecting the user to the login page.
+    }
+  }
 
 
   onDateClick(date: Date) {
@@ -146,26 +169,7 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
   // calendarOptions!: CalendarOptions;
 
-  ngOnInit() {
-    this.titlePage.setTitle('Lesson');
-
-
-    this.initializeCalendar();
-
-    // Retrieve the user data from session storage
-    this.user = this.session.getLoggedUser();
-     
-
-    // Check if the user variable contains valid user data before initializing the form
-    if (this.user && Object.keys(this.user).length > 0) {
-      this.initializeForm();
-    } else {
-      // Handle the case when the user data is not available
-      console.log('User data not found in session storage');
-      // You can take appropriate actions, such as redirecting the user to the login page.
-    }
-  }
-
+ 
   initializeForm() {
     this.profileForm = this.formBuilder.group({
       user_id: [this.user.name, Validators.required],
@@ -193,20 +197,19 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   }
 
   handleDateClick(arg: DateClickArg) {
+    const clickedDate = arg.date;
+
+    // Clear the selected date if it's in the past
+    if (clickedDate < new Date()) {
+      this.selectedDate = null;
+      alert('Cannot create lesson plan with the past date, choose the current date or future date.');
+      return;
+    }
+
     // Toggle the class on the clicked day element
     arg.dayEl.classList.toggle('clicked-day');
 
-
-    const selectedDate = new Date(arg.dateStr);
-  
-      // Check if the selected date is in the past
-      if (selectedDate < new Date()) {
-        alert('Cannot create lesson plan with the past date, choose the current date or future date.');
-        return;
-      }
-
     // Update the selectedDates array
-    const clickedDate = arg.date;
     const index = this.duration.findIndex(
       (date) => date.toISOString() === clickedDate.toISOString()
     );
@@ -215,7 +218,15 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     } else {
       this.duration.splice(index, 1);
     }
+
+    // Update the selected date
+    if (this.selectedDate === null || this.selectedDate.toISOString() !== clickedDate.toISOString()) {
+      this.selectedDate = clickedDate;
+    } else {
+      this.selectedDate = null;
+    }
   }
+
 
   getSelectedDaysCount() {
     return this.duration.length;
