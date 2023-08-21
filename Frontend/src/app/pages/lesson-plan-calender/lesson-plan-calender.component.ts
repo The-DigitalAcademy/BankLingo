@@ -29,6 +29,9 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
 
 
  
+  selectedDate: Date | null = null; // Track the selected date
+
+  
 
   user!: any;
   profileForm!: FormGroup;
@@ -196,20 +199,19 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
   }
 
   handleDateClick(arg: DateClickArg) {
+    const clickedDate = arg.date;
+
+    // Clear the selected date if it's in the past
+    if (clickedDate < new Date()) {
+      this.selectedDate = null;
+      alert('Cannot create lesson plan with the past date, choose the current date or future date.');
+      return;
+    }
+
     // Toggle the class on the clicked day element
     arg.dayEl.classList.toggle('clicked-day');
 
-
-    const selectedDate = new Date(arg.dateStr);
-  
-      // Check if the selected date is in the past
-      if (selectedDate < new Date()) {
-        alert('Cannot create lesson plan with the past date, choose the current date or future date.');
-        return;
-      }
-
     // Update the selectedDates array
-    const clickedDate = arg.date;
     const index = this.duration.findIndex(
       (date) => date.toISOString() === clickedDate.toISOString()
     );
@@ -218,7 +220,15 @@ export class LessonPlanCalenderComponent implements OnInit, AfterViewInit {
     } else {
       this.duration.splice(index, 1);
     }
+
+    // Update the selected date
+    if (this.selectedDate === null || this.selectedDate.toISOString() !== clickedDate.toISOString()) {
+      this.selectedDate = clickedDate;
+    } else {
+      this.selectedDate = null;
+    }
   }
+
 
   getSelectedDaysCount() {
     return this.duration.length;
