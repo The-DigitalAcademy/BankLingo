@@ -1,9 +1,15 @@
-import {Component,EventEmitter,OnInit,Output,Renderer2,} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
-import { ImagesService} from 'src/app/services/images.service';
+import { ImagesService } from 'src/app/services/images.service';
 
 declare var $: any; // Importing jQuery library
 declare var webkitSpeechRecognition: any; // Importing jQuery library
@@ -14,18 +20,19 @@ declare var webkitSpeechRecognition: any; // Importing jQuery library
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent implements OnInit {
- // Component properties
- queryText = ''; // Search query text
- responseQuestion = ''; // Question associated with the response
- responseBody = ''; // Response message body
- humourSwitch = false; // Switch for sense of humor
- user_id = 0; // User ID
- isLoading: boolean = false; // Loading indicator
- //Web speech properties
- recognition: any; // Speech recognition instance
- isRecognizing = false; // Speech recognition status
- content?: any; // Content holder
- browserSupport: boolean = false; // Browser support for speech recognition
+  // Component properties
+  queryText = ''; // Search query text
+  responseQuestion = ''; // Question associated with the response
+  responseBody = ''; // Response message body
+  humourSwitch = false; // Switch for sense of humor
+  user_id = 0; // User ID
+  images: any[] = [];
+  isLoading: boolean = false; // Loading indicator
+  //Web speech properties
+  recognition: any; // Speech recognition instance
+  isRecognizing = false; // Speech recognition status
+  content?: any; // Content holder
+  browserSupport: boolean = false; // Browser support for speech recognition
 
   constructor(
     private core: CoreService,
@@ -42,7 +49,7 @@ export class SearchBarComponent implements OnInit {
       this.recognition.continuous = true;
 
       // Event handlers for speech recognition
-      this.recognition.onstart = () => {  
+      this.recognition.onstart = () => {
         this.isRecognizing = true; // Speech recognition started
       };
 
@@ -68,13 +75,13 @@ export class SearchBarComponent implements OnInit {
     this.queryText; // Initialize query text
     this.fetchImagesInFolder('terms');
   }
-// Method to save search query and response to favorites
-saveSearch() {
-  const search = {
-    query_searched: this.responseQuestion,
-    response_searched: this.responseBody,
-    ishumour: this.humourSwitch,
-  };
+  // Method to save search query and response to favorites
+  saveSearch() {
+    const search = {
+      query_searched: this.responseQuestion,
+      response_searched: this.responseBody,
+      ishumour: this.humourSwitch,
+    };
 
     // Save to favorites through core service
     this.core.saveToFavorites(this.user_id, search).subscribe((response) => {
@@ -110,7 +117,8 @@ saveSearch() {
       showCloseButton: true,
       showCancelButton: true,
       // Customized confirm and cancel buttons
-      confirmButtonText: '<i class="bi bi-hand-thumbs-up-fill"></i> Add to favourites!',
+      confirmButtonText:
+        '<i class="bi bi-hand-thumbs-up-fill"></i> Add to favourites!',
       confirmButtonAriaLabel: 'Thumbs up',
       cancelButtonText: '<i class="bi bi-star-fill"></i> Understood!',
       cancelButtonAriaLabel: 'Understood!',
@@ -128,22 +136,22 @@ saveSearch() {
     });
   }
 
-   // Method to perform search query
+  // Method to perform search query
   searchQuery() {
     const searchedB4 = this.session.getLoggedUser().searchedbefore;
-     // Update user's searched before status
+    // Update user's searched before status
     if (searchedB4 == false) {
       const firstSearch = {
         searchedbefore: true,
         email: this.session.getLoggedUser().email,
       };
-       // Update user's first time search status
+      // Update user's first time search status
       this.core.updateSearchedBefore(firstSearch).subscribe((response) => {
         this.session.updateUserFirstTimeSearch();
         //  window.location.reload()
       });
     }
-   // Perform search based on humor switch statu
+    // Perform search based on humor switch statu
     if (this.humourSwitch) {
       this.humourSwitch = true;
       this.core
@@ -160,12 +168,12 @@ saveSearch() {
         });
     }
   }
-// Method to start speech recognition
+  // Method to start speech recognition
   startRecognition() {
-      // Check if recognition is not already active
+    // Check if recognition is not already active
     if (!this.isRecognizing) {
-      this.isRecognizing = true;// Set recognition status to active
-      this.recognition.start();// Start speech recognition
+      this.isRecognizing = true; // Set recognition status to active
+      this.recognition.start(); // Start speech recognition
     }
   }
 
@@ -177,10 +185,20 @@ saveSearch() {
     setTimeout(this.stopRecognition, 1000); // Schedule stopRecognition after 1 second
   }
 
-
   // Method to handle input in the text box
-onTextboxInput(event: Event) {
-  // Set queryText to the value of the input element
-  this.queryText = (event.target as HTMLTextAreaElement).value;
-}
+  onTextboxInput(event: Event) {
+    // Set queryText to the value of the input element
+    this.queryText = (event.target as HTMLTextAreaElement).value;
+  }
+
+  fetchImagesInFolder(folderName: string): void {
+    this.imageService.getImagesInFolder(folderName).subscribe(
+      (data: any) => {
+        this.images = data.resources;
+      },
+      (error) => {
+        console.error('Error fetching images:', error);
+      }
+    );
+  }
 }
