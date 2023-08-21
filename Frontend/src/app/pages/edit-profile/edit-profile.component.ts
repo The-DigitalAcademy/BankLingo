@@ -18,7 +18,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss'],
+  styleUrls: ['./edit-profile.component.scss'], 
 })
 export class EditProfileComponent implements OnInit {
   selectedFile: File | null = null;
