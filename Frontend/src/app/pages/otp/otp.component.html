@@ -1,49 +1,38 @@
 <div class="container scrollable  side-margins">
 
-</div>
-<div class="side-margins headerTop">
-    <div class=" bd-highlight">
-        <span class="span fs-3 mybgcolor ">Bank</span><span class="text-wrapper-2  fs-3">Lingo</span>
 
-    </div>
-    <br>
-    <br>
-    <b>
-        <div class=" bd-highlight text-center">
-            <h6>Please enter the OTP sent to your email to verify your account</h6>
+    <div class="">
+        <div class=" bd-highlight headerTop" routerLink="/login">
+            <span class="span fs-3 mybgcolor ">Bank</span><span class="text-wrapper-2  fs-3">Lingo</span>
+        </div>
+
+        <div class=" bd-highlight text-center mb-5 headerTop">
+            <h6>Please enter the OTP sent to your email to continue</h6>
 
         </div>
         <div class="row d-flex align-items-center mt-5 flex-column ">
             <img class="woman-shaking-hands" src="assets/img/Guy with the key is trying to log into his account.png" />
         </div>
-        <div id="otp" class="inputs d-flex flex-row justify-content-center mt" style="color: #444">
-            <input class="m-2 text-center form-control rounded" type="text" [(ngModel)]="otp" maxlength="6" />
+        <div id="otp" class="d-flex flex-row justify-content-center " style="color: #444">
+            <input class="text-center form-control-lg form-control " placeholder="****" type="text" [(ngModel)]="otp" maxlength="6" />
         </div>
         <br>
-        <br>
+        <div class="row d-flex align-items-center flex-column mb-5">
+            <button type="submit" class="btn btn-primary" (click)="verifyOtp()">Submit</button>
+        </div>
+
+
         <div class=" bd-highlight text-center">
             <h6>Did not receive the OTP? </h6>
-            <button type="Resend" class="btn btn-sm" (click)="resendOtp()">Resend in {{seconds}}</button>
+            <button type="Resend" class="btn btn-sm mt-2" (click)="resendOtp()">Resend in {{seconds}}</button>
         </div>
         <br>
 
         <br />
-        <div class="row d-flex align-items-center flex-column">
-            <button type="submit" class="btn" (click)="verifyOtp()">Submit</button>
-        </div>
+       
+     
+      
+       
 
-
-        <div id="otp" class="inputs d-flex flex-row justify-content-center mt " style="color: #444"> <input
-                class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" /> <input
-                class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" /> <input
-                class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" /> <input
-                class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" /> </div>
-        <br>
-        <br>
-        <div class=" bd-highlight text-center">
-            <h6>Did not receive the OTP? <u>Resend?</u></h6>
-
-        </div>
-        <div class="row d-flex align-items-center flex-column">
-            <button type="submit" class="btn ">Submit</button>
-        </div>
+    </div>
+</div>
