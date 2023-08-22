@@ -1,15 +1,11 @@
 
 
-<div class="container side-margins headerTop">
-  <div class="bd-highlight">
+<div class="container side-margins scrollable ">
+  <div class="bd-highlight headerTop" routerLink="/login">
     <span class="span fs-3 mybgcolor ">Bank</span><span class="text-wrapper-2  fs-3">Lingo</span>
   </div>
-  <br>
-  <br>
-  <div class="bd-highlight">
-    <h5>Enter your email to receive an OTP</h5>
-  </div>
-  <br>
+  
+    <h2 class="bd-highlight text-center mb-5 headerTop">Enter your email to receive an OTP</h2>
 
   <div class="row d-flex align-items-center mt-5 flex-column">
     <img
@@ -18,7 +14,6 @@
       src="assets/img/Guy with the key is trying to log into his account.png"
     />
   </div>
-  <br>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <br>
   <div class="form-outline mb-4">
@@ -33,7 +28,8 @@
   </div>
   <br>
   <div class="row d-flex align-items-center flex-column">
-    <button type="submit" class="btn">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
+
 </div>

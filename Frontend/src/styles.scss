@@ -61,8 +61,15 @@ padding-bottom:94px;
 .btn {
   width: 80vw;
   height: 6vh;
+  
   border-radius: 999em 999em 999em 999em;
   background-color: #38a3a5;
+  border-color: #38a3a5;
+}
+
+.btn:hover{
+  background-color: #22577A;
+  border-color: #22577A;
 }
 
 .primaryCardColour{
