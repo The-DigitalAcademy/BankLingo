@@ -12,7 +12,7 @@ import { SessionsService } from 'src/app/services/sessions.service';
 })
 export class LessonPlansComponent implements OnInit {
 
-
+  isLoading: boolean = false;
   user_id = this.session.getLoggedUser().userId
   allPlans: any[] = []
   percentComplete: number[] = []
@@ -29,9 +29,9 @@ export class LessonPlansComponent implements OnInit {
   ngOnInit(): void {
     this.titlePage.setTitle("Lesson plans")
 
-
+    this.isLoading = true;
     this.core.getAllUserLessons(this.user_id).subscribe(data => {
-
+      this.isLoading = false;
       this.allPlans = data
       this.allPlans.forEach(element => {
         const percent = (element.days_count / element.duration) * 100

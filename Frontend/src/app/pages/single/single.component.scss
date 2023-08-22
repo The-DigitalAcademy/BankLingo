@@ -1,6 +1,11 @@
+
+.cardHeight{
+  height:74vh;
+ 
+}
 .topic_container {
   width: 100%;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,6 +39,8 @@
     padding: 10px;
     background-color: #38a3a549;
     .card-body {
+          overflow-y: scroll;
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,7 +51,7 @@
         font-size: 30px !important;
       }
       .message {
-        max-width: 90%;
+        max-width: 94%;
         white-space: pre-wrap;
         margin: 0 auto; /* This centers the container horizontally */
         padding: 20px; /* Add some space between the text and container edges */

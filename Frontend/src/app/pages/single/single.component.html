@@ -1,8 +1,8 @@
 <div class="container scrollable  side-margins fullScreenWithTitle">
 
-<div *ngFor="let x of particularDay; let i = index" class="topic_container">
-  <p class="day">{{ x.day }}</p>
-  <div class="card">
+<div *ngFor="let x of particularDay; let i = index" class="topic_container cardHeight">
+  <!-- <p class="day">{{ x.day }}</p> -->
+  <div class="card cardHeight ">
     <div class="card-body">
       <h5 class="card-title">{{ someTopics[currentIndex] }}</h5>
       <div class="spinner-border" role="status" *ngIf="loading == true">
