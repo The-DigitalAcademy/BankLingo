@@ -12,11 +12,13 @@ import { SessionsService } from 'src/app/services/sessions.service';
 })
 export class LessonPlansComponent implements OnInit {
 
-
+  isLoading: boolean = false;
   user_id = this.session.getLoggedUser().userId
   allPlans: any[] = []
   percentComplete: number[] = []
   progressStatus: string[] = []
+  buttonProgress: string[] = []
+
 
 
   constructor(private titlePage: Title,
@@ -27,9 +29,9 @@ export class LessonPlansComponent implements OnInit {
   ngOnInit(): void {
     this.titlePage.setTitle("Lesson plans")
 
-
+    this.isLoading = true;
     this.core.getAllUserLessons(this.user_id).subscribe(data => {
-
+      this.isLoading = false;
       this.allPlans = data
       this.allPlans.forEach(element => {
         const percent = (element.days_count / element.duration) * 100
@@ -42,8 +44,7 @@ export class LessonPlansComponent implements OnInit {
             break;
           default:
             this.progressStatus.push("In progress")
-
-
+            break;
         }
 
         this.percentComplete.push((element.days_count / element.duration) * 100)
@@ -52,7 +53,6 @@ export class LessonPlansComponent implements OnInit {
 
       });
 
-      console.log(this.allPlans, "the data inside");
 
     })
 
