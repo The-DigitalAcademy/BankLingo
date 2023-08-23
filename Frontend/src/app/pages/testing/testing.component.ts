@@ -33,11 +33,13 @@ export class TestingComponent {
     });
   }
   ngOnInit() {
+   
     this.titlePage.setTitle('Topics');
     this.isLoading = true;
     this.route.params.subscribe((params) => {
       this.activePlanId = params['plan_id'];
     });
+    
     //When you get to the page, this getsTopics based on the plan_id
     this.core.getTopicsByIdAndCache(this.activePlanId).subscribe({
       next: (data: any) => {

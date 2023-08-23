@@ -1,7 +1,8 @@
 
 <div class="container scrollable  side-margins fullScreenWithTitle">
-  <form (ngSubmit)="onSaveDate()"  style="margin-bottom: 1%; height:auto">
-    <h5 class="text-center mb-2 headerTop">Select duration of your lesson plan</h5><br>
+  <h5 class="text-center mb-2 headingFont headerTop">Select duration of your lesson plan</h5><br>
+
+  <form (ngSubmit)="onSaveDate()">
     <br>
     <div class="calendar-container">
       <full-calendar style="height:max-content" [options]="calendarOptions"></full-calendar>
@@ -14,14 +15,15 @@
 
 
 
+    <!-- <app-loader *ngIf="isLoading"> </app-loader> -->
 
 
     <div class="d-flex justify-content-center py-4">
       <button type="submit" class="btn btn-primary" (click)="onSaveDate()" [disabled]="isLoading">{{updateBtn}}
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       </button>
+  
     </div>
-
 
 
 

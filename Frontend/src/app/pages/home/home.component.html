@@ -31,7 +31,7 @@
   <hr />
 
   <div class="headingFont d-flex justify-content-center my-3">
-    Banking Made Simple!
+    Simplifying Banking Terms
   </div>
   <app-search-bar></app-search-bar>
  
@@ -46,10 +46,18 @@
   <!-- =================recyclerview FOR ALREADY EXISTING USERS================ -->
   <div style="height:250px" *ngIf="searchedBefore">
 
-    <div *ngIf="searchedBefore" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
+
+<div *ngIf="isLoading"  style="height: auto; " 
+  class="d-flex flex-row flex-nowrap overflow-auto  card-block">
+ <app-card-loader class="card cardStyleLoading card-block mx-2" style="min-width: 250px;"></app-card-loader>
+  <app-card-loader class="card cardStyleLoading card-block mx-2" style="min-width: 250px;"></app-card-loader>
+</div>
+
+
+    <div *ngIf="searchedBefore && !isLoading" style="height: auto" class="d-flex flex-row flex-nowrap overflow-auto">
       <div *ngFor="let searchObj of favoutitesArray">
         <div *ngIf="searchObj.ishumour" class="card cardStyle card-block mx-2" style="min-width: 250px; background-color: #64d2ff">
-          <div class="card-body">
+          <div class="card-body" >
             <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
             <p class="card-text">
               {{searchObj.response_searched}}
@@ -89,6 +97,7 @@
 
       </div>
     </div>
+
   </div>
 
 
@@ -155,11 +164,4 @@
       </linearGradient>
     </defs>
   </svg>
-</div>
-
-
-<div *ngIf="isLoading" class="loader">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
 </div>

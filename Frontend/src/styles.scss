@@ -58,11 +58,18 @@ padding-bottom:94px;
   padding-top: 30px;
 }
 
-.btn {
+.btn-primary {
   width: 80vw;
   height: 6vh;
+  
   border-radius: 999em 999em 999em 999em;
   background-color: #38a3a5;
+  border-color: #38a3a5;
+}
+
+.btn-primary:hover{
+  background-color: #22577A;
+  border-color: #22577A;
 }
 
 .primaryCardColour{
@@ -84,4 +91,15 @@ padding-bottom:94px;
   padding: 20px;
   border-radius: 5px;
   text-align: center;
+}
+
+.mybgcolor {
+  color: #38a3a5;
+  font-weight: 900;
+  font-size: 30px;
+}
+.lingo {
+  color: black;
+  font-weight: 900;
+  font-size: 30px;
 }
