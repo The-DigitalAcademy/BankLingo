@@ -77,14 +77,7 @@ login(credentials: { email: string, password: string }): Observable<any> {
 isLoggedIn(): boolean {
   return this.isAuthenticated;
 }
-// Getting user by id
 
-
-
-  // sendOTP(email: string): Observable<any> {
-  //   const url = `${this.apiUrls}/api/sendOTP`;
-  //   return this.http.post(url, { email });
-  // }
 
   updatePassword(email: string, otp: number, password: string): Observable<any> {
     const url = `${this.apiUrls}/api/user/update-password`;
@@ -98,12 +91,6 @@ isLoggedIn(): boolean {
     });
   }
 
-  // verifyOTP(email: string, otp: number): Observable<any> {
-  //   return this.http.post<any>(`${this.apiUrls}/api/user/verify-otp`, {
-  //     email: email,
-  //     otp: otp,
-  //   });
-  // }
   
 // Method to verify OTP
   public verifyOTP(otp: string, email: string) {
@@ -136,9 +123,6 @@ isLoggedIn(): boolean {
     return this.http.get(`${this.apiUrls}/api/user/get_profile`);
   }
 
-// updateProfile(id: number, data:Users): Observable<any> {
-//   return this.http.put<any>(`${this.apiUrls}/api/user/update_profile/{id}${id}`, data);
-// }
 
 updateProfile(id: number, data: any): Observable<any> {
   const headers = this.getHeaders();

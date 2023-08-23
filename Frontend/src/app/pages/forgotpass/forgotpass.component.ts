@@ -34,40 +34,11 @@ export class ForgotpassComponent implements OnInit{
     
   }
 
-  // onSubmit(): void {
-  //   // Get the email value from the form control
-  //   const email = this.form.get('email')?.value;
-  //   if (email) {
-  //     // Ensure email is not null or undefined before making the API call
-  //     console.log(email);
-      
-  //     this.passwordService.sendOtp(email).subscribe(
-  //       response => {
-  //         console.log(response);
-          
-  //         // OTP sent successfully, navigate to OTP verification page
-  //        // this.router.navigate(['/otp'], { queryParams: { email } });
-  //         this.router.navigate(['/otp'], { queryParams: { email } });
-  //       },
-  //       (error) => {
-  //         // Handle OTP sending failure, show error message
-  //         console.error('Error sending OTP:', error);
-  //         // You can display an error message on the UI here
-  //       }
-  //     );
-  //   } else {
-  //     // Handle the case when the email is empty or not provided
-  //     console.error('Email is empty or not provided.');
-  //     // You can display an error message on the UI here
-  //   }
-  // }
-
 
   
   
   
   
-  //function will be initialized when pressing the submit button
   
   
   onSubmit(){

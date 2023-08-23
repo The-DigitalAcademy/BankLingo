@@ -20,16 +20,6 @@ export class ImagesService {
   constructor(private http: HttpClient) {}
 
 
-  // getImagesInFolder(folderName: string): Observable<any> {
-  //   const params = new HttpParams()
-  //     .set('cloud_name', cloudinaryConfig.cloudName)
-  //     .set('api_key', this.cloudinaryApiKey)
-  //     .set('api_secret', this.cloudinaryApiSecret)
-  //     .set('prefix', folderName);
-  
-      
-  //   return this.http.get(this.cloudinaryApiUrl, {params} );
-  // }
 
    getImagesInFolder(folderName: string): Observable<any> {
     const url = `${this.cloudinaryApiUrl}?prefix=${folderName}`;
