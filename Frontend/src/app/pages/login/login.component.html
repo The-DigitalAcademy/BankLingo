@@ -44,6 +44,10 @@
                   </button>
 
                 </div>
+                <div class="guest_mode">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoadingAsGuest"></span>
+                  <a (click)="loginAsGuest()" *ngIf="!isLoadingAsGuest">Login as Guest</a>
+                </div>
                 <p class="text-center text-muted my-4">or</p>
 
                 <p class="text text-center text-muted">Do not have an account? <a href="#!" routerLink="/register"
