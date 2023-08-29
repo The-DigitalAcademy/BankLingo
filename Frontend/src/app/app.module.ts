@@ -38,6 +38,8 @@ import { TestingComponent } from './pages/testing/testing.component';
 import { TopicContentComponent } from './pages/topic-content/topic-content.component';
 import { TopicsComponent } from './pages/topics/topics.component';
 import { PwaService } from './services/pwa.service';
+import { LoaderComponent } from './components/loader/loader.component';
+import { CardLoaderComponent } from './components/card-loader/card-loader.component';
 
 
 //  const initializer = (pwaService: PwaService) => () =>
@@ -69,6 +71,8 @@ import { PwaService } from './services/pwa.service';
     PromptComponentComponent,
     TestingComponent,
     SingleComponent,
+    LoaderComponent,
+    CardLoaderComponent,
   ],
   imports: [
     BrowserModule,

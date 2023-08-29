@@ -46,18 +46,10 @@ ngOnInit(): void {
     this.titlePage.setTitle("Enter OTP")
 };
 
-// setTimeout(makeIteration, 1000); 
-  
-//   // Fetch the email from the query parameters.
-//   this.route.queryParams.subscribe((params) => {
-//     this.email = params['email'];
-//   });
 
-// }
 
 onOtpInput() {
-  // Limit the OTP input to numeric characters using regex
-  //this.otp = this.otp.replace(/\D/g, '');
+
 }
 
 verifyOtp() {

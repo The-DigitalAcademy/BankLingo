@@ -174,15 +174,6 @@ export class EditProfileComponent implements OnInit {
             showConfirmButton: false,
             timer: 1400,
           }).then((result) => {
-            // Define navigation extras if needed
-            // const navigationExtras: NavigationExtras = {
-            //   queryParamsHandling: 'preserve', // Preserve query params
-            //   preserveFragment: true, // Preserve fragments (if any)
-            // };
-  
-            //Navigate to the profile page
-           // this.router.navigate(['/profile']);
-  
            
           });
            // Reload the page
