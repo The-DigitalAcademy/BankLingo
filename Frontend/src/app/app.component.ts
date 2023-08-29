@@ -3,6 +3,7 @@ import { SessionsService } from './services/sessions.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { LoaderService } from './services/loader.service';
+import { NetworkstatusService } from './services/networkstatus.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,18 @@ import { LoaderService } from './services/loader.service';
 })
 export class AppComponent {
   isLoading: boolean = true;
+  isOffline: boolean = false;
+  showOfflineMessage: boolean = false;
+  offlineMessage: string = '';
+  showOtherErrorMessage: boolean = false;
+  otherErrorMessage: string = '';
+  
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private swUpdate: SwUpdate,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private networkStatusService: NetworkstatusService
   ) {
 
   }
@@ -74,6 +82,32 @@ export class AppComponent {
   title = 'Frontend';
 
   ngOnInit() {
+
+    this.networkStatusService.onlineStatusChanged.subscribe((isOnline) => {
+      this.isOffline = !isOnline;
+    });
+
+    this.networkStatusService.onlineStatus$.subscribe((isOnline) => {
+      if (!isOnline) {
+        this.showOfflineMessage = true;
+        this.offlineMessage = 'You are currently offline. Please check your network connection.';
+      } else {
+        this.showOfflineMessage = true;
+        this.isOffline = false;
+        this.offlineMessage = 'You are back online!';
+        setTimeout(() => {
+          this.showOfflineMessage = false;
+        }, 3000); // Display the message for 3 seconds
+      }
+    });
+
+    this.networkStatusService.otherErrorNotification().subscribe(() => {
+      this.showOtherErrorMessage = true;
+      this.otherErrorMessage = 'Something else went wrong. Please try again later.';
+      setTimeout(() => {
+        this.showOtherErrorMessage = false;
+      }, 3000); // Display the message for 3 seconds
+    });
 
     this.loaderService.getLoadingState().subscribe((loading) => {
       this.isLoading = loading; // Update to false when loading is complete

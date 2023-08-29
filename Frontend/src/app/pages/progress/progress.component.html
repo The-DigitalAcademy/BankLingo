@@ -44,7 +44,7 @@
   
     <!-- Displaying the terms -->
     <div *ngFor="let processed of processedData" style="padding:10px">
-      <div>{{ processed.data.plan_name }}</div>
+      <div>{{ processed.data.plan_name | titlecase}}</div>
       <div class="progress">
         <div class="progress-bar" style="background-color: #38A3A5;"  role="progressbar" [style.width.%]="processed.progressValue"
           [attr.aria-valuenow]="processed.progressValue" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
