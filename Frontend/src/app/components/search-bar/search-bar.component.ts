@@ -10,6 +10,7 @@ import { SessionsService } from 'src/app/services/sessions.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { ImagesService } from 'src/app/services/images.service';
+import { DataformatService } from 'src/app/services/dataformat.service';
 
 declare var $: any; // Importing jQuery library
 declare var webkitSpeechRecognition: any; // Importing jQuery library
@@ -39,7 +40,8 @@ export class SearchBarComponent implements OnInit {
     private session: SessionsService,
     private location: Location,
     private renderer: Renderer2,
-    private imageService: ImagesService
+    private imageService: ImagesService,
+    private formatter: DataformatService
   ) {
     //Check if webkitSpeechRecognition is supported
     if ('webkitSpeechRecognition' in window) {
@@ -98,6 +100,7 @@ export class SearchBarComponent implements OnInit {
       });
     });
   }
+
   // Method for internal operations handling response and query
   internalOperations(response: any) {
     // Save query response and question in session
@@ -111,7 +114,7 @@ export class SearchBarComponent implements OnInit {
     // Display Swal (SweetAlert2) modal
     Swal.fire({
       icon: 'info',
-      titleText: this.queryText,
+      titleText: this.formatter.capitalizeFirstLetter(this.queryText),
       text: this.responseBody,
       confirmButtonColor: '#38A3A5',
       showCloseButton: true,

@@ -50,7 +50,7 @@
       <div *ngFor="let searchObj of favoutitesArray">
         <div *ngIf="searchObj.ishumour" class="card cardStyle card-block mx-2" style="min-width: 250px; background-color: #64d2ff">
           <div class="card-body">
-            <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
+            <h5 class="card-title" style="color: #212529">{{searchObj.query_searched | titlecase}}</h5>
             <p class="card-text">
               {{searchObj.response_searched}}
               <span >
@@ -60,7 +60,7 @@
           </div>
           <div class="d-flex push-to-bottomm justify-content-between" style="width: 100%">
             <span class="badge bg-light text-dark px-3" routerLink="/lesson-plan-calender">Learn more</span>
-            <b class="small">(Humor)</b>
+            <b class="small">(Humour)</b>
           </div>
         </div>
 
@@ -70,7 +70,7 @@
 
           <div class="card-body">
 
-            <h5 class="card-title" style="color: #212529">{{searchObj.query_searched}}</h5>
+            <h5 class="card-title" style="color: #212529">{{searchObj.query_searched | titlecase}}</h5>
 
             <p class="card-text">
               {{searchObj.response_searched}}
