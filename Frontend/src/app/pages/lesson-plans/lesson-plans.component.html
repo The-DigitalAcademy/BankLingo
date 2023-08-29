@@ -16,7 +16,7 @@
         <span><b>{{ percentComplete[i].toFixed(0) }}%</b></span>
       </div>
       <div class="card-body">
-        <h5 class="card-title">{{ allLessonPlans.plan_name }}</h5>
+        <h5 class="card-title">{{ allLessonPlans.plan_name  | titlecase}}</h5>
         <p class="card-text">{{ allLessonPlans.lesson_description }}</p>
       </div>
       <div class="card-footer">

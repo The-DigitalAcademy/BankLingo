@@ -15,6 +15,7 @@ import { UploadImageService } from 'src/app/services/uploadImage.service';
 import { Observable, Observer, catchError, of, tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { jsDocComment } from '@angular/compiler';
+import { DataformatService } from 'src/app/services/dataformat.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -39,7 +40,8 @@ export class EditProfileComponent implements OnInit {
     private router: Router,
     private uploadService: UploadImageService,
     private titlePage: Title,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private formatter: DataformatService
   ) { }
 
   ngOnInit() {
@@ -63,8 +65,8 @@ export class EditProfileComponent implements OnInit {
 
   initializeForm() {
     this.profileForm = this.formBuilder.group({
-      name: [this.user.name, Validators.required],
-      surname: [this.user.surname, Validators.required],
+      name: [this.formatter.capitalizeFirstLetter(this.user.name), [Validators.required]],
+      surname: [this.formatter.capitalizeFirstLetter(this.user.surname), [Validators.required]],
       age: [this.user.age, Validators.required],
       contact_number: [this.user.contact_number],
       email: [this.user.email, [Validators.required, Validators.email]],
