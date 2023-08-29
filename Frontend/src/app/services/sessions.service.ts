@@ -28,46 +28,6 @@ export class SessionsService {
     window.sessionStorage.setItem(LOGGED_USER, JSON.stringify(user));
   }
 
-  // public saveOTP(otp: string): void {
-  //   window.sessionStorage.removeItem(OTP);
-  //   window.sessionStorage.setItem(OTP, otp);
-  // }
-  // public saveOTP(otp: string): void {
-  //   const otpObject = {
-  //     number: Number(otp)
-  //   };
-  //   window.sessionStorage.removeItem(OTP);
-  //   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-  // }
-  
- //sessions.service.ts
-// public saveOTP(otp: string): void {
-//   const otpObject = {
-//     number: Number(otp)
-//   };
-//   window.sessionStorage.removeItem(OTP);
-//   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));}
-
-
-// sessions.service.ts
-
-// public saveOTP(otp: number): void {
-//   const otpObject = {
-//     number: otp
-//   };
-//   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-// }
-
-// public saveOTP(otp: number | null): void {
-//   if (otp !== null) {
-//     const otpObject = {
-//       number: otp
-//     };
-//     window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-//   } else {
-//     window.sessionStorage.removeItem(OTP);
-//   }
-// }
 
 
 
@@ -87,59 +47,6 @@ public saveOTP(otpObject: { number: any } | null): void {
     window.sessionStorage.removeItem(SAVE_OTP);
     window.sessionStorage.setItem(SAVE_OTP, JSON.stringify(otp));
   }
-
-  // public saveOTP(otp: string): void {
-  //   window.sessionStorage.removeItem(OTP);
-  //   window.sessionStorage.setItem(OTP, otp);
-  // }
-  // public saveOTP(otp: string): void {
-  //   const otpObject = {
-  //     number: Number(otp)
-  //   };
-  //   window.sessionStorage.removeItem(OTP);
-  //   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-  // }
-  
- //sessions.service.ts
-// public saveOTP(otp: string): void {
-//   const otpObject = {
-//     number: Number(otp)
-//   };
-//   window.sessionStorage.removeItem(OTP);
-//   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));}
-
-
-// sessions.service.ts
-
-// public saveOTP(otp: number): void {
-//   const otpObject = {
-//     number: otp
-//   };
-//   window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-// }
-
-// public saveOTP(otp: number | null): void {
-//   if (otp !== null) {
-//     const otpObject = {
-//       number: otp
-//     };
-//     window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-//   } else {
-//     window.sessionStorage.removeItem(OTP);
-//   }
-// }
-
-
-
-
-// public saveOTP(otpObject: { number: any } | null): void {
-//   if (otpObject !== null) {
-//     window.sessionStorage.setItem(OTP, JSON.stringify(otpObject));
-//   } else {
-//     window.sessionStorage.removeItem(OTP);
-//   }
-// }
-
   
 
   public saveQueryResponse(message: any): void {
@@ -237,6 +144,18 @@ public saveOTP(otpObject: { number: any } | null): void {
    // window.location.reload()
    
   }
+
+  public updateUserProfile(updatedData: any) {
+    const existingUserData = this.getLoggedUser();
+  
+    // Merge the existing user data with the updatedData
+    const updatedUserData = { ...existingUserData, ...updatedData };
+  
+    const updatedUserDataString = JSON.stringify(updatedUserData);
+    sessionStorage.setItem(LOGGED_USER, updatedUserDataString);
+    console.log(updatedUserDataString);
+  }
+  
  
  
 

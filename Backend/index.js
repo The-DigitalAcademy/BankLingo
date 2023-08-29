@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 app.use(morgan(':method  :status :res[content-length] - :response-time ms'))
 
 app.get("/", (request, response) => {
-  response.send({ message: "Welcome to BankLingo!" });
+  return response.send({ message: "Welcome to BankLingo!" });
 });
 
 app.listen(PORT, () => {

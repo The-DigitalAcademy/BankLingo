@@ -33,27 +33,7 @@ export class LessonPlaService {
 
 
 
-  // getLessonPlans(): LessonPlan[] {
-  //   return this.lessonPlans;
-  // }
 
-  // addLessonPlan(lessonPlan: LessonPlan): void {
-  //   this.lessonPlans.push(lessonPlan);
-  // }
-
-  // updateLessonPlan(lessonPlan: LessonPlan): void {
-  //   const index = this.lessonPlans.findIndex((plan) => plan.plan_id === lessonPlan.plan_id);
-  //   if (index !== -1) {
-  //     this.lessonPlans[index] = lessonPlan;
-  //   }
-
-
-
-
-
-    // deleteLessonPlan(plan_id: number): void {
-    //   this.lessonPlans = this.lessonPlans.filter((plan) => plan.plan_id !== plan_id);
-    // }
   }
 
 

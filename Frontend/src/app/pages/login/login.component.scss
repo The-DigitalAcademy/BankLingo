@@ -2,11 +2,7 @@ img {
   height: 30vh;
   width: 70vw;
 }
-.btn {
-  width: 80vw;
-  border-radius: 999em 999em 999em 999em;
-  background-color: #38a3a5;
-}
+
 .mybgcolor {
   color: #38a3a5;
 }
@@ -39,3 +35,18 @@ img {
   border-color: black;
 }
 
+.guest_mode{
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px;
+  a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+}

@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
      */
 
     if (this.searchedBefore == true) {
-      // this.isLoading = true;
+      this.isLoading = true;
       this.cardLabel = 'Favourite searched terms';
       this.initiateUserHistory();
       this.responseBody = this.session.getQueryResponse().message;

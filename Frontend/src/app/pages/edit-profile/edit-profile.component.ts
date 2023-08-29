@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { UploadImageService } from 'src/app/services/uploadImage.service';
 import { Observable, Observer, catchError, of, tap } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { jsDocComment } from '@angular/compiler';
 
 @Component({
   selector: 'app-edit-profile',
@@ -29,6 +30,7 @@ export class EditProfileComponent implements OnInit {
   selectedImage!: File;
   isLoading = false;
   imageUploaded: any;
+  upd: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -124,53 +126,6 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
-  // updateUser() {
-  //   if (this.profileForm.valid) {
-  //     const updatedData = this.profileForm.value;
-  //     console.log(updatedData);
-
-  //     if (!this.user.userId) {
-  //       console.error('User ID is not defined.' + this.user.userId);
-  //       return;
-  //     }
-
-  //     console.log('Updating profile with ID:', this.user.userId);
-  //     console.log('Updated data:', updatedData);
-
-  //     this.usersService
-  //       .updateProfile(this.user.userId, updatedData)
-  //       .subscribe((res) => {
-  //         // Merge the updatedData with the existing user object
-  //         this.user = { ...this.user, ...res };
-
-  //         // Save the updated user data to session storage
-  //         this.session.saveLoggedUser(this.user); // Ensure this is working correctly
-  //         console.log('User data saved to session:', this.user);
-
-  //         const storedUserData = this.session.getLoggedUser();
-  //         console.log('User data retrieved from session:', storedUserData);
-  //         this.changeDetectorRef.detectChanges(); // Manually trigger change detection
-
-  //          Swal.fire({
-  //           icon: 'success',
-  //           title: 'Profile Updated Successfully!',
-  //           confirmButtonColor: '#38A3A5',
-  //           showConfirmButton: false,
-  //           timer: 1400,
-  //         }).then((result) => {
-  //           // Define navigation extras if needed
-  //           const navigationExtras: NavigationExtras = {
-  //             queryParamsHandling: 'preserve', // Preserve query params
-  //             preserveFragment: true, // Preserve fragments (if any)
-  //           };
-
-  //           // Navigate to the profile page
-  //           //this.router.navigate(['/profile'], navigationExtras);
-  //         });
-  //         //window.location.reload();
-  //       });
-  //   }
-  // }
 
   updateUser() {
     if (this.profileForm.valid) {
@@ -193,8 +148,8 @@ export class EditProfileComponent implements OnInit {
             this.user = { ...this.user, ...res };
 
             // Save the updated user data to session storage
-            this.session.saveLoggedUser(this.user);
-
+            this.session.updateUserProfile(updatedData)
+            
             // Log the updated user data for verification
             console.log('User data saved to session:', this.user);
 
@@ -217,18 +172,10 @@ export class EditProfileComponent implements OnInit {
             showConfirmButton: false,
             timer: 1400,
           }).then((result) => {
-            // Define navigation extras if needed
-            const navigationExtras: NavigationExtras = {
-              queryParamsHandling: 'preserve', // Preserve query params
-              preserveFragment: true, // Preserve fragments (if any)
-            };
-
-            // Navigate to the profile page
-            //this.router.navigate(['/profile'], navigationExtras);
-
-            // Reload the page
-            window.location.reload();
+           
           });
+           // Reload the page
+           window.location.reload();
         });
     }
   }

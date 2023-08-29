@@ -55,7 +55,8 @@ export class ProfileComponent {
   ngOnInit() {
     // Retrieve the user data from session storage
     this.user = this.session.getLoggedUser();
-    this.titlePage.setTitle("Profile")
+    this.titlePage.setTitle("Profile");
+    
 
     // Check if the user variable contains valid user data before initializing the form
     if (this.user && Object.keys(this.user).length > 0) {
