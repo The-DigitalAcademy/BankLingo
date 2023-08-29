@@ -6,9 +6,12 @@ import { Subject } from 'rxjs';
 })
 export class NetworkstatusService {
   onlineStatusChanged = new Subject<boolean>();
+  onlineStatus$ = this.onlineStatusChanged.asObservable();
+  private otherErrorOccurred = new Subject<void>();
 
 constructor() { 
   this.initialize();
+  this.onlineStatusChanged.next(true);
 }
 
 private initialize() {
@@ -18,6 +21,19 @@ private initialize() {
 
 private updateOnlineStatus() {
   this.onlineStatusChanged.next(navigator.onLine);
+}
+
+
+notifyBackOnline() {
+  this.onlineStatusChanged.next(true);
+}
+
+notifyOtherError() {
+  this.otherErrorOccurred.next();
+}
+
+otherErrorNotification() {
+  return this.otherErrorOccurred.asObservable();
 }
 
 }

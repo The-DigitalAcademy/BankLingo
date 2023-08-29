@@ -13,6 +13,10 @@ import { NetworkstatusService } from './services/networkstatus.service';
 export class AppComponent {
   isLoading: boolean = true;
   isOffline: boolean = false;
+  showOfflineMessage: boolean = false;
+  offlineMessage: string = '';
+  showOtherErrorMessage: boolean = false;
+  otherErrorMessage: string = '';
   
   constructor(
     private router: Router,
@@ -81,6 +85,28 @@ export class AppComponent {
 
     this.networkStatusService.onlineStatusChanged.subscribe((isOnline) => {
       this.isOffline = !isOnline;
+    });
+
+    this.networkStatusService.onlineStatus$.subscribe((isOnline) => {
+      if (!isOnline) {
+        this.showOfflineMessage = true;
+        this.offlineMessage = 'You are currently offline. Please check your network connection.';
+      } else {
+        this.showOfflineMessage = true;
+        this.isOffline = false;
+        this.offlineMessage = 'You are back online!';
+        setTimeout(() => {
+          this.showOfflineMessage = false;
+        }, 3000); // Display the message for 3 seconds
+      }
+    });
+
+    this.networkStatusService.otherErrorNotification().subscribe(() => {
+      this.showOtherErrorMessage = true;
+      this.otherErrorMessage = 'Something else went wrong. Please try again later.';
+      setTimeout(() => {
+        this.showOtherErrorMessage = false;
+      }, 3000); // Display the message for 3 seconds
     });
 
     this.loaderService.getLoadingState().subscribe((loading) => {

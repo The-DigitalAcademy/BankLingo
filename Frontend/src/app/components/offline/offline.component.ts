@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-offline',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./offline.component.scss']
 })
 export class OfflineComponent implements OnInit {
+
+  @Input() showMessage: boolean = false;
+  @Input() message: string = '';
+  @Input() isOffline: boolean = false;
 
   constructor() { }
 

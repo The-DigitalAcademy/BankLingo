@@ -1,4 +1,11 @@
-<app-offline *ngIf="isOffline"></app-offline>
+
+<app-offline
+*ngIf="showOfflineMessage || showOtherErrorMessage"
+[isOffline]="isOffline"
+[showMessage]="showOfflineMessage || showOtherErrorMessage"
+[message]="offlineMessage || otherErrorMessage"
+></app-offline>
+
 <div class="container1">
   <app-nav-bar *ngIf="showtitleBar()" class="titleBarSize"></app-nav-bar>
   <router-outlet></router-outlet>
