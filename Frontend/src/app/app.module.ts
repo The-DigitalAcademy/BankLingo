@@ -40,6 +40,8 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { PwaService } from './services/pwa.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { CardLoaderComponent } from './components/card-loader/card-loader.component';
+import { NetworkstatusService } from './services/networkstatus.service';
+import { OfflineComponent } from './components/offline/offline.component';
 
 
 //  const initializer = (pwaService: PwaService) => () =>
@@ -73,6 +75,7 @@ import { CardLoaderComponent } from './components/card-loader/card-loader.compon
     SingleComponent,
     LoaderComponent,
     CardLoaderComponent,
+    OfflineComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,7 @@ import { CardLoaderComponent } from './components/card-loader/card-loader.compon
   //    deps: [PwaService],
   //   multi: true,
   // },
-
+  NetworkstatusService
  ],
   bootstrap: [AppComponent],
 })

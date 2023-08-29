@@ -3,6 +3,7 @@ import { SessionsService } from './services/sessions.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { LoaderService } from './services/loader.service';
+import { NetworkstatusService } from './services/networkstatus.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,14 @@ import { LoaderService } from './services/loader.service';
 })
 export class AppComponent {
   isLoading: boolean = true;
+  isOffline: boolean = false;
+  
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private swUpdate: SwUpdate,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private networkStatusService: NetworkstatusService
   ) {
 
   }
@@ -74,6 +78,10 @@ export class AppComponent {
   title = 'Frontend';
 
   ngOnInit() {
+
+    this.networkStatusService.onlineStatusChanged.subscribe((isOnline) => {
+      this.isOffline = !isOnline;
+    });
 
     this.loaderService.getLoadingState().subscribe((loading) => {
       this.isLoading = loading; // Update to false when loading is complete
