@@ -1,6 +1,6 @@
 <!--Rounded container containing search layout -->
 <div class="rounded d-flex">
-  <div class="searchLayout">
+  <div class="searchLayout form-group card">
     <!-- Microphone icon container, displayed if browser supports speech recognition -->
     <div class="microphonebox" *ngIf="browserSupport === true">
       <!-- Container for microphone icon, displayed when not recognizing speech -->
@@ -34,7 +34,7 @@
   <div class="form-check form-switch">
 <!-- Checkbox input for the humor switch with two-way data binding -->
 
-    <input class="form-check-input" type="checkbox" [(ngModel)]="humourSwitch" role="switch"
+    <input class="form-check-input"  type="checkbox" [(ngModel)]="humourSwitch" role="switch"
       id="flexSwitchCheckDefault" />
   </div>
 </div>

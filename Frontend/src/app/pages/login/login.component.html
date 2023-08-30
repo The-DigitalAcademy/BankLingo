@@ -28,32 +28,40 @@
                       <i class="{{ showPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill' }}"></i>
                     </span>
                   </div>
+                  <div class="d-flex w-100 align-items-right mt-1" style="justify-content: flex-end;">
+                    <p><a href="#!" routerLink="/forgotpass"
+                      class="text font-medium">Forgot your password? </a></p>
+    
+                  </div>
+                 
                 </div>
-
+              
                 <div *ngIf="invalidCredentials" class="text-center text-danger mb-3">
                   Please fill in your details.
                 </div>
 
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex flex-column align-items-center justify-content-center">
                   <!-- <button type="submit" class="btn">Login</button> -->
 
                   <button type="submit" class="btn btn-primary">Login
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                 
                   </button>
+                  <p class="text-center text-muted my-2">or</p>
+                  <div class="pb-5 w-100">
+                    <button class="btn btn-outline-secondary btnGuest"  (click)="loginAsGuest()">
+                      Continue as guest
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoadingAsGuest"></span>
+                    </button>
+                  </div>
 
                 </div>
-                <div class="guest_mode">
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoadingAsGuest"></span>
-                  <a (click)="loginAsGuest()" *ngIf="!isLoadingAsGuest">Login as Guest</a>
-                </div>
-                <p class="text-center text-muted my-4">or</p>
+
+              
 
                 <p class="text text-center text-muted">Do not have an account? <a href="#!" routerLink="/register"
                     class="text ml-1 font-medium text-blue-400"><u>Register</u></a></p>
-                <p class="text-center text-muted mt-5 mb-0"><a href="#!" routerLink="/forgotpass"
-                    class="text font-medium">Forgot your password? </a></p>
+                
               </form>
             </div>
           </div>
