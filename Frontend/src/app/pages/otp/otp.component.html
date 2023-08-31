@@ -1,10 +1,8 @@
-<div class="container scrollable  side-margins">
+<div class="container scrollable fullScreenWithTitle side-margins">
 
 
-    <div class="">
-        <div class=" bd-highlight headerTop" routerLink="/login">
-            <span class="span fs-3 mybgcolor ">Bank</span><span class="text-wrapper-2  fs-3">Lingo</span>
-        </div>
+    <div>
+      
 
         <div class=" bd-highlight text-center mb-5 headerTop">
             <h6>Please enter the OTP sent to your email to continue</h6>
@@ -18,13 +16,17 @@
         </div>
         <br>
         <div class="row d-flex align-items-center flex-column mb-5">
-            <button type="submit" class="btn btn-primary" (click)="verifyOtp()">Submit</button>
+            <button type="submit" class="btn btn-primary" (click)="verifyOtp()">Submit
+            </button>
         </div>
 
 
         <div class=" bd-highlight text-center">
-            <h6>Did not receive the OTP? </h6>
-            <button type="Resend" class="btn btn-sm mt-2" (click)="resendOtp()">Resend in {{seconds}}</button>
+            <span class="py-2">Did not receive the OTP? </span>
+            <br/>
+            <h6 *ngIf="!isResendDisabled">Resend OTP in<b> {{remainingTime}}</b></h6>
+            <button type="button" *ngIf="isResendDisabled" (click)="resendOtp()" class="btn btn-sm btn-outline-secondary">Resend</button>
+
         </div>
         <br>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordServiceService } from 'src/app/services/password-service.service';
@@ -6,6 +6,8 @@ import { SessionsService } from 'src/app/services/sessions.service';
 import { UsersService } from 'src/app/services/users.services';
 import { Users } from 'src/app/types/users';
 import Swal from 'sweetalert2';
+import { interval, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-otp',
@@ -13,15 +15,18 @@ import Swal from 'sweetalert2';
   styleUrls: ['./otp.component.scss'],
   providers: [SessionsService]
 })
-export class OtpComponent {
+export class OtpComponent implements OnInit{
+  private countdownSub!: Subscription;
 
 public email!: string;
 public otp!: number;
 public otpSent = false;
 number1!: string;
 isInvalidOTP = false;
-seconds = 60;
 user!:Users;
+remainingTime = 60
+isResendDisabled=false
+
 
 constructor(
   private route: ActivatedRoute,
@@ -33,22 +38,26 @@ constructor(
 ) {}
 
 ngOnInit(): void {
- /* const makeIteration = () => {
-    console.clear();
-    if (this.seconds > 0) {
-        console.log(this.seconds);
-        this.seconds -= 1;
-        setTimeout(makeIteration, 1000);  // 1 second waiting
-    } else {
-        console.log('Done!');
-    }*/  
-
-    this.titlePage.setTitle("Enter OTP")
-};
+  this.titlePage.setTitle("OTP")
+this.countdown()
 
 
+}
 
-onOtpInput() {
+
+countdown() {
+  const targetSeconds = 30; // 30 seconds
+     this.remainingTime = targetSeconds;
+
+    this.countdownSub = interval(1000).subscribe(() => {
+
+      if (this.remainingTime <= 0) {
+        this.countdownSub.unsubscribe();
+        this.isResendDisabled=true
+      }
+
+      this.remainingTime--;
+    });
 
 }
 
@@ -56,8 +65,6 @@ verifyOtp() {
 //function used to verify the otp that was sent to the email.
 const emailOTP: number = this.otp
 if(emailOTP==this.sessions.getEmailOTP().number){
-  console.log("OTP MATCH");
-
   this.router.navigate(["/resetpassword"])
 }else{
   Swal.fire({
@@ -74,14 +81,12 @@ if(emailOTP==this.sessions.getEmailOTP().number){
 
 // resends the otp to the email provided incease the response was not received previously
 resendOtp() {
-  this.password.resendOtp(this.email).subscribe(
-    () => {
-      // OTP resent successfully, handle success or show message
-      this.router.navigate(['/resetpassword'])
-    },
-    (error) => {
-      // Handle error (e.g., show error message)
-    }
-  );
+const email = this.sessions.getEmailOTP().email
+
+  this.password.sendOtp(email).subscribe( response =>{
+    this.isResendDisabled=false
+    this.countdown()
+    
+})
 }
 }

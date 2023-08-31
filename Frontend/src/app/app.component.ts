@@ -15,6 +15,7 @@ export class AppComponent {
   isOffline: boolean = false;
   showOfflineMessage: boolean = false;
   offlineMessage: string = '';
+  persistantOffLine : string = '';
   showOtherErrorMessage: boolean = false;
   otherErrorMessage: string = '';
   
@@ -33,13 +34,10 @@ export class AppComponent {
 
     const isRegisterPage = this.router.url === '/register';
 
-    const isForgotPassPage = this.router.url === '/forgotpass';
 
     const isLandingPage = this.router.url === '/landing';
 
-    const isOTPPage = this.router.url === '/otp';
 
-    const isResetPassPage = this.router.url === '/resetpassword';
 
     const isHomePage = this.router.url === '/home';
 
@@ -48,9 +46,6 @@ export class AppComponent {
       isLoginPage ||
       isRegisterPage ||
       isLandingPage ||
-      isForgotPassPage ||
-      isOTPPage ||
-      isResetPassPage ||
       isHomePage
     );
   }
@@ -91,6 +86,7 @@ export class AppComponent {
       if (!isOnline) {
         this.showOfflineMessage = true;
         this.offlineMessage = 'You are currently offline. Please check your network connection.';
+        this.persistantOffLine = 'Offline'
       } else {
         this.showOfflineMessage = true;
         this.isOffline = false;

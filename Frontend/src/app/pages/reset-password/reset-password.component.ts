@@ -41,9 +41,7 @@ constructor(private formBuilder: FormBuilder,
 
   
   ngOnInit(): void {
-    // Implementation of ngOnInit method
-    // Add any initialization code here
-    this.titlePage.setTitle("Reset Password")
+    this.titlePage.setTitle("Reset password")
     this.user = this.sessions.getOTP();
   }
 
