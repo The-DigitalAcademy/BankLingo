@@ -218,7 +218,7 @@ export async function askQuestionHumourService(request) {
 
 // Hey there, this chunk of code is here to help create a lesson plan – like a roadmap for teaching cool stuff!
 // This function is named "createLessonPlanService", and it helps you make a plan.
-export async function createLessonPlanService(request, response) {
+export async function createLessonPlanService(request) {
   const { user_id, plan_name, duration, lesson_description } = request.body;
   const result = { success: false, data: null, message: "" };
   try {

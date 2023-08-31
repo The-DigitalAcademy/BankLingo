@@ -63,9 +63,13 @@ export async function askQuestionHumourController(request, response) {
 export async function createLessonPlanController(request, response) {
   try {
     // Call the createLessonPlanService function from the service and pass the request and response objects
-    const result = await createLessonPlanService(request, response);
+    const result = await createLessonPlanService(request);
+    if (result.success) {
+      return response.status(201).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
     // If the createLessonPlanService function returns a result, send a success response
-    return result;
   } catch (error) {
     console.error("Error in createLessonService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -75,9 +79,13 @@ export async function createLessonPlanController(request, response) {
 export async function deleteLessonPlanController(request, response) {
   try {
     // Call the deleteLessonPlanService function from the service and pass the request and response objects
-    const result = await deleteLessonPlanService(request, response);
+    const result = await deleteLessonPlanService(request);
     // If the deleteLessonPlanService function returns a result, send a success response
-    return result;
+    if (result.success) {
+      return response.status(200).json({ message: result.message });
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
   } catch (error) {
     console.error("Error in deleteLessonPlanService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -87,9 +95,13 @@ export async function deleteLessonPlanController(request, response) {
 export async function getPlanByUserController(request, response) {
   try {
     // Call the getPlanByUserService function from the service and pass the request and response objects
-    const result = await getPlanByUserService(request, response);
+    const result = await getPlanByUserService(request);
+    if (result.success) {
+      return response.status(200).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
     // If the getPlanByUserService function returns a result, send a success response
-    return result;
   } catch (error) {
     console.error("Error in getPlanByUserService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -99,9 +111,13 @@ export async function getPlanByUserController(request, response) {
 export async function GenerateTopicsFromPlanController(request, response) {
   try {
     // Call the GenerateTopicsFromPlanService function from the service and pass the request and response objects
-    const result = await GenerateTopicsFromPlanService(request, response);
+    const result = await GenerateTopicsFromPlanService(request);
     // If the GenerateTopicsFromPlanService function returns a result, send a success response
-    return result;
+    if (result.success) {
+      return response.status(201).json({ message: result.message });
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
   } catch (error) {
     console.error("Error in GenerateTopicsFromPlanService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -112,9 +128,13 @@ export async function GenerateTopicsFromPlanController(request, response) {
 export async function getTopicByIDController(request, response) {
   try {
     // Call the getTopicByIDService function from the service and pass the request and response objects
-    const result = await getTopicByIDService(request, response);
+    const result = await getTopicByIDService(request);
     // If the getTopicByIDService function returns a result, send a success response
-    return result;
+    if (result.success) {
+      return response.status(200).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
   } catch (error) {
     console.error("Error in getTopicByIDService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -124,9 +144,13 @@ export async function getTopicByIDController(request, response) {
 export async function updateCoveredController(request, response) {
   try {
     // Call the updateCoveredService function from the service and pass the request and response objects
-    const result = await updateCoveredService(request, response);
+    const result = await updateCoveredService(request);
     // If the updateCoveredService function returns a result, send a success response
-    return result;
+    if (result.success) {
+      return response.status(200).json({ message: result.message });
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
   } catch (error) {
     console.error("Error in updateCoveredService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -137,9 +161,13 @@ export async function updateCoveredController(request, response) {
 export async function getDaysCountController(request, response) {
   try {
     // Call the getDaysCountService function from the service and pass the request and response objects
-    const result = await getDaysCountService(request, response);
+    const result = await getDaysCountService(request);
     // If the getDaysCountService function returns a result, send a success response
-    return result;
+    if (result.success) {
+      return response.status(200).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
   } catch (error) {
     console.error("Error in getDaysCountService:", error);
     return response.status(500).json({ message: "Internal server error" });
