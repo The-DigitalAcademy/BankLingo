@@ -9,14 +9,17 @@ import {
 
 export async function createUserController(request, response) {
   try {
-    // Call the createUserService function from the service and pass the request and response objects
-    const result = await createUserService(request, response);
+    const result = await createUserService(request);
 
-    // If the createUserService function returns a result, send a success response
-    return result;
+    // Handle different outcomes based on the result
+    if (result.success) {
+      return response.status(201).json(result.data); // User created successfully
+    } else {
+      return response.status(result.statusCode).json({ message: result.message }); // Error occurred
+    }
   } catch (error) {
     console.error("Error in createUserController:", error);
-    response.status(500).json({ message: "Internal server error" });
+    return response.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -45,7 +48,6 @@ export async function passwordResetOTPController(request, response) {
   }
 }
 
-
 export async function updatePasswordController(request, response) {
   try {
     // Call the updateUserPasswordService function from the service and pass the request and response objects
@@ -62,7 +64,7 @@ export async function updateUserProfileController(request, response) {
   try {
     // Call the updateUserProfileService function from the service and pass the request and response objects
     const result = await updateUserProfileService(request, response);
-     // If the updateUserProfileService function returns a result, send a success response
+    // If the updateUserProfileService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in passwordResetService:", error);
@@ -72,9 +74,9 @@ export async function updateUserProfileController(request, response) {
 
 export async function updateUserSearchedBooleanController(request, response) {
   try {
-     // Call the updateUserSearchedBooleanService function from the service and pass the request and response objects
+    // Call the updateUserSearchedBooleanService function from the service and pass the request and response objects
     const result = await updateUserSearchedBooleanService(request, response);
-     // If the updateUserSearchedBooleanService function returns a result, send a success response
+    // If the updateUserSearchedBooleanService function returns a result, send a success response
     return result;
   } catch (error) {
     console.error("Error in updateUserSearchedBooleanService:", error);

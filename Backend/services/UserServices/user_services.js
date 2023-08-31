@@ -34,7 +34,7 @@ export async function isValidName(name) {
   return nameAndUsernameRegex.test(name);
 }
 
-export async function createUserService(request, response) {
+export async function createUserService(request) {
   const {
     name,
     surname,
@@ -47,32 +47,35 @@ export async function createUserService(request, response) {
     updated_date,
   } = request.body;
 
-  // Surname validation
+  const result = { success: false, statusCode: 500, message: "Internal server error" };
+
   if (surname === null || surname === undefined) {
-    return response.status(400).json({ message: "Surname is required" });
+    result.statusCode = 400;
+    result.message = "Surname is required";
+    return result;
   }
 
-  // Backend validation for the Email
   const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegularExpression.test(email)) {
-    return response
-      .status(404)
-      .json({ message: "Email is not the right format required" });
+    result.statusCode = 400;
+    result.message = "Email is not the right format required";
+    return result;
   }
+
   const isPassValid = await isValidPassword(password);
   if (!isPassValid) {
-    return response.status(409).json({
-      message:
-        "The password needs to have atleast 8 Characters, One special character, and atleast one number",
-    });
+    result.statusCode = 400;
+    result.message =
+      "The password needs to have atleast 8 Characters, One special character, and atleast one number";
+    return result;
   }
 
   const isValidNameCheck = await isValidName(name);
 
   if (!isValidNameCheck) {
-    return response
-      .status(409)
-      .json({ message: "name must be atleast 3 Characters" });
+    result.statusCode = 400;
+    result.message = "name must be atleast 3 Characters";
+    return result;
   }
 
   const saltRounds = 10;
@@ -81,7 +84,9 @@ export async function createUserService(request, response) {
   try {
     const exists = await emailExists(email);
     if (exists) {
-      return response.status(409).json({ message: "User already exists" });
+      result.statusCode = 409;
+      result.message = "User already exists";
+      return result;
     }
 
     const insertQuery = {
@@ -100,10 +105,15 @@ export async function createUserService(request, response) {
     };
 
     const results = await client.query(insertQuery);
-    return response.status(201).json(results.rows);
+    result.success = true;
+    result.statusCode = 201;
+    result.data = results.rows;
+    return result;
   } catch (error) {
     console.error("Error saving user to the database:", error);
-    throw error;
+    result.statusCode = 500;
+    result.message = "Error saving user to the database";
+    return result;
   }
 }
 
