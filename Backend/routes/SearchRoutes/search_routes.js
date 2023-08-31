@@ -41,10 +41,10 @@ import authenticateToken from "../../middleware/Authorization.js";
  *     responses:
  *      201:
  *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 
 search_router.post(
@@ -67,11 +67,11 @@ search_router.post(
  *        required: true
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 
 search_router.get(
@@ -94,11 +94,11 @@ search_router.get(
  *        required: true
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 
 search_router.delete(

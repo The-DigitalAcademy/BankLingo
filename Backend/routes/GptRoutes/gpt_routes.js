@@ -38,6 +38,8 @@ const gpt_router = express.Router();
  *        description: Success
  *      400:
  *        description: Bad Request
+*      500:
+ *        description: Internal Server Error
  */
 gpt_router.post("/", authenticateToken, askSimpleQuestionController);
 
@@ -65,6 +67,8 @@ gpt_router.post("/", authenticateToken, askSimpleQuestionController);
  *        description: Success
  *      400:
  *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 gpt_router.post("/humour",authenticateToken, askQuestionHumourController);
 
