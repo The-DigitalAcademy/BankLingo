@@ -28,7 +28,8 @@ async function planExists(plan_name, user_id) {
 // A user cant have more than 2 plans of the same name
 // Select from lesson_plan and look for that plan name,
 // get the results
-export async function askSimpleQuestionService(request, response) {
+export async function askSimpleQuestionService(request) {
+  const result = { success: false, data: null, message: "" };
   try {
     const { message } = request.body;
 
@@ -49,10 +50,13 @@ export async function askSimpleQuestionService(request, response) {
         let object = {
           message: res.data.choices[0].message.content,
         };
-        return response.status(200).send(object);
+        result.success = true;
+        result.data = object;
       });
+    return result;
   } catch (error) {
-    console.log(error);
+    result.message = error;
+    return result;
   }
 }
 
@@ -61,12 +65,14 @@ export async function askSimpleQuestionService(request, response) {
 
 // This function is called "askSimpleInsideTopicService". It's like a helper that takes in a request and response.
 
-export async function askSimpleInsideTopicService(request, response) {
+export async function askSimpleInsideTopicService(request) {
+  const result = { success: false, data: null, message: "" };
   try {
     // It makes the request to find a "message".
     const { message } = request.body;
     // Then, it talks to a special AI tool called "openai".
     // It asks the AI to explain something using really simple words.
+
     await openai
       .createChatCompletion({
         model: "gpt-3.5-turbo", // This is the version of the AI it's using.
@@ -83,21 +89,26 @@ export async function askSimpleInsideTopicService(request, response) {
         let object = {
           message: res.data.choices[0].message.content,
         };
+        result.success = true;
+        result.data = object;
         // Finally, it sends the message back as a response.
-        return response.status(200).send(object);
       });
+    return result;
   } catch (error) {
+    result.message = error;
+    return result;
     // If something goes wrong, it shows an error message.
-    console.log(error);
   }
 }
 
 // This is another piece of code written in javascript for a specific purpose.
 // This function is called "GenerateTopicsFromPlanService". It's used to create a plan for teaching something.
-export async function GenerateTopicsFromPlanService(request, response) {
+export async function GenerateTopicsFromPlanService(request) {
+  const result = { success: false, data: null, message: "" };
   try {
     // The function looks inside the request to find some information about the plan.
     const { plan_name, duration, plan_id } = request.body;
+
     // Then, it talks to an AI tool called "openai".
     // It asks the AI to generate a lesson plan in the form of a JSON object.
     await openai
@@ -153,25 +164,27 @@ export async function GenerateTopicsFromPlanService(request, response) {
           values: [plan_id, plan_name, object.message],
         };
         // It performs the database query and waits for the result.
-        const result = await client.query(insertQuery);
+        await client.query(insertQuery);
+        result.success = true;
+        result.message = `Plan ${plan_name} has been succesfully added to the DB.`;
 
         // Finally, it sends a response back to tell that the plan has been successfully added to the database.
-        return response.status(200).send({
-          message: `Plan ${plan_name} has been succesfully added to the DB.`,
-        });
       });
+    return result;
   } catch (error) {
-    // If anything goes wrong, it logs an error message.
-    console.log(error);
+    result.message = error;
+    return result;
   }
 }
 
 // Here's a fun piece of code that knows how to make things funny!
 // This function is called "askQuestionHumourService". It's like a laughter helper!
-export async function askQuestionHumourService(request, response) {
+export async function askQuestionHumourService(request) {
+  const result = { success: false, data: null, message: "" };
   try {
     // It looks inside the request to find a "message".
     const { message } = request.body;
+
     // Then, it chats with a clever AI called "openai".
     // It asks the AI to explain something in a funny way, like talking to a kid who's 5 years old.
     await openai
@@ -193,12 +206,13 @@ export async function askQuestionHumourService(request, response) {
         let object = {
           message: res.data.choices[0].message.content,
         };
-        // And finally, it shares the funny message with you!
-        return response.status(200).send(object);
+        result.success = true;
+        result.data = object;
       });
+    return result;
   } catch (error) {
-    // If something goes wrong, it laughs it off and logs an error message.
-    console.log(error);
+    result.message = error;
+    return result;
   }
 }
 
@@ -206,13 +220,12 @@ export async function askQuestionHumourService(request, response) {
 // This function is named "createLessonPlanService", and it helps you make a plan.
 export async function createLessonPlanService(request, response) {
   const { user_id, plan_name, duration, lesson_description } = request.body;
-
+  const result = { success: false, data: null, message: "" };
   try {
     const planExistsForUser = await planExists(plan_name, user_id);
     if (planExistsForUser) {
-      return response.status(409).json({
-        message: `Plan of the name ${plan_name} already Exists! For user with ID ${user_id}`,
-      });
+      result.message = `Plan of the name ${plan_name} already Exists! For user with ID ${user_id}`;
+      return result;
     }
     const insertQuery = {
       text: "INSERT INTO lesson_plan (user_id, plan_name, duration, lesson_description) VALUES ($1, $2, $3, $4) RETURNING *",
@@ -220,58 +233,65 @@ export async function createLessonPlanService(request, response) {
     };
 
     const results = await client.query(insertQuery);
-    return response.status(201).json(results.rows);
+    result.success = true;
+    result.data = results.rows;
+    return result;
   } catch (error) {
-    console.error("Error saving user to the database:", error);
-    throw error;
+    result.message = error;
+    return result;
   }
 }
 
 export async function deleteLessonPlanService(request, response) {
   const plan_id = parseInt(request.params.plan_id);
+  const result = { success: false, data: null, message: "" };
   if (isNaN(plan_id)) {
-    return response
-      .status(400)
-      .json({ message: "Invalid server ID provided." });
+    result.message = "Invalid plan ID provided.";
+    return result;
   }
   try {
     const insertQuery = {
       text: "DELETE FROM lesson_plan WHERE plan_id = $1",
       values: [plan_id],
     };
-    const results = await client.query(insertQuery);
-    return response
-      .status(200)
-      .json({ message: `Plan with id: ${plan_id} has been removed!` });
+    await client.query(insertQuery);
+    result.success = true;
+    result.message = `Plan with id: ${plan_id} has been removed!`;
+    return result;
   } catch (error) {
-    console.error("Error saving user to the database:", error);
-    throw error;
+    result.message = error;
+    return result;
   }
 }
 
 export async function getPlanByUserService(request, response) {
   const user_id = parseInt(request.params.user_id);
+  const result = { success: false, data: null, message: "" };
   if (isNaN(user_id)) {
-    return response.status(400).json({ message: "Invalid user ID provided." });
+    result.message = "Invalid user ID provided.";
+    return result;
   }
-
   try {
     const insertQuery = {
       text: "SELECT * FROM lesson_plan WHERE user_id = $1 ORDER BY created_date DESC",
       values: [user_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json(results.rows);
+    result.success = true;
+    result.data = results.rows;
+    return result;
   } catch (error) {
-    console.error("Error finding the Plan:", error);
-    throw error;
+    result.message = error;
+    return result;
   }
 }
 
 export async function getTopicByIDService(request, response) {
   const plan_id = parseInt(request.params.plan_id);
+  const result = { success: false, data: null, message: "" };
   if (isNaN(plan_id)) {
-    return response.status(400).json({ message: "Invalid plan ID provided." });
+    result.message = "Invalid plan ID provided.";
+    return result;
   }
 
   try {
@@ -280,18 +300,22 @@ export async function getTopicByIDService(request, response) {
       values: [plan_id],
     };
     const results = await client.query(insertQuery);
-    return response.status(200).json(results.rows[0]);
+    result.success = true;
+    result.data = results.rows[0];
+    return result;
   } catch (error) {
-    console.error("Error finding the Plan:", error);
-    throw error;
+    result.message = error;
+    return result;
   }
 }
 
 export async function getDaysCountService(request, response) {
   const plan_id = parseInt(request.params.plan_id);
+  const result = { success: false, data: null, message: "" };
 
   if (isNaN(plan_id)) {
-    return response.status(400).json({ message: "Invalid plan ID provided." });
+    result.message = "Invalid plan ID provided.";
+    return result;
   }
   try {
     const getPlan = {
@@ -300,11 +324,8 @@ export async function getDaysCountService(request, response) {
     };
     const resultsForPlan = await client.query(getPlan);
     if (resultsForPlan.rows[0].duration === resultsForPlan.rows[0].days_count) {
-      return response
-        .status(409)
-        .send({
-          message: `You have covered all the days for  ${resultsForPlan.rows[0].plan_name}`,
-        });
+      result.message = `You have covered all the days for  ${resultsForPlan.rows[0].plan_name}`;
+      return result;
     }
     const selectQuery = {
       text: "UPDATE lesson_plan SET days_count = days_count + 1 WHERE plan_id = $1 RETURNING days_count;",
@@ -312,18 +333,22 @@ export async function getDaysCountService(request, response) {
     };
 
     const results = await client.query(selectQuery);
-    return response.status(200).json(results.rows[0]);
+    result.success = true;
+    result.data = results.rows[0];
+    return result;
   } catch (error) {
-    console.error("Error finding the Plan:", error);
-    throw error;
+    result.message = error;
+    return result;
   }
 }
 
 export async function updateCoveredService(request, response) {
   const plan_id = parseInt(request.params.plan_id);
   const day = request.body.day;
+  const result = { success: false, data: null, message: "" };
   if (isNaN(plan_id)) {
-    return response.status(400).json({ message: "Invalid plan ID provided." });
+    result.message = "Invalid plan ID provided.";
+    return result;
   }
 
   try {
@@ -347,13 +372,13 @@ export async function updateCoveredService(request, response) {
       WHERE plan_id = $2;`,
       values: [day, plan_id],
     };
-    const results = await client.query(insertQuery);
-    return response
-      .status(200)
-      .json({ message: `Plan for ${day} has been updated` });
+    await client.query(insertQuery);
+    result.success = true;
+    result.message = `Plan for ${day} has been updated`;
+    return result;
   } catch (error) {
-    console.error("Error finding the Plan:", error);
-    throw error;
+    result.message = error;
+    return result;
   }
 }
 //Exported all the services
