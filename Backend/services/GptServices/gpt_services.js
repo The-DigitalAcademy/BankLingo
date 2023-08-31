@@ -251,12 +251,23 @@ export async function deleteLessonPlanService(request, response) {
   }
   try {
     const insertQuery = {
-      text: "DELETE FROM lesson_plan WHERE plan_id = $1",
+      text: "SELECT * FROM lesson_plan WHERE plan_id = $1",
       values: [plan_id],
     };
-    await client.query(insertQuery);
-    result.success = true;
-    result.message = `Plan with id: ${plan_id} has been removed!`;
+    await client.query(insertQuery).then(async (response) => {
+      const insertQuery = {
+        text: "DELETE FROM topic WHERE plan_id = $1",
+        values: [plan_id],
+      };
+      const insertQueryLesson = {
+        text: "DELETE FROM lesson_plan WHERE plan_id = $1",
+        values: [plan_id],
+      };
+      await client.query(insertQuery);
+      await client.query(insertQueryLesson);
+      result.success = true;
+      result.message = `Plan with id: ${plan_id} has been removed!`;
+    });
     return result;
   } catch (error) {
     result.message = error;
