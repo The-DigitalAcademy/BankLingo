@@ -5,7 +5,6 @@ import {
   updatePasswordController,
   updateUserProfileController,
   updateUserSearchedBooleanController,
-
 } from "../../controllers/UserControllers/user_controller.js";
 import authenticateToken from "../../middleware/Authorization.js";
 import express from "express";
@@ -46,10 +45,10 @@ const user_router = express.Router();
  *     responses:
  *      201:
  *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 user_router.post("/signup", createUserController);
 /**
@@ -78,10 +77,10 @@ user_router.post("/signup", createUserController);
  *     responses:
  *      200:
  *        description: Success
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 
 user_router.post("/signin", signInUserController);
@@ -108,15 +107,13 @@ user_router.post("/signin", signInUserController);
  *     responses:
  *      200:
  *        description: Success
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 
 user_router.post("/sendOTP", passwordResetOTPController);
-
-
 
 /**
  * @openapi
@@ -145,12 +142,10 @@ user_router.post("/sendOTP", passwordResetOTPController);
  *     responses:
  *      200:
  *        description: Success
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
  *      500:
  *        description: Internal Server Error
+ *      400:
+ *        description: Bad Request
  */
 user_router.post("/passwordReset/:id", updatePasswordController);
 
@@ -196,12 +191,10 @@ user_router.post("/passwordReset/:id", updatePasswordController);
  *     responses:
  *      200:
  *        description: Success
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
  *      500:
  *        description: Internal Server Error
+ *      400:
+ *        description: Bad Request
  */
 user_router.put(
   "/update_profile/:user_id",
@@ -234,12 +227,10 @@ user_router.put(
  *     responses:
  *      200:
  *        description: Success
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
  *      500:
  *        description: Internal Server Error
+ *      400:
+ *        description: Bad Request
  */
 
 user_router.put(

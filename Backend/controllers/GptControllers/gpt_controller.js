@@ -15,9 +15,13 @@ import {
 export async function askSimpleQuestionController(request, response) {
   try {
     // Call the askSimpleQuestionService function from the service and pass the request and response objects
-    const result = await askSimpleQuestionService(request, response);
+    const result = await askSimpleQuestionService(request);
+    if (result.success) {
+      return response.status(200).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
     // If the askSimpleQuestionService function returns a result, send a success response
-    return result;
   } catch (error) {
     console.error("Error in askSimpleQuestionService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -28,8 +32,12 @@ export async function askSimpleInsideTopicController(request, response) {
   try {
     // Call the askSimpleInsideTopicService function from the service and pass the request and response objects
     const result = await askSimpleInsideTopicService(request, response);
+    if (result.success) {
+      return response.status(200).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
     // If the askSimpleInsideTopicService function returns a result, send a success response
-    return result;
   } catch (error) {
     console.error("Error in askSimpleInsideTopicService:", error);
     return response.status(500).json({ message: "Internal server error" });
@@ -39,9 +47,13 @@ export async function askSimpleInsideTopicController(request, response) {
 export async function askQuestionHumourController(request, response) {
   try {
     // Call the askQuestionHumourService function from the service and pass the request and response objects
-    const result = await askQuestionHumourService(request, response);
+    const result = await askQuestionHumourService(request);
+    if (result.success) {
+      return response.status(200).json(result.data);
+    } else {
+      return response.status(400).json({ message: result.message });
+    }
     // If the askQuestionHumourService function returns a result, send a success response
-    return result;
   } catch (error) {
     console.error("Error in askSimpleQuestionService:", error);
     return response.status(500).json({ message: "Internal server error" });

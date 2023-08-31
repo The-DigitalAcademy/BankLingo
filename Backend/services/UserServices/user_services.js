@@ -15,7 +15,6 @@ async function emailExists(email) {
     const emailResult = await client.query(emailQuery);
     if (emailResult && emailResult.rows.length > 0) {
       return emailResult.rows[0];
-      console.log(emailResult.rows[0]);
     }
   } catch (error) {
     console.error("Error checking user existence:", error);
@@ -34,7 +33,7 @@ export async function isValidName(name) {
   return nameAndUsernameRegex.test(name);
 }
 
-export async function createUserService(request, response) {
+export async function createUserService(request) {
   const {
     name,
     surname,
@@ -47,32 +46,31 @@ export async function createUserService(request, response) {
     updated_date,
   } = request.body;
 
-  // Surname validation
+  const result = { success: false, data: null, message: "", isconflict: false };
+
   if (surname === null || surname === undefined) {
-    return response.status(400).json({ message: "Surname is required" });
+    result.message = "Surname is required";
+    return result;
   }
 
-  // Backend validation for the Email
   const emailRegularExpression = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegularExpression.test(email)) {
-    return response
-      .status(404)
-      .json({ message: "Email is not the right format required" });
+    result.message = "Email is not the right format required";
+    return result;
   }
+
   const isPassValid = await isValidPassword(password);
   if (!isPassValid) {
-    return response.status(409).json({
-      message:
-        "The password needs to have atleast 8 Characters, One special character, and atleast one number",
-    });
+    result.message =
+      "The password needs to have atleast 8 Characters, One special character, and atleast one number";
+    return result;
   }
 
   const isValidNameCheck = await isValidName(name);
 
   if (!isValidNameCheck) {
-    return response
-      .status(409)
-      .json({ message: "name must be atleast 3 Characters" });
+    result.message = "name must be atleast 3 Characters";
+    return result;
   }
 
   const saltRounds = 10;
@@ -81,7 +79,9 @@ export async function createUserService(request, response) {
   try {
     const exists = await emailExists(email);
     if (exists) {
-      return response.status(409).json({ message: "User already exists" });
+      result.isconflict = true;
+      result.message = "User already exists";
+      return result;
     }
 
     const insertQuery = {
@@ -100,35 +100,42 @@ export async function createUserService(request, response) {
     };
 
     const results = await client.query(insertQuery);
-    return response.status(201).json(results.rows);
+    result.success = true;
+    result.data = results.rows;
+    return result;
   } catch (error) {
     console.error("Error saving user to the database:", error);
-    throw error;
+    result.message = "Error saving user to the database";
+    return result;
   }
 }
 
-export async function signInUserService(request, response) {
+export async function signInUserService(request) {
+  const { email, password } = request.body;
+  const result = { success: false, data: null, message: "" };
+
   try {
-    const { email, password } = request.body;
     const insertQuery = {
       text: "SELECT * FROM users WHERE email = $1 ",
       values: [email],
     };
+
     const results = await client.query(insertQuery);
 
-    // just added
     if (results.rows.length === 0) {
-      return response.status(400).json({ message: "User not found" });
+      result.message = "User not found";
+      return result;
     }
 
     const userPassword = results.rows[0].password;
-    let isPasswordValid = bcrypt.compareSync(password, userPassword);
+    const isPasswordValid = bcrypt.compareSync(password, userPassword);
 
     if (isPasswordValid) {
-      let token = jwt.sign({ id: results.rows[0].user_id }, secret, {
+      const token = jwt.sign({ id: results.rows[0].user_id }, secret, {
         expiresIn: 86400,
       });
-      let successObject = {
+      result.success = true;
+      result.data = {
         email: email,
         name: results.rows[0].name,
         surname: results.rows[0].surname,
@@ -139,26 +146,29 @@ export async function signInUserService(request, response) {
         profile_picture: results.rows[0].profile_picture,
         token: token,
       };
-      return response.status(200).json(successObject);
     } else {
-      return response
-        .status(400)
-        .json({ message: "Credentials are not correct" });
+      result.message = "Credentials are not correct";
     }
   } catch (error) {
-    console.error("Error in signInUserService:", error);
-    return response.status(409).json({ message: "Failure response" });
+    console.error(error);
+    result.message = "Error signing the user";
   }
+
+  return result;
 }
 
-export async function passwordResetOTPService(request, response) {
+export async function passwordResetOTPService(request) {
   const { email } = request.body;
+  const result = { success: false, data: null, message: "" };
+
   try {
     const exists = await emailExists(email);
     if (!exists) {
-      return response.status(409).json({ message: "User does not exist" });
+      result.message = "User does not exist";
+      return result;
     }
-    let number = Math.floor(1000 + Math.random() * 9000);
+
+    const otp = Math.floor(1000 + Math.random() * 9000);
     const mailConfigurations = {
       from: process.env.NODEMAILER_USER,
       to: email,
@@ -167,59 +177,73 @@ export async function passwordResetOTPService(request, response) {
       html:
         "<h1>Your Password Reset OTP:</h1><br/>" +
         email +
-        `<p>Your password reset OTP is : <strong>${number}</strong><br/><br/>
+        `<p>Your password reset OTP is : <strong>${otp}</strong><br/><br/>
                        Made with ❤️ By BankLingo.</p>`,
     };
-    // Send the mail upon everything above correct
+
     transporter.sendMail(mailConfigurations, function (error, info) {
-      if (error) throw Error(error);
-      console.log(info);
+      if (error) {
+        result.message = "Error sending OTP";
+        throw error;
+      }
+    
     });
-    let successObject = {
+
+    result.success = true;
+    result.data = {
       email: exists.email,
-      number: number,
+      number: otp,
       user: exists.user_id,
     };
-
-  return response.status(200).json(successObject);
+    return result;
   } catch (error) {
     console.error("Error sending OTP", error);
+    result.message = "Error sending OTP";
     throw error;
   }
 }
 
-
-export async function updateUserPasswordService(request, response) {
+export async function updateUserPasswordService(request) {
   const user_id = parseInt(request.params.id);
   const { password } = request.body;
-
+  const result = { success: false, data: null, message: "" };
+  const isPassValid = await isValidPassword(password);
+  if (!isPassValid) {
+    result.message =
+      "The password needs to have atleast 8 Characters, One special character, and atleast one number";
+    return result;
+  }
   const saltRounds = 10;
   const salt = await bcrypt.genSaltSync(saltRounds);
   const hashedPassword = await bcrypt.hashSync(password, salt);
+
   if (isNaN(user_id)) {
-    return response.status(400).json({ message: "Invalid user ID" });
+    result.message = "Invalid user ID";
+    return result;
   }
   try {
     const insertQuery = {
       text: "UPDATE users SET   password = $1 WHERE user_id = $2",
       values: [hashedPassword, user_id],
     };
-    const results = await client.query(insertQuery);
-    return response.status(200).json({
-      message: `Passsword for User with id : ${user_id} has been succesfully Updated`,
-    });
+    await client.query(insertQuery);
+    result.message = `Passsword for User with id : ${user_id} has been succesfully Updated`;
+    result.success = true;
+    return result;
   } catch (error) {
-    console.error("Error sending OTP", error);
-    throw error;
+    result.message = "Error sending OTP";
+    return result;
   }
 }
 
-export async function updateUserProfileService(request, response) {
+export async function updateUserProfileService(request) {
   const user_id = parseInt(request.params.user_id);
   const { name, surname, email, contact_number, profile_picture, age } =
     request.body;
+  const result = { success: false, data: null, message: "" };
   if (isNaN(user_id)) {
-    return response.status(400).json({ message: "Invalid user ID" });
+    result.message = "Invalid user ID";
+    return result;
   }
 
   try {
@@ -234,31 +258,36 @@ export async function updateUserProfileService(request, response) {
         contact_number,
         profile_picture,
         age,
-        user_id
+        user_id,
       ],
     };
     const results = await client.query(insertQuery);
     // Check if any rows were affected by the update
     if (results.rowCount === 0) {
-      return response.status(404).json({ message: "User not found" });
+      result.message = "User not found";
+      return result;
     }
-    return response.status(200).json(`Updated user with Id ${user_id}`);
+    result.message = `Updated user with Id ${user_id}`;
+    result.success = true;
+    return result;
   } catch (error) {
     console.error("Error checking user existence:", error);
     throw error;
   }
 }
 
-export async function updateUserSearchedBooleanService(request, response) {
+export async function updateUserSearchedBooleanService(request) {
   const { searchedbefore, email } = request.body;
-
+  const result = { success: false, data: null, message: "" };
   try {
     const insertQuery = {
       text: "UPDATE users SET searchedbefore = $1 WHERE email = $2",
       values: [searchedbefore, email],
     };
-    const results = await client.query(insertQuery);
-    return response.status(200).json(`Updated searched with email ${email}`);
+    await client.query(insertQuery);
+    result.message = `Updated searched with email ${email}`;
+    result.success = true;
+    return result;
   } catch (error) {
     console.error("Error updating user searchedbefore:", error);
     throw error;

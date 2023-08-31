@@ -34,12 +34,10 @@ const gpt_router = express.Router();
  *                type: string
  *                default: string
  *     responses:
- *      201:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  */
 gpt_router.post("/", authenticateToken, askSimpleQuestionController);
 
@@ -63,12 +61,10 @@ gpt_router.post("/", authenticateToken, askSimpleQuestionController);
  *                type: string
  *                default: string
  *     responses:
- *      201:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  */
 gpt_router.post("/humour",authenticateToken, askQuestionHumourController);
 
@@ -103,12 +99,10 @@ gpt_router.post("/humour",authenticateToken, askQuestionHumourController);
  *     responses:
  *      201:
  *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 gpt_router.post("/create", authenticateToken,createLessonPlanController);
 
@@ -127,13 +121,11 @@ gpt_router.post("/create", authenticateToken,createLessonPlanController);
  *     content:
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 gpt_router.delete("/delete_plan/:plan_id", authenticateToken, deleteLessonPlanController);
 
@@ -152,13 +144,11 @@ gpt_router.delete("/delete_plan/:plan_id", authenticateToken, deleteLessonPlanCo
  *     content:
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 gpt_router.get("/get_user_plans/:user_id", authenticateToken, getPlanByUserController);
 
@@ -188,14 +178,12 @@ gpt_router.get("/get_user_plans/:user_id", authenticateToken, getPlanByUserContr
  *                type: number
  *                default: 0
  *     responses:
- *      200:
+ *      201:
  *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 
 gpt_router.post("/generateTopics", authenticateToken, GenerateTopicsFromPlanController);
@@ -214,13 +202,11 @@ gpt_router.post("/generateTopics", authenticateToken, GenerateTopicsFromPlanCont
  *        required: true
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 
 gpt_router.get("/getTopicsById/:plan_id", authenticateToken, getTopicByIDController);
@@ -248,12 +234,12 @@ gpt_router.get("/getTopicsById/:plan_id", authenticateToken, getTopicByIDControl
  *                type: string
  *                default: string
  *     responses:
- *      201:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad Request
+ *      500:
+ *        description: Internal Server Error
  */
 gpt_router.post("/insideTopic", authenticateToken, askSimpleInsideTopicController);
 
@@ -286,13 +272,11 @@ gpt_router.post("/insideTopic", authenticateToken, askSimpleInsideTopicControlle
  *                default: string
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 
 gpt_router.put("/update_covered/:plan_id", authenticateToken, updateCoveredController);
@@ -314,13 +298,11 @@ gpt_router.put("/update_covered/:plan_id", authenticateToken, updateCoveredContr
  *     content:
  *     responses:
  *      200:
- *        description: Created
- *      409:
- *        description: Conflict
- *      404:
- *        description: Not Found
+ *        description: Success
+ *      400:
+ *        description: Bad Request
  *      500:
- *        description: Not Found
+ *        description: Internal Server Error
  */
 
 gpt_router.get("/update_days/:plan_id", authenticateToken, getDaysCountController);
