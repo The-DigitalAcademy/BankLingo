@@ -20,8 +20,8 @@ DevOps: Docker, Render and vercel
 Follow these steps to set up the VocaSelect app locally:
 
 Clone the Repository:
-git clone `https://github.com/your-username/BankLingo.git`
-cd BankLingo
+> git clone `https://github.com/your-username/BankLingo.git`
+> cd BankLingo
 
 Install Dependencies:
 Navigate to the frontend directory and install frontend dependencies:
