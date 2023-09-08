@@ -34,7 +34,7 @@ export class SearchBarComponent implements OnInit {
   isRecognizing = false; // Speech recognition status
   content?: any; // Content holder
   browserSupport: boolean = false; // Browser support for speech recognition
-
+  isSearchingLoader: boolean = false;
   constructor(
     private core: CoreService,
     private session: SessionsService,
@@ -141,6 +141,7 @@ export class SearchBarComponent implements OnInit {
 
   // Method to perform search query
   searchQuery() {
+    this.isSearchingLoader = true;
     const searchedB4 = this.session.getLoggedUser().searchedbefore;
     // Update user's searched before status
     if (searchedB4 == false) {
@@ -148,6 +149,7 @@ export class SearchBarComponent implements OnInit {
         searchedbefore: true,
         email: this.session.getLoggedUser().email,
       };
+
       // Update user's first time search status
       this.core.updateSearchedBefore(firstSearch).subscribe((response) => {
         this.session.updateUserFirstTimeSearch();
@@ -160,13 +162,16 @@ export class SearchBarComponent implements OnInit {
       this.core
         .SearchTermWithHumor({ message: this.queryText })
         .subscribe((response) => {
+          this.isSearchingLoader = false;
           this.internalOperations(response);
         });
     } else {
       this.humourSwitch = false;
+
       this.core
         .SearchTerm({ message: this.queryText })
         .subscribe((response) => {
+          this.isSearchingLoader = false;
           this.internalOperations(response);
         });
     }
