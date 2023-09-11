@@ -5,11 +5,11 @@
   class="container scrollable side-margins fullScreenWithTitle"
   *ngIf="user.email !== 'tester@gmail.com'">
      
-  <div class="d-flex align-items-center justify-content-center">
+  <div class="">
   
       <div class="mb-4 pt-2">
         <div class="card-body text-center">
-          <div class="align-items-center justify-content-center d-flex">
+          <div class="">
             <div *ngIf="user.profile_picture">
               <img
                 src="{{ user.profile_picture }}"
@@ -29,10 +29,10 @@
           </div>
           
           <h5 class="my-3">{{ user.name }} {{ user.surname }}</h5>
-          <div class="align-items-center justify-content-center d-flex">
-          <div class="d-flex justify-content-center mb-2">
+          <div class="">
+          <div class="mb-2">
             <a routerLink="/edit_profile">
-              <button type="button" class="btn btn-primary">
+              <button type="button" style="width:100%" class="btn btn-primary">
                 Edit Profile
               </button>
             </a>
@@ -41,7 +41,7 @@
      
     </div>
   
-    <div class="align-items-center justify-content-center d-flex">
+    <div class="my-4">
     <div class="col-lg-12">
       <div class="card mb-4">
         <div class="card-body">
