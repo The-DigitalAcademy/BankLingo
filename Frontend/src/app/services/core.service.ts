@@ -112,6 +112,21 @@ export class CoreService {
       );
   }
 
+    // delete favorite search
+    unfavoriteSearch(searchId: number): Observable<any> {
+      const headers = this.getHeaders();
+      return this.http
+        .delete(
+          `https://banklingoapi.onrender.com/api/search/delete_favorite/${searchId}`,
+          { headers }
+        )
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            return throwError(error.error.message);
+          })
+        );
+    }
+
   getLatestFavouriteSearch(user_id: number): Observable<any> {
     // return this.http.post(`${this.apiUrls}/api/gpt`, prompt).pipe(
     const headers = this.getHeaders();
@@ -165,6 +180,20 @@ export class CoreService {
       .post('https://banklingoapi.onrender.com/api/gpt/create', prompt, {
         headers,
       })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error.error.message);
+        })
+      );
+  }
+// remove lesson plan
+  removeLessonPlan(lessonId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http
+      .delete(
+        `https://banklingoapi.onrender.com/api/gpt/delete_plan/${lessonId}`,
+        { headers }
+      )
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return throwError(error.error.message);

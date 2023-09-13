@@ -55,6 +55,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  unfavoriteSearch(searchId: number) {
+    // Assuming you have a service to handle unfavorite logic
+    this.core.unfavoriteSearch(searchId).subscribe((response) => {
+      // Handle the response if needed
+      // For example, you can remove the unfavored search from the list or update the UI.
+      // Here, we remove the search from favoutitesArray
+      this.favoutitesArray = this.favoutitesArray.filter((search) => search.id !== searchId);
+    });
+  }
+
   initiateUserHistory() {
     this.core.getLatestFavouriteSearch(this.user_id).subscribe((response) => {
       this.favoutitesArray = response;

@@ -70,6 +70,12 @@
           <div class="d-flex push-to-bottomm justify-content-between" style="width: 100%">
             <span class="badge bg-light text-dark px-3" routerLink="/lesson-plan-calender">Learn more</span>
             <b class="small">(Humour)</b>
+
+                <!-- Add an Unfavorite button here -->
+                <button class="btn btn-link" (click)="unfavoriteSearch(searchObj.id)">
+                  <i class="bi bi-star-fill"></i>
+                </button>
+                
           </div>
         </div>
 
@@ -89,8 +95,11 @@
           <div class="d-flex push-to-bottomm justify-content-between" style="width: 100%">
             <span class="badge bg-light text-dark px-3" routerLink="/lesson-plan-calender">Learn more</span>
   
-  
-            <!-- <i class="bi bi-star-fill"></i> -->
+                <!-- Add an Unfavorite button here -->
+                <button class="btn btn-link" (click)="unfavoriteSearch(searchObj.id)">
+                  <i class="bi bi-star-fill"></i>
+                </button>
+           
           </div>
         </div>
 
