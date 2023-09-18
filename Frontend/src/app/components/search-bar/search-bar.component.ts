@@ -120,9 +120,8 @@ export class SearchBarComponent implements OnInit {
       showCloseButton: true,
       showCancelButton: true,
       // Customized confirm and cancel buttons
-      
-      confirmButtonText:
-        '<i class="bi bi-star-fill"></i> Add to favourites!',
+
+      confirmButtonText: '<i class="bi bi-star-fill"></i> Add to favourites!',
       confirmButtonAriaLabel: 'Thumbs up',
       cancelButtonText: '<i class="bi bi-hand-thumbs-up-fill"></i> Understood!',
       cancelButtonAriaLabel: 'Understood!',
@@ -180,6 +179,7 @@ export class SearchBarComponent implements OnInit {
   // Method to start speech recognition
   startRecognition() {
     // Check if recognition is not already active
+    this.queryText = '';
     if (!this.isRecognizing) {
       this.isRecognizing = true; // Set recognition status to active
       this.recognition.start(); // Start speech recognition
