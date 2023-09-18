@@ -74,7 +74,7 @@ export class AppComponent {
       isResetPassPage
     );
   }
-  title = 'Frontend';
+  title = 'BankLingo';
 
   ngOnInit() {
 
