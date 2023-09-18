@@ -3,7 +3,6 @@ import { CoreService } from 'src/app/services/core.service';
 import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
 import { SearchObject } from 'src/app/types/searchObject';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -30,7 +29,7 @@ export class HomeComponent implements OnInit {
   favouritesData: any;
 
   @Input() activeP?: string;
-  constructor(private session: SessionsService, private core: CoreService) {}
+  constructor(private session: SessionsService, private core: CoreService) { }
 
   searchText: string = '';
 
@@ -59,44 +58,32 @@ export class HomeComponent implements OnInit {
     }
   }
 
- contDelete(){
-  this.continueDelete=true;
+  contDelete() {
+    this.continueDelete = true;
 
- }
+  }
 
   unfavoriteSearch(searchId: number) {
     this.undoDelete = true;
 
 
-setTimeout(() => {
-  // Your code to execute after the delay
-  if(this.continueDelete==false){
-this.core.unfavoriteSearch(searchId).subscribe((response) => {
-  this.favoutitesArray = this.favoutitesArray.filter((search) => search.id !== searchId);
-  this.undoDelete = false;
-  this.continueDelete=false;
-});
-  }else{
-       this.undoDelete = false;
-  }
+    setTimeout(() => {
+      // Your code to execute after the delay
+      if (this.continueDelete == false) {
+        this.core.unfavoriteSearch(searchId).subscribe((response) => {
+          this.favoutitesArray = this.favoutitesArray.filter((search) => search.id !== searchId);
+          this.undoDelete = false;
+          this.continueDelete = false;
+        });
+      } else {
+        this.undoDelete = false;
+      }
 
-  this.continueDelete=false;
-
-
-}, 2000);
- //this.undoDelete = false;
+      this.continueDelete = false;
 
 
+    }, 2000);
 
-
-
-    //   duration: 3000, // Duration in milliseconds
-    //   verticalPosition: 'top', // Toast position ('top', 'bottom', 'center')
-    //   horizontalPosition: 'right', // Horizontal position ('start', 'center', 'end', 'left', 'right')
-    // });
-   
-    // Assuming you have a service to handle unfavorite logic
-   
   }
 
   initiateUserHistory() {
