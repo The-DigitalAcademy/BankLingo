@@ -11,7 +11,7 @@
               </div>
               <h2 class="text-center mb-5 headerTop">Login Here</h2>
 
-              <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+              <form [formGroup]="loginForm" >
                 <div class="form-outline mb-4">
                   <input type="email" id="form3Example3cg" class="form-control form-control-lg"
                     style=" border: 1px solid; border-color: black;" formControlName="email"
@@ -44,7 +44,7 @@
                 <div class="d-flex flex-column align-items-center justify-content-center">
                   <!-- <button type="submit" class="btn">Login</button> -->
 
-                  <button type="submit" class="btn btn-primary">Login
+                  <button type="submit" (click)="onLogin()" class="btn btn-primary">Login
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   </button>
                   <p class="text-center text-muted my-2">or</p>
