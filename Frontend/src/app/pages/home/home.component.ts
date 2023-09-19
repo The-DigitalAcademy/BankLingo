@@ -4,6 +4,7 @@ import { SessionsService } from 'src/app/services/sessions.service';
 import { Users } from 'src/app/types/users';
 import { SearchObject } from 'src/app/types/searchObject';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,10 +24,12 @@ export class HomeComponent implements OnInit {
   isIconFilled = false;
   favoutitesArray: SearchObject[] = [];
   user_id = 0;
+  undoDelete = false;
+  continueDelete = false;
   favouritesData: any;
 
   @Input() activeP?: string;
-  constructor(private session: SessionsService, private core: CoreService) {}
+  constructor(private session: SessionsService, private core: CoreService) { }
 
   searchText: string = '';
 
@@ -55,14 +58,32 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  contDelete() {
+    this.continueDelete = true;
+
+  }
+
   unfavoriteSearch(searchId: number) {
-    // Assuming you have a service to handle unfavorite logic
-    this.core.unfavoriteSearch(searchId).subscribe((response) => {
-      // Handle the response if needed
-      // For example, you can remove the unfavored search from the list or update the UI.
-      // Here, we remove the search from favoutitesArray
-      this.favoutitesArray = this.favoutitesArray.filter((search) => search.id !== searchId);
-    });
+    this.undoDelete = true;
+
+
+    setTimeout(() => {
+      // Your code to execute after the delay
+      if (this.continueDelete == false) {
+        this.core.unfavoriteSearch(searchId).subscribe((response) => {
+          this.favoutitesArray = this.favoutitesArray.filter((search) => search.id !== searchId);
+          this.undoDelete = false;
+          this.continueDelete = false;
+        });
+      } else {
+        this.undoDelete = false;
+      }
+
+      this.continueDelete = false;
+
+
+    }, 2000);
+
   }
 
   initiateUserHistory() {

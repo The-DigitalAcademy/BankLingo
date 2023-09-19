@@ -8,7 +8,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoaderInterceptorInterceptor } from './loader-interceptor.interceptor';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -88,6 +88,7 @@ import { OfflineComponent } from './components/offline/offline.component';
     MatBottomSheetModule,
     FullCalendarModule,
     BrowserAnimationsModule,
+    MatSnackBarModule, // Import MatSnackBarModule
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
