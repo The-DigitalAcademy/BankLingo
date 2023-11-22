@@ -195,7 +195,7 @@ export async function askQuestionHumourService(request) {
             role: "user", // It's pretending to be you!
             content:
               message +
-              "Explain it in a humourous way like i am 5 year old" +
+              "Explain what it is, in a way that everyone will laugh really hard" +
               "explain it in less than 23 words",
           },
         ],
